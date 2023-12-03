@@ -1,5 +1,7 @@
 public class QuickSorStackMemoryOptimisation {
 
+    int counter = 0;
+
     private static void printIntArrayIndex(int[] arr, int beginIndex, int endIndex) {
 
         for (int i = beginIndex; i <= endIndex ; i++) {
@@ -35,7 +37,7 @@ public class QuickSorStackMemoryOptimisation {
     private static void quickSortStage(int[] arr, int beginIndex, int endIndex) {
    //     System.out.println("Indexes "+ beginIndex + " " + endIndex);
         // printIntArrayIndex(arr, beginIndex, endIndex);
-
+        System.out.println("-------");
         if ((endIndex - beginIndex) <= 1) {
             System.out.println("ShortSize!!!");
             if (endIndex != beginIndex)  {
