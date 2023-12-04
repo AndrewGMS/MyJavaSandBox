@@ -34,10 +34,12 @@ public class QuickSorStackMemoryOptimisation {
         arr[endIndex] = swap;
     }
 
-    private static void quickSortStage(int[] arr, int beginIndex, int endIndex) {
+    private static int[] quickSortStage(int[] arr, int beginIndex, int endIndex) {
+
+         int[] quickSortParams = {0, 0, 0, 0 };
    //     System.out.println("Indexes "+ beginIndex + " " + endIndex);
         // printIntArrayIndex(arr, beginIndex, endIndex);
-        System.out.println("-------");
+//        System.out.println("-------");
         if ((endIndex - beginIndex) <= 1) {
             System.out.println("ShortSize!!!");
             if (endIndex != beginIndex)  {
@@ -96,7 +98,7 @@ public class QuickSorStackMemoryOptimisation {
             }
 
 //            System.out.println("==============");
-// перенос меньших значений вправо
+// перенос больших значений вправо
             for (int i = beginIndex; i <= endIndex ; i++) {
                 //  System.out.println("For " + i + " " + supportElementIndex + " "+ beginIndex + " "+ endIndex );
 
@@ -114,20 +116,35 @@ public class QuickSorStackMemoryOptimisation {
             }
 
 
-            if (beginIndex < supportElementIndex)
-                quickSortStage(arr, beginIndex, supportElementIndex-1);
-            if (endIndex > supportElementIndex)
-                quickSortStage(arr, supportElementIndex, endIndex);
+//            if (beginIndex < supportElementIndex)
+//                quickSortStage(arr, beginIndex, supportElementIndex-1);
+//            if (endIndex > supportElementIndex)
+//                quickSortStage(arr, supportElementIndex, endIndex);
         }
+
+       return quickSortParams;
     }
 
 
     public static void main(String[] args) {
-        int[] unsortedArray = {7, 6, 5, 3, 2, 1, 0, 4, 7};
+        int[] unsortedArray = {7, 6, 5, 3, 2, 1, 0, 4, -1};
         System.out.print("Start: ");
         printIntArray(unsortedArray);
-        quickSortStage(unsortedArray, 0,  unsortedArray.length-1);
-        System.out.print("End: ");
+
+        int[] quickSortParams = {0, unsortedArray.length - 1, 0, 0 };
+
+        int x = 0;
+        do {
+            x++;
+            quickSortStage(unsortedArray, quickSortParams[0], quickSortParams[1]);
+            quickSortStage(unsortedArray, quickSortParams[2], quickSortParams[3]);
+
+            for (int i = 0; i <=3 ; i++) {
+             System.out.print("qsa "+quickSortParams[i]+ " ");
+            }
+            System.out.println();
+        } while ( !((quickSortParams[0] == 0) & (quickSortParams[1] == 0) & (quickSortParams[2] == 0) & (quickSortParams[3] == 0)) & (x < 10));
+        System.out.print("End: "+x+ " ");
         printIntArray(unsortedArray);
 
 
