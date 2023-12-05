@@ -121,7 +121,7 @@ public class QuickSort {
 
 
     public static void main(String[] args) {
-        int[] unsortedArray = {7, 6, 5, 3, 2, 1, 0, 4, -1};
+        int[] unsortedArray = {7, 6, 5, 3, 2, 1, 0, 4, -1, 8, 9 };
         System.out.print("Start: ");
         printIntArray(unsortedArray);
         quickSortStage(unsortedArray, 0,  unsortedArray.length-1);

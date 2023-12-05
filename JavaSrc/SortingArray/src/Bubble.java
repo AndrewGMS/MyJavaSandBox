@@ -10,7 +10,7 @@ public class Bubble {
     }
 
     public static void main(String[] args) {
-      int[] unsortedArray = {6, 5, 4, 3, 2, 1, 0 };
+      int[] unsortedArray = {6, 5, 4, 3, 2, 1, 0, -1, -2, };
       printIntArray(unsortedArray);
       boolean swap;
       do {
