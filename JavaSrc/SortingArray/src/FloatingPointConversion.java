@@ -6,6 +6,9 @@ public class FloatingPointConversion {
         float f2 = 10.2F;
         System.out.println(f1+""+f2);
 
+
+        System.out.println(-2>>>1);
+        System.out.println(3 ^ 1);
     }
 
 }
