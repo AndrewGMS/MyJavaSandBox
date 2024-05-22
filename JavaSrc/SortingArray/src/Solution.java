@@ -1,33 +1,66 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Solution {
-    public static void main(String[] args) {
+
+
+
+        public static void main(String[] args) {
+            System.out.println(condition(null) ? 1 : 2);
+        }
+
+        public static boolean condition(Number o) {
+            return true;
+        }
+
+        public static boolean condition(Long l) {
+            return false;
+        }
+
+    }
+
+ /*   public static void main(String[] args) {
         Set<Cat> cats = createCats();
-
-        //напишите тут ваш код. step 3 - пункт 3
-
+        Iterator<Cat> itr = cats.iterator();
+        while (itr.hasNext()) {
+            Cat cat = itr.next();
+            if (cat.catName.equals("Кузя")) {
+                cats.remove(cat);
+                break;
+            }
+        }
         printCats(cats);
     }
 
     public static Set<Cat> createCats() {
-        //напишите тут ваш код. step 2 - пункт 2
-        return null;
+        Set<Cat> cats = new HashSet<>();
+        Cat cat = new Cat();
+        cat.catName =  "Джо";
+        cats.add(cat);
+        cat = new Cat();
+        cat.catName =  "Рыжик";
+        cats.add(cat);
+        cat = new Cat();
+        cat.catName =  "Кузя";
+        cats.add(cat);
+        return cats;
     }
 
     public static void printCats(Set<Cat> cats) {
         // step 4 - пункт 4
+        for (Cat cat:cats
+        ) {
+            System.out.println(cat);
+        }
     }
 
     // step 1 - пункт 1
 
-    public class Cat {
+    public static class Cat {
         String catName;
     }
 }
 
+*/
 /*
     Set из котов
         1. Внутри класса Solution создать public static класс кот - Cat.
