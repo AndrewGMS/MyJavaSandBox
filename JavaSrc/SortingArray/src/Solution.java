@@ -1,6 +1,153 @@
 
 import java.util.*;
 
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Solution {
+    public static void main(String[] args) {
+        //напишите тут ваш код
+        Human childFirst = new Human();
+        childFirst.name = "Андрей";
+
+    }
+
+    public static class Human {
+        String name;
+        int age;
+        boolean sex;
+        ArrayList<Human> children;
+
+        @Override
+        public String toString() {
+            String text = "";
+            text += "Имя: " + this.name;
+            text += ", пол: " + (this.sex ? "мужской" : "женский");
+            text += ", возраст: " + this.age;
+
+            int childCount = this.children.size();
+            if (childCount > 0) {
+                text += ", дети: " + this.children.get(0).name;
+
+                for (int i = 1; i < childCount; i++) {
+                    Human child = this.children.get(i);
+                    text += ", " + child.name;
+                }
+            }
+            return text;
+        }
+    }
+}
+
+
+
+
+/*
+Собираем семейство
+1. Создай класс Human с полями имя (String), пол (boolean), возраст (int), дети (ArrayList<Human>).
+2. Создай объекты и заполни их так, чтобы получилось: два дедушки, две бабушки, отец, мать, трое детей.
+3. Выведи все объекты Human на экран (Подсказка: используй метод toString() класса Human).
+
+
+Requirements:
+1. Программа должна выводить текст на экран.
+2. Класс Human должен содержать четыре поля.
+3. Класс Human должен содержать один метод.
+4. Класс Solution должен содержать один метод.
+5. Программа должна создавать объекты и заполнять их так, чтобы получилось: два дедушки, две бабушки, отец, мать, трое детей и выводить все объекты Human на экран.
+ */
+
+/*
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+//        String string = reader.readLine();
+
+        String string = " мама мыла раму.";
+        char[] charArray = string.toCharArray();
+        charArray[0] = Character.toUpperCase(charArray[0]);
+        for (int i = 0; i < charArray.length-1; i++) {
+            if (charArray[i] == ' ') {
+               charArray[i+1] = Character.toUpperCase(charArray[i+1]);
+            }
+        }
+        string = new String(charArray);
+        System.out.println(string);
+        //напишите тут ваш код
+    }
+}
+
+*/
+/*
+Написать программу, которая вводит с клавиатуры строку текста.
+Программа заменяет в тексте первые буквы всех слов на заглавные.
+Вывести результат на экран.
+
+Пример ввода:
+мама мыла раму.
+
+Пример вывода:
+Мама Мыла Раму.
+
+
+Requirements:
+1. Программа должна выводить текст на экран.
+2. Программа должна считывать строку с клавиатуры.
+3. Программа должна заменять в тексте первые буквы всех слов на заглав
+ */
+
+/*
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        List<Integer> integerList = getIntegerList();
+        System.out.println(getMinimum(integerList));
+    }
+
+    public static int getMinimum(List<Integer> array) {
+        int minValue = array.get(0);
+        for (int element:array) {
+           if (minValue > element) {minValue = element;}
+        }
+        return minValue;
+    }
+
+    public static List<Integer> getIntegerList() throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> integerList = new ArrayList<>();
+        int n = scanner.nextInt();
+        for (int i = 0; i < n; i++) {
+            integerList.add(i, scanner.nextInt());
+        }
+        return integerList;
+    }
+}
+*/
+
+/*
+Минимальное из N чисел
+1. Ввести с клавиатуры число N.
+2. Считать N целых чисел и заполнить ими список - метод getIntegerList.
+3. Найти минимальное число среди элементов списка - метод getMinimum.
+
+
+Requirements:
+1. Программа должна выводить текст на экран.
+2. Программа должна считывать значения с клавиатуры.
+3. Класс Solution должен содержать только три метода.
+4. Метод getIntegerList() должен считать с клавиатуры число N, потом вернуть список размером N элементов, заполненный числами с клавиатуры.
+5. Метод getMinimum() должен вернуть минимальное число среди элементов списка.
+6. Метод main() должен вызывать метод getIntegerList().
+7. Метод main() должен вызывать метод getMinimum().
+
+ */
+
+
+/*
 public class Solution {
     public static void main(String[] args) {
         Map<String, String> map = createPeopleMap();
@@ -30,7 +177,7 @@ public class Solution {
 }
 
 
-
+*/
 
 /* public class Solution {
     public static void main(String[] args) {
