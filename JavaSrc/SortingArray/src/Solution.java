@@ -1,4 +1,6 @@
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 
@@ -8,13 +10,175 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+/*
+Работа с датой
+*/
+
+public class Solution {
+    public static void main(String[] args) {
+
+            String dateString = "MAY 1 2013";
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM d yyyy");
+            try {
+                Date date = sdf.parse(dateString);
+                System.out.println(date); // Распечатает дату в формате по умолчанию
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+
+        System.out.println(isDateOdd("MAY 1 2013"));
+    }
+
+    public static boolean isDateOdd(String date) {
+//        Date currentDate = new Date(date);
+//        Date startDate = new Date(date);
+//        startDate.setDate(1);
+//        startDate.setMonth(0);
+
+        // String dateString = "MAY 1 2013";
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy");
+        try {
+            Date currentDate = sdf.parse(date);
+            Date startDate = sdf.parse(date);
+
+            long time = currentDate.getTime() - startDate.getTime();
+            long days = time / 24 / 60 / 60000 + 1;
+            return true; //days % 2 == 1;
+        } catch (ParseException e) {
+            return false;
+        }
+
+    }
+}
+
+
+
+/*
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int[] array = new int[20];
+//        for (int i = 0; i < array.length; i++) {
+//            array[i] = Integer.parseInt(reader.readLine());
+//        }
+
+        for (int i = 0; i < array.length; i++) {
+            array[i] = 37 + i;
+        }
+
+        sort(array);
+
+        System.out.println(array[0]);
+        System.out.println(array[1]);
+        System.out.println(array[2]);
+        System.out.println(array[3]);
+        System.out.println(array[4]);
+    }
+
+    public static void sort(int[] array) {
+
+        int process = 1;
+        while (process != 0) {
+            process = 0;
+            for (int i = 1; i < array.length; i++) {
+              if (array[i] > array[i-1]) {
+                int swap = array[i];
+                array[i] = array[i-1];
+                array[i-1] = swap;
+                process++;
+              }
+            }
+        }
+    }
+}
+
+*/
+/*
 public class Solution {
     public static void main(String[] args) {
         //напишите тут ваш код
         Human childFirst = new Human();
-        childFirst.name = "Андрей";
+        childFirst.name = "Наталия";
+        childFirst.age = 17;
+        childFirst.sex = false;
+        childFirst.children = new ArrayList<>();
 
+        Human childSecond = new Human();
+        childSecond .name = "Анастасия";
+        childSecond .age = 15;
+        childSecond .sex = false;
+        childSecond.children = new ArrayList<>();
+
+        Human childTree = new Human();
+        childTree .name = "Никита";
+        childTree .age = 12;
+        childTree .sex = true;
+        childTree.children = new ArrayList<>();
+
+        Human mom = new Human();
+        mom.name = "Светлана";
+        mom.age = 39;
+        mom.sex = false;
+        mom.children = new ArrayList<>();
+        mom.children.add(childFirst);
+        mom.children.add(childSecond);
+        mom.children.add(childTree);
+
+        Human dad = new Human();
+        dad.name = "Андрей";
+        dad.age = 47;
+        dad.sex = true;
+        dad.children = new ArrayList<>();
+        dad.children.add(childFirst);
+        dad.children.add(childSecond);
+        dad.children.add(childTree);
+
+        Human grandPaOne = new Human();
+        grandPaOne.name = "Владимир";
+        grandPaOne.age = 72;
+        grandPaOne.sex = true;
+        grandPaOne.children = new ArrayList<>();
+        grandPaOne.children.add(dad);
+
+        Human grandMaOne = new Human();
+        grandMaOne.name = "Валентина";
+        grandMaOne.age = 67;
+        grandMaOne.sex = false;
+        grandMaOne.children = new ArrayList<>();
+        grandMaOne.children.add(dad);
+
+        Human grandPaTwo = new Human();
+        grandPaTwo.name = "Валерий";
+        grandPaTwo.age = 60;
+        grandPaTwo.sex = true;
+        grandPaTwo.children = new ArrayList<>();
+        grandPaTwo.children.add(mom);
+
+
+        Human grandMaTwo = new Human();
+        grandMaTwo.name = "Елена";
+        grandMaTwo.age = 59;
+        grandMaTwo.sex = false;
+        grandMaTwo.children = new ArrayList<>();
+        grandMaTwo.children.add(mom);
+
+        System.out.println(childFirst);
+        System.out.println(childSecond);
+        System.out.println(childTree);
+        System.out.println(mom);
+        System.out.println(dad);
+        System.out.println(grandPaOne);
+        System.out.println(grandMaOne);
+        System.out.println(grandPaTwo);
+        System.out.println(grandMaTwo);
     }
 
     public static class Human {
@@ -46,7 +210,7 @@ public class Solution {
 
 
 
-
+*/
 /*
 Собираем семейство
 1. Создай класс Human с полями имя (String), пол (boolean), возраст (int), дети (ArrayList<Human>).
