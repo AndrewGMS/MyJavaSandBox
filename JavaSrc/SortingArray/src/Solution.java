@@ -1,6 +1,7 @@
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -20,20 +21,6 @@ import java.util.Date;
 
 public class Solution {
     public static void main(String[] args) {
-
-            String dateString = "MAY 1 2013";
-            SimpleDateFormat sdf = new SimpleDateFormat("MMM d yyyy");
-            try {
-                Date date = sdf.parse(dateString);
-                System.out.println(date); // Распечатает дату в формате по умолчанию
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-
-
-
-
         System.out.println(isDateOdd("MAY 1 2013"));
     }
 
@@ -43,16 +30,23 @@ public class Solution {
 //        startDate.setDate(1);
 //        startDate.setMonth(0);
 
-        // String dateString = "MAY 1 2013";
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy");
+        // String dateString = "MAY 2 2013";
+        // var localDate = LocalDate.parse(date, DateTimeFormatter.BASIC_ISO_DATE);
+        Locale locale = new Locale("en");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy", locale);
         try {
+            System.out.println("Start " + date);
             Date currentDate = sdf.parse(date);
+            System.out.println("Start2");
             Date startDate = sdf.parse(date);
-
+            startDate.setDate(1);
+            startDate.setMonth(0);
+            System.out.println(startDate);
             long time = currentDate.getTime() - startDate.getTime();
             long days = time / 24 / 60 / 60000 + 1;
-            return true; //days % 2 == 1;
+            return days % 2 == 1;
         } catch (ParseException e) {
+            System.out.println("Crash!");
             return false;
         }
 
