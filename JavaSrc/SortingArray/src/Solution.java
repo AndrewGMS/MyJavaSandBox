@@ -15,32 +15,37 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/*
-Работа с датой
-*/
 
 public class Solution {
     public static void main(String[] args) {
-        System.out.println(isDateOdd("MAY 1 2013"));
+        System.out.println("H"+"a");
+        System.out.println('H'+'a');
+    }
+
+}
+
+
+/*
+public class Solution {
+    public static void main(String[] args) {
+        System.out.println(isDateOdd("МАЙ 1 2013"));
     }
 
     public static boolean isDateOdd(String date) {
-//        Date currentDate = new Date(date);
-//        Date startDate = new Date(date);
-//        startDate.setDate(1);
-//        startDate.setMonth(0);
-
-        // String dateString = "MAY 2 2013";
-        // var localDate = LocalDate.parse(date, DateTimeFormatter.BASIC_ISO_DATE);
-        Locale locale = new Locale("en");
+        Locale locale = new Locale("ru");
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy", locale);
         try {
             System.out.println("Start " + date);
             Date currentDate = sdf.parse(date);
             System.out.println("Start2");
             Date startDate = sdf.parse(date);
-            startDate.setDate(1);
-            startDate.setMonth(0);
+//            startDate.setDate(1);
+//            startDate.setMonth(0);
+            GregorianCalendar calendar = new GregorianCalendar();
+            calendar.setTime(startDate);
+            calendar.set(Calendar.MONTH, 0);
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            startDate = calendar.getTime();
             System.out.println(startDate);
             long time = currentDate.getTime() - startDate.getTime();
             long days = time / 24 / 60 / 60000 + 1;
@@ -49,11 +54,10 @@ public class Solution {
             System.out.println("Crash!");
             return false;
         }
-
     }
 }
 
-
+*/
 
 /*
 public class Solution {
