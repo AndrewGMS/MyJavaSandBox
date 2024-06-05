@@ -1,4 +1,5 @@
 
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -17,13 +18,135 @@ import java.util.Date;
 
 
 public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        Map<String, String> map = new HashMap<>();
+
+     //   map.put("Москва", "Ивановы");
+     //   map.put("Киев", "Петровы");
+     //   map.put("Лондон","Абрамовичи");
+
+        while (true) {
+            String family = reader.readLine();
+            if (family.isEmpty()) {
+                break;
+            }
+            String city = reader.readLine();
+            if (city.isEmpty()) {
+                break;
+            }
+
+            map.put(family, city);
+        }
+
+
+
+        String city = reader.readLine();
+   //     String city = "Лондон";
+        System.out.println(map.get(city));
+
+    }
+}
+
+
+/*
+
+Модернизация ПО
+Задача: Программа определяет, какая семья (фамилию) живёт в доме с указанным номером.
+Новая задача: Программа должна работать не с номерами домов, а с городами:
+
+Пример ввода:
+Москва
+Ивановы
+Киев
+Петровы
+Лондон
+Абрамовичи
+
+Лондон
+
+Пример вывода:
+Абрамовичи
+
+
+Requirements:
+1. Программа должна выводить текст на экран.
+2. Программа должна считывать значения с клавиатуры.
+3. Класс Solution должен содержать один метод.
+4. Программа должна вывести фамилию семьи по введенному городу.
+
+
+ */
+
+
+
+/*
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Map<String, Integer> months = new HashMap<String, Integer>();
+        months.put("January", 1);
+        months.put("February", 2);
+        months.put("March", 3);
+        months.put("April", 4);
+        months.put("May", 5);
+        months.put("Jun", 6);
+        months.put("July", 7);
+        months.put("August", 8);
+        months.put("September", 9);
+        months.put("October", 10);
+        months.put("November", 11);
+        months.put("December", 12);
+
+
+
+        String month = reader.readLine();
+
+
+        if (months.get(month) != null) {
+            int monthNumber = months.get(month);
+            System.out.println(month + " is the " + monthNumber + " month");
+        }
+        else {
+            System.out.println(month + " isn't a month");
+        }
+
+
+    }
+}
+
+*/
+/*
+
+Номер месяца
+Программа вводит с клавиатуры имя месяца и выводит его номер на экран в виде: "May is the 5 month".
+Используй коллекции.
+
+
+Requirements:
+1. Программа должна считывать одно значение с клавиатуры.
+2. Программа должна выводить текст на экран.
+3. Программа должна использовать коллекции.
+4. Программа должна считывать с клавиатуры имя месяца и выводить его номер на экран по заданному шаблону.
+
+
+ */
+
+
+
+
+
+
+/*
+public class Solution {
     public static void main(String[] args) {
         System.out.println("H"+"a");
         System.out.println('H'+'a');
     }
 
 }
-
+*/
 
 /*
 public class Solution {
