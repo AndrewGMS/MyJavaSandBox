@@ -18,6 +18,90 @@ import java.util.Date;
 
 
 public class Solution {
+    public static void main(String[] args) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String[] array = new String[20];
+//        for (int i = 0; i < array.length; i++) {
+//            array[i] = reader.readLine();
+//        }
+        int i = 0;
+        array[i++] = "gfdgfgdfg";
+        array[i++] = "yygfgdfg";
+        array[i++] = "jjdgfgdfg";
+        array[i++] = "kkdgfgdfg";
+        array[i++] = "asadgfgdfg";
+        array[i++] = "sdfdgfgdfg";
+        array[i++] = "yuidgfgdfg";
+        array[i++] = "eeegfgdfg";
+        array[i++] = "hhhgfgdfg";
+        array[i++] = "kkkgfgdfg";
+        array[i++] = "llllgfgdfg";
+        array[i++] = "iidgfgdfg";
+        array[i++] = "ydgfgdfg";
+        array[i++] = "iidgfgdfg";
+        array[i++] = "nndgfgdfg";
+        array[i++] = "ggdgfgdfg";
+        array[i++] = "jjdgfgdfg";
+        array[i++] = "ofdgfgdfg";
+        array[i++] = "rfdgfgdfg";
+        array[i++] = "dfdgfgdfg";
+
+
+        sort(array);
+
+        for (String word : array) {
+            System.out.println(word);
+        }
+    }
+
+    public static void sort(String[] array) {
+        //напишите тут ваш код
+
+        Boolean areSwap = true;
+        while (areSwap) {
+            areSwap = false;
+            for (int i = 0; i < 19; i++) {
+                if (isGreaterThan(array[i], array[i+1])) {
+                    String buffer = array[i];
+                    array[i] = array[i+1];
+                    array[i+1] = buffer;
+                    areSwap = true;
+                }
+            }
+
+        }
+
+
+
+    }
+
+    //Метод для сравнения строк: 'а' больше чем 'b'
+    public static boolean isGreaterThan(String a, String b) {
+        return a.compareTo(b) > 0;
+    }
+}
+
+
+/*
+Задача по алгоритмам Ӏ Java Syntax: 8 уровень, 11 лекция
+Задача: Введи с клавиатуры 20 слов и выведи их в алфавитном порядке. Каждое слово - с новой строки.
+
+
+Requirements:
+1. Программа должна выводить текст на экран.
+2. Программа должна считывать значения с клавиатуры.
+3. Класс Solution должен содержать три метода.
+4. Метод main() должен вызывать метод sort().
+5. Метод sort() должен вызывать метод isGreaterThan().
+6. Выведенные слова должны быть отсортированы в алфавитном порядке.
+ */
+
+
+
+
+
+/*
+public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -48,7 +132,7 @@ public class Solution {
 
     }
 }
-
+*/
 
 /*
 
