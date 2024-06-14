@@ -15,8 +15,22 @@ import java.util.Scanner;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.function.Function;
 
 
+public class Solution {
+  // static Function<String, Integer> stringLength = String::length +10 ;
+  static Function<String, Integer> stringLength = t -> t.length() ;
+
+    public static void main(String[] args) throws Exception {
+    Integer length = stringLength.apply("Hello, World!");
+    System.out.println(length);  // 13
+
+    }
+}
+
+
+/*
 public class Solution {
     public static void main(String[] args) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -81,7 +95,7 @@ public class Solution {
     }
 }
 
-
+*/
 /*
 Задача по алгоритмам Ӏ Java Syntax: 8 уровень, 11 лекция
 Задача: Введи с клавиатуры 20 слов и выведи их в алфавитном порядке. Каждое слово - с новой строки.
