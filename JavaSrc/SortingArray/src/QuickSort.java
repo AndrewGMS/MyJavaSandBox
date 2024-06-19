@@ -5,6 +5,7 @@ public class QuickSort {
         for (int i = beginIndex; i <= endIndex ; i++) {
             System.out.print(arr[i]);
             if (i < endIndex) System.out.print(", ");
+            if (((i-beginIndex+ 1) % 20 ) == 0) System.out.println();
         }
         System.out.println();
     }
@@ -34,45 +35,19 @@ public class QuickSort {
 
     private static void quickSortStage(int[] arr, int beginIndex, int endIndex) {
    //     System.out.println("Indexes "+ beginIndex + " " + endIndex);
-        // printIntArrayIndex(arr, beginIndex, endIndex);
-
+ //       printIntArrayIndex(arr, beginIndex, endIndex);
+        // printIntArray(arr);
         if ((endIndex - beginIndex) <= 1) {
-            System.out.println("ShortSize!!!");
+  //          System.out.println("ShortSize!!!");
             if (endIndex != beginIndex)  {
                 if (arr[beginIndex] > arr[endIndex]) {
                     swapElements(arr, beginIndex, endIndex);
 
                 }
             }
-        } else {
-// выбираем опрорный элемент
-// пусть будет первый элемент
-//         int supportElementIndex = beginIndex;
-//         System.out.println("NormalSize!!!");
-//            for (int i = beginIndex; i <= endIndex ; i++) {
-//                System.out.println("For " + i + " " + supportElementIndex + " "+ beginIndex + " "+ endIndex );
-//                if (arr[i] < arr[supportElementIndex]) {
-//                    System.out.println("swap" + i + " " + supportElementIndex );
-//                    swapElements(arr, i, supportElementIndex);
-//                    supportElementIndex = i;
-//                }
-//                System.out.println("AfterFor " + i + " " + supportElementIndex + " "+ beginIndex + " "+ endIndex );
-//
-//            }
+        return;
+        }
 
-// пусть будет последний элемент
-//            int supportElementIndex = endIndex;
-//            System.out.println("NormalSize!!!");
-//            for (int i = endIndex; i >= beginIndex ; i--) {
-//                System.out.println("For " + i + " " + supportElementIndex + " "+ beginIndex + " "+ endIndex );
-//                if (arr[i] > arr[supportElementIndex]) {
-//                    System.out.println("swap" + i + " " + supportElementIndex );
-//                    swapElements(arr, i, supportElementIndex);
-//                    supportElementIndex = i;
-//                }
-//                System.out.println("AfterFor " + i + " " + supportElementIndex + " "+ beginIndex + " "+ endIndex );
-//            }
-// пусть будет случайный элемент
             int supportElementIndex = beginIndex; //(int)(Math.random()*(endIndex-beginIndex))+beginIndex;
 //           System.out.println("NormalSize!!! " + arr[supportElementIndex]);
 // перенос меньших значений влево
@@ -80,24 +55,15 @@ public class QuickSort {
               //  System.out.println("For " + i + " " + supportElementIndex + " "+ beginIndex + " "+ endIndex );
                 if (arr[i] < arr[supportElementIndex]) {
                     if (i > supportElementIndex) {
-                        if (supportElementIndex < endIndex) {
                             reLocateElements(arr, i, supportElementIndex + 1, supportElementIndex);
                             supportElementIndex++;
-
-                        }
                     }
                 }
-
-//                System.out.print(i+". ");
-//                printIntArrayIndex(arr, beginIndex, endIndex);
-              //  System.out.println("AfterFor " + i + " " + supportElementIndex + " "+ beginIndex + " "+ endIndex );
             }
 
-//            System.out.println("==============");
-// перенос меньших значений вправо
+// перенос больших значений вправо
             for (int i = beginIndex; i <= endIndex ; i++) {
                 //  System.out.println("For " + i + " " + supportElementIndex + " "+ beginIndex + " "+ endIndex );
-
                 if (arr[i] >= arr[supportElementIndex]) {
                     if (i < supportElementIndex) {
                     if (supportElementIndex >= beginIndex + 1) {
@@ -106,27 +72,38 @@ public class QuickSort {
                     }
                 }
                 }
-//                System.out.print(i+". ");
-//                printIntArrayIndex(arr, beginIndex, endIndex);
-                //  System.out.println("AfterFor " + i + " " + supportElementIndex + " "+ beginIndex + " "+ endIndex );
             }
-
-
-            if (beginIndex < supportElementIndex)
-                quickSortStage(arr, beginIndex, supportElementIndex-1);
-            if (endIndex > supportElementIndex)
-                quickSortStage(arr, supportElementIndex, endIndex);
-        }
+// рекурсивный вызов двух половинок
+            if (beginIndex <= supportElementIndex) {
+                if (beginIndex != supportElementIndex)
+                quickSortStage(arr, beginIndex, supportElementIndex);
+                if (supportElementIndex != endIndex)
+                quickSortStage(arr, supportElementIndex +  1, endIndex);
+            }
     }
 
 
     public static void main(String[] args) {
-        int[] unsortedArray = {7, 6, 5, 3, 2, 1, 0, 4, -1, 8, 9 };
-        System.out.print("Start: ");
-        printIntArray(unsortedArray);
+        // int[] unsortedArray = {7, 6, 5, 3, 2, 1, 0, 4, -1, 8, 6, 8, 11 };
+        //int[] unsortedArray = {7, 6, 5, 3, 2, 1, 0, 4, -1, 8, 6, 9, 7, 6, 5, 3, 2, 1, 0, 4, -1, 8, 6, 9 };
+       // int[] unsortedArray = {7, 6, 5, 3, 2, 1, 0, 4, -1, 8, 6, 9, 7, 6, 5, 3, 2, 1, 0, 4, -1, 8, 6, 9, 6, 5, 3, 2, 1, 0, 4, -1, 8, 6, 9, 7, 6, 5, 3, 2, 1, 0, 4, -1, 8, 6, 9 };
+        int[] unsortedArray = new int[10300];
+        for (int i = 0; i < unsortedArray.length; i++) {
+//            unsortedArray[i] = (int)(Math.random()*(unsortedArray.length));
+            unsortedArray[i] = unsortedArray.length - i;
+//            unsortedArray[i] = i;
+
+        }
+
+//        int[] unsortedArray = {0, 3, 2, 2, 4};
+        System.out.println(Thread.activeCount());
+        long tt = System.currentTimeMillis();
+        System.out.println("Start: ");
+      //  printIntArray(unsortedArray);
         quickSortStage(unsortedArray, 0,  unsortedArray.length-1);
-        System.out.print("End: ");
+        System.out.println("End: ");
         printIntArray(unsortedArray);
+        System.out.println("Time - "+(System.currentTimeMillis()-tt)+"ms");
 
 
 
