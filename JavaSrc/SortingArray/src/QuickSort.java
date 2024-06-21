@@ -87,7 +87,7 @@ public class QuickSort {
         // int[] unsortedArray = {7, 6, 5, 3, 2, 1, 0, 4, -1, 8, 6, 8, 11 };
         //int[] unsortedArray = {7, 6, 5, 3, 2, 1, 0, 4, -1, 8, 6, 9, 7, 6, 5, 3, 2, 1, 0, 4, -1, 8, 6, 9 };
        // int[] unsortedArray = {7, 6, 5, 3, 2, 1, 0, 4, -1, 8, 6, 9, 7, 6, 5, 3, 2, 1, 0, 4, -1, 8, 6, 9, 6, 5, 3, 2, 1, 0, 4, -1, 8, 6, 9, 7, 6, 5, 3, 2, 1, 0, 4, -1, 8, 6, 9 };
-        int[] unsortedArray = new int[10300];
+        int[] unsortedArray = new int[5000];
         for (int i = 0; i < unsortedArray.length; i++) {
 //            unsortedArray[i] = (int)(Math.random()*(unsortedArray.length));
             unsortedArray[i] = unsortedArray.length - i;
@@ -102,8 +102,11 @@ public class QuickSort {
       //  printIntArray(unsortedArray);
         quickSortStage(unsortedArray, 0,  unsortedArray.length-1);
         System.out.println("End: ");
+        long tt1 = System.currentTimeMillis()-tt;
         printIntArray(unsortedArray);
-        System.out.println("Time - "+(System.currentTimeMillis()-tt)+"ms");
+        System.out.println("Time - "+tt1+"ms");
+
+
 
 
 
