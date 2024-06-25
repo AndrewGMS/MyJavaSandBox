@@ -10,7 +10,7 @@ public class JsonTest {
 
             private String name;
 
-//            @JsonRawValue
+           @JsonRawValue
             private String json;
 
 
