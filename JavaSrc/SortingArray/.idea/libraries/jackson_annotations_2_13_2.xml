@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/src/jackson-annotations-2.13.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/src/jackson-databind-2.13.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/jackson-core-2.13.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

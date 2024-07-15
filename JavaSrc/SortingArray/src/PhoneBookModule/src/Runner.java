@@ -1,11 +1,11 @@
-import PhoneBook;
+
 public class Runner {
 
-    PhoneBook phoneBook;
+    PhoneBook1 phoneBook;
 
     public void init(){
-        phoneBook = new PhoneBook();
-        phoneBook.addContact();
+        phoneBook = new PhoneBook1();
+     //   phoneBook.addContact();
 
 
 
