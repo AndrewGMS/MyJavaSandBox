@@ -1,4 +1,8 @@
 
+import java.io.*;
+import java.net.URISyntaxException;
+import java.nio.file.FileSystemException;
+import java.rmi.RemoteException;
 import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -6,9 +10,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,7 +19,466 @@ import java.util.Date;
 import java.lang.StackTraceElement;
 import  java.util.function.Function;
 
+import static java.lang.Thread.*;
 
+/*
+public class Solution {
+  public static char[] vowels = new char[]{'а', 'я', 'у', 'ю', 'и', 'ы', 'э', 'е', 'о', 'ё'};
+
+  public static void main(String[] args) throws Exception {
+    String buffer = "Мама мыла раму.";
+    String type1 = "";
+    String type2 = "";
+
+
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    try {
+      buffer = reader.readLine();
+    } catch (Exception e) {};
+
+
+
+    for (char element: buffer.toCharArray()
+    ) if (element != ' ')
+      if (isVowel(element))
+          type1 = type1 + element + ' ';
+          else type2 = type2 + element + ' ';
+      
+
+    System.out.println(type1);
+    System.out.println(type2);
+    //напишите тут ваш код
+  }
+
+  // метод проверяет, гласная ли буква
+  public static boolean isVowel(char character) {
+    character = Character.toLowerCase(character);  // приводим символ в нижний регистр - от заглавных к строчным буквам
+    for (char vowel : vowels) {  // ищем среди массива гласных
+      if (character == vowel) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+*/
+
+/*
+public class Solution {
+
+  public static void main(String[] args) throws Exception {
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    String input = "";
+
+    try {
+      input = reader.readLine();
+    } catch (Exception e) {};
+
+    Locale locale = new Locale("en");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", locale);
+    Date currentDate = sdf.parse(input);
+
+    SimpleDateFormat outputFormat = new SimpleDateFormat("MMM dd, yyyy", locale);
+    System.out.println(outputFormat.format(currentDate).toUpperCase());
+    //напишите тут ваш код
+  }
+}
+*/
+/*
+public static boolean isDateOdd(String date) {
+        Locale locale = new Locale("ru");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy", locale);
+        try {
+            System.out.println("Start " + date);
+            Date currentDate = sdf.parse(date);
+            System.out.println("Start2");
+            Date startDate = sdf.parse(date);
+//            startDate.setDate(1);
+//            startDate.setMonth(0);
+            GregorianCalendar calendar = new GregorianCalendar();
+            calendar.setTime(startDate);
+            calendar.set(Calendar.MONTH, 0);
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            startDate = calendar.getTime();
+            System.out.println(startDate);
+            long time = currentDate.getTime() - startDate.getTime();
+            long days = time / 24 / 60 / 60000 + 1;
+            return days % 2 == 1;
+        } catch (ParseException e) {
+            System.out.println("Crash!");
+            return false;
+        }
+*/
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+    readData();
+  }
+
+  public static void readData() {
+    ArrayList<Integer> list = new ArrayList<>();
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    try {
+      while (true) {
+        list.add(Integer.parseInt(reader.readLine()));
+      }
+    } catch (Exception e) {
+      for (Integer element : list) {
+        System.out.println(element);
+      }
+      }
+    }
+    //напишите тут ваш код
+}
+
+*/
+/*
+public class Solution {
+  public static void main(String[] args) {
+    for (int i = 10; i >= 0; i--) {
+      System.out.println(i);
+      try {
+        Thread.sleep(100);
+      } catch (InterruptedException e)
+      {}
+
+      //напишите тут ваш код
+    }
+  }
+}
+
+*/
+/*
+public class Solution {
+
+  public static void main(String[] args) {
+
+    try {
+    divideByZero();
+    } catch (ArithmeticException e) {
+      e.printStackTrace();
+      }
+
+
+  }
+
+  public static void divideByZero(){
+      int i = 100 / 0;
+    System.out.println(i);
+  }
+}
+*/
+/*
+  Деление на ноль
+        Создай метод public static void divideByZero, в котором подели любое число на ноль и выведи на экран результат деления.
+        Оберни вызов метода divideByZero в try..catch. Выведи стек-трейс исключения используя метод exception.printStackTrace()
+
+
+        Requirements:
+        1. В классе должен быть метод public static void divideByZero().
+        2. Метод divideByZero должен содержать операцию деления любого целого числа на ноль.
+        3. Метод divideByZero должен вызывать System.out.println или System.out.print.
+        4. Метод main должен содержать блок try..catch.
+        5. Метод main должен отлавливать любые исключения метода divideByZero.
+        6. Программа должна выводить стек-трейс пойманого исключения.
+*/
+/*
+public class Solution {
+  public static void main(String[] args) {
+  }
+
+  static class MyException extends Exeption {
+  }
+
+  static class MyException2 extends Exeption {
+  }
+
+  static class MyException3 extends Exeption {
+  }
+
+  static class MyException4 extends Exeption {
+  }
+}
+*/
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+    handleExceptions(new Solution());
+  }
+
+  public static void handleExceptions(Solution obj) {
+
+    try {
+      obj.method1();
+      obj.method2();
+      obj.method3();
+    } catch (NullPointerException | IndexOutOfBoundsException| NumberFormatException e) {
+      printStack(e);
+
+    }
+  }
+
+  public static void printStack(Throwable throwable) {
+    System.out.println(throwable);
+    for (StackTraceElement element : throwable.getStackTrace()) {
+      System.out.println(element);
+    }
+  }
+
+  public void method1() {
+    throw new NullPointerException();
+  }
+
+  public void method2() {
+    throw new IndexOutOfBoundsException();
+  }
+
+  public void method3() {
+    throw new NumberFormatException();
+  }
+}
+
+*/
+/*
+public class Solution {
+  public static void main(String[] args) {
+    handleExceptions(new Solution());
+
+  }
+
+  public static void handleExceptions(Solution obj) {
+
+    try {
+      obj.method1();
+      obj.method2();
+      obj.method3();
+    } catch (IOException e) {
+      System.out.println(e);
+    } catch (NoSuchFieldException e) {
+      System.out.println(e);
+    }
+  }
+
+  public void method1() throws IOException {
+    throw new IOException();
+  }
+
+  public void method2() throws NoSuchFieldException {
+    throw new NoSuchFieldException();
+  }
+
+  public void method3() throws RemoteException {
+    throw new RemoteException();
+  }
+}
+*/
+/*
+
+public class Solution {
+  public static StatelessBean BEAN = new StatelessBean();
+
+  public static void main(String[] args) throws CharConversionException, FileSystemException, IOException{
+    try {
+      handleExceptions();
+    } catch (FileSystemException e) {
+      BEAN.log(e);
+    }
+
+  }
+
+  public static void handleExceptions() throws CharConversionException, FileSystemException, IOException{
+    try {
+      BEAN.methodThrowExceptions();
+    } catch (FileSystemException e) {
+      BEAN.log(e);
+      throw e;
+    } catch (CharConversionException e) {
+      BEAN.log(e);
+    } catch (IOException e) {
+      BEAN.log(e);
+    }
+  }
+
+  public static class StatelessBean {
+    public void log(Exception exception) {
+      System.out.println(exception.getMessage() + ", " + exception.getClass().getSimpleName());
+    }
+
+    public void methodThrowExceptions() throws CharConversionException, FileSystemException, IOException {
+      int i = (int) (Math.random() * 3);
+      if (i == 0) {
+        throw new CharConversionException();
+      } else if (i == 1) {
+        throw new FileSystemException("");
+      } else if (i == 2) {
+        throw new IOException();
+      }
+    }
+  }
+}
+*/
+/*
+
+public class Solution {
+  public static void main(String[] args) throws Exception {
+    //напишите тут ваш код
+try {
+  method1();
+} catch (NullPointerException e) {
+  System.out.println(e);
+} catch (FileNotFoundException e) {
+    System.out.println(e);
+}
+    //напишите тут ваш код
+  }
+
+  public static void method1() throws NullPointerException, ArithmeticException, FileNotFoundException, URISyntaxException {
+    int i = (int) (Math.random() * 4);
+    if (i == 0) {
+      throw new NullPointerException();
+    } else if (i == 1) {
+      throw new ArithmeticException();
+    } else if (i == 2) {
+      throw new FileNotFoundException();
+    } else if (i == 3) {
+      throw new URISyntaxException("", "");
+    }
+  }
+}
+*/
+/*
+public class Solution {
+  public static void main(String[] args) {
+    //напишите тут ваш код
+    try {
+    int num = Integer.parseInt("XYZ");
+    System.out.println(num);
+    } catch (NumberFormatException e) {
+      System.out.println(e);
+    }
+    //напишите тут ваш код
+  }
+}
+*/
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+    //напишите тут ваш код
+    try {
+      HashMap<String, String> map = new HashMap<String, String>(null);
+      map.put(null, null);
+      map.remove(null);
+    } catch (NullPointerException e) {
+      System.out.println(e);
+    }
+    //напишите тут ваш код
+  }
+}
+*/
+// NullPointerException
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+    //напишите тут ваш код
+try {
+  ArrayList<String> list = new ArrayList<String>();
+  String s = list.get(18);
+} catch (IndexOutOfBoundsException e) {
+  System.out.println(e);
+}
+    //напишите тут ваш код
+  }
+}
+*/
+/*
+  Исключение при работе с коллекциями List
+  Перехватить исключение (и вывести его на экран, указав его тип), возникающее при выполнении кода:
+        ArrayList<String> list = new ArrayList<String>();
+        String s = list.get(18);
+
+
+        Requirements:
+        1. Программа должна выводить сообщение на экран.
+        2. В программе должен быть блок try-catch.
+        3. Программа должна отлавливать исключения конкретного типа, а не все возможные (Exception).
+        4. Выведенное сообщение должно содержать тип возникшего исключения.
+        5. Имеющийся код в методе main не удалять.
+*/
+/*
+public class Solution {
+  public static void main(String[] args) {
+    //напишите тут ваш код
+try {
+  int[] m = new int[2];
+  m[8] = 5;
+} catch (ArrayIndexOutOfBoundsException e)
+{
+  System.out.println(e);
+}
+    //напишите тут ваш код
+  }
+}
+
+*/
+/*
+
+Исключение при работе с массивами
+Перехватить исключение (и вывести его на экран), указав его тип, возникающее при выполнении кода:
+int[] m = new int[2];
+m[8] = 5;
+
+
+Requirements:
+1. Программа должна выводить сообщение на экран.
+2. В программе должен быть блок try-catch.
+3. Программа должна отлавливать исключения конкретного типа, а не все возможные (Exception).
+4. Выведенное сообщение должно содержать тип возникшего исключения.
+5. Имеющийся код в методе main не удалять.
+ */
+
+
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+    //напишите тут ваш код
+try {
+  String s = null;
+  String m = s.toLowerCase();
+
+} catch (NullPointerException e) {
+  System.out.println(e);
+}
+
+    //напишите тут ваш код
+  }
+}
+
+*/
+
+
+
+/*
+Исключение при работе со строками
+        Перехватить исключение (и вывести его на экран), указав его тип, возникающее при выполнении кода:
+        String s = null;
+        String m = s.toLowerCase();
+
+
+        Requirements:
+        1. Программа должна выводить сообщение на экран.
+        2. В программе должен быть блок try-catch.
+        3. Программа должна отлавливать исключения конкретного типа, а не все возможные (Exception).
+        4. Выведенное сообщение должно содержать тип возникшего исключения.
+        5. Имеющийся код в методе main не удалять.
+*/
+
+
+/*
 public class Solution {
   public static void main(String[] args) {
     //напишите тут ваш код
@@ -32,7 +492,7 @@ catch (ArithmeticException e) {
     //напишите тут ваш код
   }
 }
-
+*/
 
 /*
 
