@@ -21,6 +21,623 @@ import  java.util.function.Function;
 
 import static java.lang.Thread.*;
 
+public class Solution {
+  HashMap<Integer, String> map;
+  static Integer index;
+  static String name;
+
+  public Solution() {
+    this.map = new HashMap<Integer, String>();
+    map.put(index, name);
+  }
+
+  public static void main(String[] args) throws IOException {
+    Solution solution = new Solution();
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+    for (int i = 0; i < 10; i++) {
+ //     int index = Integer.parseInt(reader.readLine());
+ //     String name = reader.readLine();
+      solution.map.put(i, "aaa"+i);
+    }
+
+    for (Map.Entry<Integer, String> pair : solution.map.entrySet()) {
+      index = pair.getKey();
+      name = pair.getValue();
+      System.out.println("Id=" + index + " Name=" + name);
+    }
+  }
+}
+/*
+public class Solution {
+  public static void main(String[] args) throws Exception {
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+    ArrayList<Integer> list = new ArrayList<Integer>();
+    for (int i = 0; i < 20; i++) {
+//      int number = Integer.parseInt(reader.readLine());
+      list.add(i);
+    }
+
+    System.out.println(safeGetElement(list, 5, 1));
+    System.out.println(safeGetElement(list, 20, 7));
+    System.out.println(safeGetElement(list, -5, 9));
+  }
+
+  public static int safeGetElement(ArrayList<Integer> list, int index, int defaultValue) {
+    //напишите тут ваш код
+    try {
+      return list.get(index);
+    } catch (IndexOutOfBoundsException e) {
+      return defaultValue;
+    }
+  }
+
+}
+*/
+/*
+public class Solution {
+  public static void main(String[] args) throws Exception {
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+    ArrayList<String> words = new ArrayList<String>();
+//    for (int i = 0; i < 20; i++) {
+//      words.add(reader.readLine());
+//    }
+
+    words.add("Иванов");
+    words.add("Петров");
+    words.add("Сидоров");
+    words.add("Иванов");
+    words.add("Иванов");
+
+    words.add("Сергеев");
+    words.add("Абрамов");
+    words.add("Петров");
+    words.add("Борисов");
+    words.add("Владимиров");
+
+    words.add("Григорьев");
+    words.add("Дмитриев");
+    words.add("Егоров");
+    words.add("Сергеев");
+    words.add("Зиновьев");
+
+    words.add("Григорьев1");
+    words.add("Дмитриев1");
+    words.add("Егоров1");
+    words.add("Петров");
+    words.add("Зиновьев1");
+
+    Map<String, Integer> map = countWords(words);
+
+    for (Map.Entry<String, Integer> pair : map.entrySet()) {
+      System.out.println(pair.getKey() + " " + pair.getValue());
+    }
+  }
+
+  public static Map<String, Integer> countWords(ArrayList<String> list) {
+    HashMap<String, Integer> result = new HashMap<String, Integer>();
+
+    for (String str : list) {
+    if (result.containsKey(str)) {
+      result.replace(str, result.get(str)+1);
+    } else result.put(str, 1);
+    }
+    return result;
+  }
+
+}
+
+*/
+
+/*
+Одинаковые слова в списке
+        Введи с клавиатуры 20 слов в список. Посчитай, сколько раз каждое из них встречается в списке.
+        Результат нужно представить в виде словаря Map<String, Integer>, где первый параметр - уникальное слово, а второй - число раз, сколько раз данное слово встречалось в списке.
+
+        Выведи содержимое словаря на экран.
+        В тестах регистр (большая/маленькая буква) влияет на результат.
+
+
+        Requirements:
+        1. Метод countWords должен объявлять и инициализировать HashMap с типом элементов <String, Integer>.
+        2. Метод countWords должен возвращать созданный словарь.
+        3. Метод countWords должен добавлять в словарь ключи, соответствующие уникальным словам, и значения по этим ключам, отображающие, сколько раз встречалось слово.
+        4. Программа должна выводить на экран полученный словарь.
+        5. Метод main должен вызывать метод countWords.
+*/
+/*
+public class Solution {
+  public static void main(String[] args) {
+    ArrayList<String>[] arrayOfStringList = createList();
+    printList(arrayOfStringList);
+  }
+
+  public static ArrayList<String>[] createList() {
+    ArrayList<String>[] arrSL = new ArrayList[3];
+    for (int i = 0; i < arrSL.length ; i++) {
+      arrSL[i] = new ArrayList<>();
+
+    }
+    arrSL[0].add("1. Метод createList должен объявлять и инициализировать массив с типом элементов ArrayList<String>.");
+    arrSL[0].add("2. Метод createList должен возвращать созданный массив.");
+    arrSL[0].add("3. Метод createList должен добавлять в массив элементы (списки строк). Списки должны быть не пустые.");
+
+    arrSL[1].add("1. Метод createList должен объявлять и инициализировать массив с типом элементов ArrayList<String>.");
+    arrSL[1].add("2. Метод createList должен возвращать созданный массив.");
+    arrSL[1].add("3. Метод createList должен добавлять в массив элементы (списки строк). Списки должны быть не пустые.");
+
+    arrSL[2].add("1. Метод createList должен объявлять и инициализировать массив с типом элементов ArrayList<String>.");
+    arrSL[2].add("2. Метод createList должен возвращать созданный массив.");
+    arrSL[2].add("3. Метод createList должен добавлять в массив элементы (списки строк). Списки должны быть не пустые.");
+    return arrSL;
+  }
+
+       //   "1. Метод createList должен объявлять и инициализировать массив с типом элементов ArrayList<String>."
+       //   "2. Метод createList должен возвращать созданный массив."
+      //    "3. Метод createList должен добавлять в массив элементы (списки строк). Списки должны быть не пустые."
+
+
+  public static void printList(ArrayList<String>[] arrayOfStringList) {
+    for (ArrayList<String> list : arrayOfStringList) {
+      for (String string : list) {
+        System.out.println(string);
+      }
+    }
+  }
+}
+*/
+/*
+public class Solution {
+  public static void main(String[] args) throws Exception {
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+    // Алфавит
+    List<Character> alphabet = Arrays.asList(
+            'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж',
+            'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о',
+            'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц',
+            'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я');
+
+    // Ввод строк
+    ArrayList<String> list = new ArrayList<String>();
+//    for (int i = 0; i < 10; i++) {
+//      String line = reader.readLine();
+//      list.add(line.toLowerCase());
+//    }
+
+    list.add("Введи с клавиатуры 10 строчек и посчитай в них количество различных букв без учета регистра. Результат выведи на экран в алфавитном порядке.".toLowerCase());
+    list.add("Введи с клавиатуры 10 строчек и посчитай в них количество различных букв без учета регистра. Результат выведи на экран в алфавитном порядке.".toLowerCase());
+    list.add("Введи с клавиатуры 10 строчек и посчитай в них количество различных букв без учета регистра. Результат выведи на экран в алфавитном порядке.".toLowerCase());
+    list.add("Введи с клавиатуры 10 строчек и посчитай в них количество различных букв без учета регистра. Результат выведи на экран в алфавитном порядке.".toLowerCase());
+    list.add("Введи с клавиатуры 10 строчек и посчитай в них количество различных букв без учета регистра. Результат выведи на экран в алфавитном порядке.".toLowerCase());
+    list.add("Введи с клавиатуры 10 строчек и посчитай в них количество различных букв без учета регистра. Результат выведи на экран в алфавитном порядке.".toLowerCase());
+    list.add("Введи с клавиатуры 10 строчек и посчитай в них количество различных букв без учета регистра. Результат выведи на экран в алфавитном порядке.".toLowerCase());
+    list.add("Введи с клавиатуры 10 строчек и посчитай в них количество различных букв без учета регистра. Результат выведи на экран в алфавитном порядке.".toLowerCase());
+    list.add("Введи с клавиатуры 10 строчек и посчитай в них количество различных букв без учета регистра. Результат выведи на экран в алфавитном порядке.".toLowerCase());
+    list.add("Введи с клавиатуры 10 строчек и посчитай в них количество различных букв без учета регистра. Результат выведи на экран в алфавитном порядке.".toLowerCase());
+
+    int[] res = new int[33];
+    for (int i = 0; i < list.size(); i++) {
+      System.out.println(list.get(i));
+      for (int j = 0; j < list.get(i).length(); j++) {
+        for (int k = 0; k < alphabet.size(); k++) {
+          if (list.get(i).toCharArray()[j] == alphabet.get(k)) res[k]++;
+        }
+      }
+    }
+    for (int i = 0; i < alphabet.size(); i++) {
+      System.out.println(alphabet.get(i) + " "+  res[i]);
+    }
+
+
+
+    // напишите тут ваш код
+  }
+}
+*/
+/*
+
+Количество букв
+Введи с клавиатуры 10 строчек и посчитай в них количество различных букв без учета регистра. Результат выведи на экран в алфавитном порядке.
+
+Пример вывода:
+а 5
+б 8
+в 3
+г 7
+д 0
+...
+я 9
+
+
+Requirements:
+1. Программа должна 10 раз считывать данные с клавиатуры.
+2. Программа должна выводить текст на экран.
+3. Выведенный текст должен содержать 33 строки.
+4. Каждая строка вывода должна содержать букву русского алфавита, пробел и количество раз, которое буква встречалась в введенных строках.
+ */
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+    String text = "Я не хочу изучать Java, я хочу большую зарплату";
+    for (int i = 0; i < 40; i++) System.out.println(text.substring(i));
+
+
+    //напишите тут ваш код
+  }
+
+}
+
+*/
+
+/*
+public class Solution {
+
+    public static void main(String[] args) {
+      int a = 257;
+      int b = 4;
+      int c = 3;
+      int e = 2;
+      double d = (byte) a + b / c / e;
+
+      System.out.println(d);
+    }
+
+}
+*/
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+    long l = 1234_564_890L;
+    int x = 0b1000_1100_1010;
+    double m = (byte) 110_987_654_6299.123_34;
+    float f =  l++ + 10 + ++x - (float) m;
+    l = (long) f / 1000;
+    System.out.println(l);
+  }
+}
+*/
+/*
+public class Solution {
+  public static void main(String[] args) {
+    double d = (short) 2.50256e2d;
+    char c = (short) 'd';
+    short s = (short) 2.22;
+    int i = 150000;
+    float f =  0.50f;
+    double result = f + (i / c) - (d * s)  - 500e-3;
+    System.out.println("d- "+ d);
+    System.out.println("c- "+ c);
+    System.out.println("s- "+ s);
+    System.out.println("i- "+ i);
+    System.out.println("f- "+ f);
+    System.out.println("result: " + result);
+  }
+}
+*/
+/*
+public class Solution {
+  public static void main(String[] args) {
+    int a = (byte) 44;
+    int b = (byte) 300;
+    short c = (short) (b - a);
+    System.out.println(a);
+    System.out.println(b);
+    System.out.println(c);
+  }
+}
+*/
+/*
+public class Solution {
+  public static void main(String[] args) {
+    short number = 9;
+    char zero =  '0';
+    int nine = ((int) zero + number);
+    System.out.println(zero);
+    System.out.println(number);
+    System.out.println((char)nine);
+  }
+}
+*/
+/*
+public class Solution {
+  public static void main(String[] args) {
+    float f = (float) 128.50;
+    int i = (byte) f;
+    int b = (int) (i + f);
+    System.out.println(b);
+  }
+}
+*/
+/*
+public class Solution {
+  public static void main(String[] args) {
+    int a = 15;
+    int b = 4;
+    float c = (float) a / b;
+    double d = a * 1e-3 + c;
+
+    System.out.println(a);
+    System.out.println(b);
+    System.out.println(c);
+    System.out.println(d);
+  }
+}
+*/
+/*
+
+public class Solution {
+  public static void main(String[] args) {
+    int a = 0;
+    int b = (byte) a + 46;
+    byte c = (byte) (a * b);
+    double f = (char) 1234.15;
+    long d = (int) (a + f / c + b);
+    System.out.println(a);
+    System.out.println(b);
+    System.out.println(c);
+    System.out.println(d);
+    System.out.println(f);
+  }
+}
+*/
+
+/*
+public class Solution {
+  public static void main(String[] args) throws Exception {
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    ArrayList<String> list = new ArrayList<>();
+//    String line = reader.readLine();
+//    while (!line.isEmpty()) {
+//      list.add(line);
+//      line = reader.readLine();
+//    }
+    list.add("Вишня");
+    list.add("1");
+    list.add("Боб");
+    list.add("3");
+    list.add("Яблоко");
+    list.add("22");
+    list.add("0");
+    list.add("Арбуз");
+
+
+    String[] array = list.toArray(new String[0]);
+    sort(array);
+
+    for (String x : array) {
+      System.out.println(x);
+    }
+  }
+
+  public static void sort(String[] array) {
+    boolean isSwap = true;
+    while (isSwap) {
+      isSwap = false;
+      for (int i = 0; i < array.length-1; i++) {
+        if (isNumber(array[i])) {
+          for (int j = i + 1; j < array.length; j++) {
+            if (isNumber(array[j]) && (Integer.parseInt(array[i]) < Integer.parseInt(array[j])))
+            {
+              isSwap = true;
+              String swap = array[i];
+              array[i] = array[j];
+              array[j] = swap;
+             }
+          }
+        } else {
+          for (int j = i + 1; j < array.length; j++) {
+            if (!isNumber(array[j]) && isGreaterThan(array[i], array[j])) {
+              isSwap = true;
+              String swap = array[i];
+              array[i] = array[j];
+              array[j] = swap;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Метод для сравнения строк: 'а' больше чем 'b'
+  public static boolean isGreaterThan(String a, String b) {
+    return a.compareTo(b) > 0;
+  }
+
+
+  // Переданная строка - это число?
+  public static boolean isNumber(String text) {
+    if (text.length() == 0) {
+      return false;
+    }
+
+    char[] chars = text.toCharArray();
+    for (int i = 0; i < chars.length; i++) {
+      char character = chars[i];
+
+      // есть '-' внутри строки
+      if (i != 0 && character == '-') {
+        return false;
+      }
+
+      // не цифра и не начинается с '-'
+      if (!Character.isDigit(character) && character != '-') {
+        return false;
+      }
+
+      // одиночный '-'
+      if (chars.length == 1 && character == '-') {
+        return false;
+      }
+    }
+    return true;
+  }
+}
+*/
+/*
+
+Задача по алгоритмам Ӏ Java Syntax: 9 уровень, 11 лекция
+Задача: Пользователь вводит с клавиатуры список слов (и чисел).
+Слова вывести в возрастающем порядке, числа - в убывающем.
+
+Пример ввода:
+Вишня
+1
+Боб
+3
+Яблоко
+22
+0
+Арбуз
+
+Пример вывода:
+Арбуз
+22
+Боб
+3
+Вишня
+1
+0
+Яблоко
+
+
+Requirements:
+1. Программа должна считывать данные с клавиатуры.
+2. Программа должна выводить данные на экран.
+3. Выведенные слова должны быть упорядочены по возрастанию (используй готовый метод isGreaterThan).
+4. Выведенные числа должны быть упорядочены по убыванию.
+5. Метод main должен использовать метод sort.
+6. Метод sort должен использовать метод isGreaterThan.
+7. Метод sort должен использовать метод isNumber.
+ */
+
+
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+    Map<String, Cat> map = createMap();
+    Set<Cat> set = convertMapToSet(map);
+    printCatSet(set);
+  }
+
+  public static Map<String, Cat> createMap() {
+    Map<String, Cat> cats = new HashMap<>();
+    cats.put("Васька1", new Cat("Васька1"));
+    cats.put("Васька2", new Cat("Васька2"));
+    cats.put("Васька3", new Cat("Васька3"));
+    cats.put("Васька4", new Cat("Васька4"));
+    cats.put("Васька5", new Cat("Васька5"));
+    cats.put("Васька6", new Cat("Васька6"));
+    cats.put("Васька7", new Cat("Васька7"));
+    cats.put("Васька8", new Cat("Васька8"));
+    cats.put("Васька9", new Cat("Васька9"));
+    cats.put("Васька10", new Cat("Васька10"));
+    return cats;
+
+  }
+
+  public static Set<Cat> convertMapToSet(Map<String, Cat> map) {
+    //напишите тут ваш код
+    Set<Cat> myset = new HashSet<>(map.values());
+
+    return myset;
+  }
+
+  public static void printCatSet(Set<Cat> set) {
+    for (Cat cat : set) {
+      System.out.println(cat);
+    }
+  }
+
+  public static class Cat {
+    private String name;
+
+    public Cat(String name) {
+      this.name = name;
+    }
+
+    public String toString() {
+      return "Cat " + this.name;
+    }
+  }
+
+
+}
+*/
+
+/*
+Десять котов
+Есть класс кот - Cat, с полем "имя" (String).
+Создать словарь Map<String, Cat> и добавить туда 10 котов в виде "Имя"-"Кот".
+Получить из Map множество(Set) всех котов и вывести его на экран.
+
+
+Requirements:
+1. Программа не должна считывать данные с клавиатуры.
+2. Метод createMap должен создавать новый объект HashMap<String, Cat>.
+3. Метод createMap должен добавлять в словарь 10 котов в виде «Имя»-«Кот».
+4. Метод createMap должен возвращать созданный словарь.
+5. Метод convertMapToSet должен создать и вернуть множество котов, полученных из переданного словаря.
+6. Программа должна вывести всех котов из множества на экран.
+ */
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+    ArrayList<int[]> list = createList();
+    printList(list);
+  }
+
+  public static ArrayList<int[]> createList() {
+    //напишите тут ваш код
+    ArrayList<int[]> arr = new ArrayList<>();
+    arr.add(new int[5]);
+    arr.add(new int[2]);
+    arr.add(new int[4]);
+    arr.add(new int[7]);
+    arr.add(new int[0]);
+    for (int i = 0; i < arr.size(); i++) {
+      for (int j = 0; j < arr.get(i).length; j++) {
+        arr.get(i)[j] = i+j;
+      }
+    }
+    return arr;
+  }
+
+  public static void printList(ArrayList<int[]> list) {
+    for (int[] array : list) {
+      for (int x : array) {
+//        System.out.println(x);
+        System.out.print(x);
+     }
+      System.out.println();
+    }
+  }
+}
+*/
+/*
+
+Список из массивов чисел
+Создать список, элементами которого будут массивы чисел.
+Добавить в список пять объектов-массивов длиной 5, 2, 4, 7, 0 соответственно.
+Заполнить массивы любыми данными и вывести их на экран.
+
+
+Requirements:
+1. Программа не должна считывать данные с клавиатуры.
+2. Метод createList должен объявлять и инициализировать переменную типа ArrayList<int[]>.
+3. Метод createList должен возвращать созданный список.
+4. Метод createList должен добавлять в список 5 элементов.
+5. Каждый элемент в списке должен быть массивом чисел. Длина первого должна быть 5 элементов, второго - 2, следующих - 4, 7, 0 соответственно.
+6. Программа должна выводить на экран элементы всех массивов из списка. Каждый элемент с новой строки.
+ */
+
+
 /*
 public class Solution {
   public static char[] vowels = new char[]{'а', 'я', 'у', 'ю', 'и', 'ы', 'э', 'е', 'о', 'ё'};
