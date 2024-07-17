@@ -22,6 +22,65 @@ import  java.util.function.Function;
 import static java.lang.Thread.*;
 
 public class Solution {
+  public static void main(String[] args) throws Exception {
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    int[] array = new int[30];
+    for (int i = 0; i < 30; i++) {
+  //    array[i] = Integer.parseInt(reader.readLine());
+      array[i] = 30-i-1;
+    }
+
+    sort(array);
+
+    System.out.println(array[9]);
+    System.out.println(array[10]);
+  }
+
+  public static void sort(int[] array) {
+    boolean isSwap = true;
+    while (isSwap) {
+      isSwap = false;
+      for (int i = 0; i <array.length-1 ; i++) {
+        if (array[i] > array[i+1]) {
+          int swap = array[i];
+          array[i] = array[i+1];
+          array[i+1] = swap;
+          isSwap = true;
+        }
+
+      }
+
+    }
+
+
+
+  }
+}
+
+/*
+public class Solution {
+  public static void main(String[] args) throws IOException {
+    HashMap<Integer, String> map = new HashMap<>();
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    String buf;
+    do {
+      buf = reader.readLine();
+      if (buf.equals("")) continue;
+      int id = Integer.parseInt(buf);
+      buf = reader.readLine();
+      if (buf.equals("")) continue;
+      map.put(id, buf);
+    } while (buf.equals("") != true);
+    for (Map.Entry<Integer, String> pair : map.entrySet()) {
+      int id = pair.getKey();
+      String name = pair.getValue();
+      System.out.println(id + " " + name);
+    }
+  }
+}
+*/
+/*
+public class Solution {
   HashMap<Integer, String> map;
   static Integer index;
   static String name;
@@ -48,6 +107,7 @@ public class Solution {
     }
   }
 }
+*/
 /*
 public class Solution {
   public static void main(String[] args) throws Exception {
