@@ -22,6 +22,100 @@ import  java.util.function.Function;
 import static java.lang.Thread.*;
 
 public class Solution {
+  public static void main(String[] args) throws Exception {
+    int[] data = new int[]{1, 2, 3, 5, -2, -8, 0, 77, 5, 5};
+
+    Pair<Integer, Integer> result = getMinimumAndIndex(data);
+
+    System.out.println("The minimum is " + result.x);
+    System.out.println("The index of the minimum element is " + result.y);
+  }
+
+  public static Pair<Integer, Integer> getMinimumAndIndex(int[] array) {
+
+    if (array == null || array.length == 0) {
+      return new Pair<Integer, Integer>(null, null);
+    }
+      int min = array[0];
+      int pos = 0;
+      for (int i = 1; i < array.length-1 ; i++) {
+        if (min > array[i]){
+          min = array[i];
+          pos = i;
+        }
+      }
+
+
+    //напишите тут ваш код
+
+    return new Pair<Integer, Integer>(min, pos);
+  }
+
+  public static class Pair<X, Y> {
+    public X x;
+    public Y y;
+
+    public Pair(X x, Y y) {
+      this.x = x;
+      this.y = y;
+    }
+  }
+}
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+    System.out.println(getObjectType(new Cat()));
+    System.out.println(getObjectType(new Tiger()));
+    System.out.println(getObjectType(new Lion()));
+    System.out.println(getObjectType(new Bull()));
+    System.out.println(getObjectType(new Cow()));
+    System.out.println(getObjectType(new Animal()));
+  }
+
+
+    //напишите тут ваш код
+    public static String getObjectType(Object o) {
+      //напишите тут ваш код
+      if (o instanceof Tiger)
+        return "Тигр";
+      if (o instanceof Lion)
+        return "Лев";
+      if (o instanceof Cat)
+        return "Кот";
+      if (o instanceof Bull)
+        return "Бык";
+      if (o instanceof Cow)
+        return "Корова";
+      if (o instanceof Animal)
+        return "Животное";
+
+      return null;
+    }
+
+
+  public static class Cat extends Animal   //<--Классы наследуются!!
+  {
+  }
+
+  public static class Tiger extends Cat {
+  }
+
+  public static class Lion extends Cat {
+  }
+
+  public static class Bull extends Animal {
+  }
+
+  public static class Cow extends Animal {
+  }
+
+  public static class Animal {
+  }
+}
+*/
+/*
+public class Solution {
   public static void main(String[] args) {
     int[] data = new int[]{1, 2, 3, 5, -2, -8, 0, 77, 5, 5};
 
@@ -54,7 +148,7 @@ public class Solution {
     }
   }
 }
-
+*/
 /*
 public class Solution {
   public static void main(String[] args) throws Exception {
