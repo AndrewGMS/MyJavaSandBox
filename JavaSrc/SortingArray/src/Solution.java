@@ -1,4 +1,7 @@
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import javax.imageio.stream.FileImageOutputStream;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystemException;
@@ -21,6 +24,178 @@ import  java.util.function.Function;
 
 import static java.lang.Thread.*;
 
+/*
+Писатель в файл с  консоли
+*/
+
+public class Solution {
+  public static void main(String[] args) throws Exception {
+    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    String fileName = bufferedReader.readLine();
+
+    //ArrayList<String> bufferList = new ArrayList();
+
+    StringBuilder stringBuilder = new StringBuilder();
+
+    String buffer = "";
+    while (!buffer.equals("exit")) {
+      buffer = bufferedReader.readLine();
+      stringBuilder.append(buffer).append("\n");
+    }
+
+//    System.out.print(stringBuilder);
+
+    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName));
+
+    bufferedWriter.write(stringBuilder.toString());
+    bufferedWriter.close();
+
+//    FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+//    BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+//    byte [] byteBuffer = stringBuilder.toString().getBytes();
+//    bufferedOutputStream.write(byteBuffer,0, byteBuffer.length);
+//    bufferedOutputStream.close();
+    // напишите тут ваш код
+  }
+}
+
+/*
+исатель в файл с консоли
+В этой задаче тебе нужно:
+Прочесть с консоли имя файла.
+Считывать строки с консоли, пока пользователь не введет строку "exit".
+Записать абсолютно все введенные в п.2 строки в файл: каждую строчку — с новой строки.
+
+Requirements:
+1. Программа должна считывать c консоли имя файла.
+2. Создай и используй объект типа BufferedWriter.
+3. Программа не должна ничего считывать из файловой системы.
+4. Программа должна считывать строки с консоли, пока пользователь не введет строку "exit".
+5. Программа должна записать все введенные строки (включая "exit", но не включая имя файла) в файл: каждую строчку — с новой строки.
+6. Метод main должен закрывать объект типа BufferedWriter после использования.
+7. Метод main не должен выводить данные на экран.
+ */
+
+/*
+
+public class Solution {
+  public static void main(String[] args) {
+    // напишите тут ваш код
+  }
+}
+*/
+/*
+    Чтение файла
+    В этой задаче тебе нужно:
+        Считать с консоли путь к файлу.
+        Вывести в консоли (на экран) содержимое файла.
+        Освободить ресурсы. Закрыть поток чтения с файла и поток ввода с клавиатуры.
+
+        Requirements:
+        1. Программа должна считывать c консоли путь к файлу.
+        2. Программа должна выводить на экран содержимое файла.
+        3. Поток чтения из файла (FileInputStream) должен быть закрыт.
+        4. BufferedReader также должен быть закрыт.
+
+*/
+
+/*
+public class Solution {
+  public static void main(String[] args) throws Exception {
+    System.out.println(SimpleObject.NAME);
+    System.out.println(Button.NAME);
+  }
+
+  interface SimpleObject {
+    String NAME = "SimpleObject";
+  }
+
+  interface Button extends SimpleObject {
+
+    final String NAME = "Submit";
+
+//    public void onPress();
+
+//    protected void onPress();
+
+    void onPress();
+
+  //  private void onPress();
+
+   // protected String onPress(Object o);
+
+ //   String onPress(Object o);
+
+   // private String onPress(Object o);
+
+  }
+}
+*/
+/*
+public class Solution {
+  public static void main(String[] args) throws Exception {
+  }
+
+  public interface Animal {
+    public static Color getColor() {return  null}
+  }
+
+  public static class Fox implements Animal{
+    public String getName() {
+      return "Fox";
+    }
+  }
+}
+*/
+
+
+/*
+public class Solution {
+  public static void main(String[] args) throws Exception {
+    System.out.println(Matrix.NEO);
+    System.out.println(Matrix.TRINITY);
+  }
+
+  static class Matrix {
+    public static DBObject NEO = new User().initializeIdAndName(1, "Neo");
+    public static DBObject TRINITY = new User().initializeIdAndName(2, "Trinity");
+  }
+
+  interface DBObject {
+    DBObject initializeIdAndName(long id, String name);
+  }
+
+  static class User implements DBObject {
+    long id;
+    String name;
+    @Override
+    public User initializeIdAndName(long id, String name) {
+      this.id = id;
+      this.name = name;
+      return this;
+    }
+
+    @Override
+    public String toString() {
+      return String.format("The user's name is %s, id = %d", name, id);
+    }
+  }
+
+}
+*/
+/*
+Баг в initializeIdAndName
+Посмотри на программу и исправь ее, чтобы она компилировалась и работала:
+Вынеси реализацию метода initializeIdAndName в класс User.
+Сделай так, чтобы initializeIdAndName в классе User возвращал тип User.
+
+Requirements:
+1. Интерфейс DBObject должен содержать только объявление метода initializeIdAndName без реализации.
+2. Реализуй метод initializeIdAndName в классе User.
+3. Метод initializeIdAndName в классе User должен иметь тип возвращаемого значения User.
+4. Метод initializeIdAndName должен присваивать значения полям id и name объекта типа User в соответствии с переданными ему параметрами и возвращать этот объект.
+ */
+/*
 public class Solution {
   public static void main(String[] args) throws Exception {
     int[] data = new int[]{1, 2, 3, 5, -2, -8, 0, 77, 5, 5};
@@ -61,7 +236,7 @@ public class Solution {
     }
   }
 }
-
+*/
 /*
 public class Solution {
   public static void main(String[] args) {
