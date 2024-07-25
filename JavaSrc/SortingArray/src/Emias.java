@@ -891,7 +891,7 @@ public class Emias {
     };
 
         int cnt = 0;
-        int shift = 6;
+        int shift = 7;
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] >= 0) {
                 int jLim = (i + shift) > arr.length ? arr.length : i + shift;
