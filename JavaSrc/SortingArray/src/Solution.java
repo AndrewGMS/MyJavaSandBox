@@ -24,13 +24,96 @@ import  java.util.function.Function;
 
 import static java.lang.Thread.*;
 
+
+
+
+
+/*
 public class Solution {
   public static void main(String[] args) {
-    // напишите тут ваш код
+    List<Person> plot = new ArrayList<Person>();
+    plot.add(new Person("Репка", "Репку"));
+    plot.add(new Person("Дедка", "Дедку"));
+    plot.add(new Person("Бабка", "Бабку"));
+    plot.add(new Person("Внучка", "Внучку"));
+    RepkaStory.tell(plot);
+  }
 
+
+  public class Person implements RepkaItem{
+    private String name;
+    private String namePadezh;
+
+    public Person(String name, String namePadezh) {
+      this.name = name;
+      this.namePadezh = namePadezh;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+
+    public String getNamePadezh() {
+      return namePadezh;
+    }
+
+    public void setNamePadezh(String namePadezh) {
+      this.namePadezh = namePadezh;
+    }
+
+    public void pull(Person person) {
+      System.out.println(this.name + " за " + person.getNamePadezh());
+    }
+  }
+
+  public interface RepkaItem {
+    public String getNamePadezh();
+  }
+
+
+  public class RepkaStory {
+    static void tell(List<Person> items) {
+      Person first;
+      Person second;
+      for (int i = items.size() - 1; i > 0 ; i++) {
+        first = items.get(i - 1);
+        second = items.get(i);
+        second.pull(first);
+      }
+    }
   }
 }
+*/
+/*
+public class Solution {
+  public static void main(String[] args) throws Exception {
+    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
+    String fileName = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+    // fileName = bufferedReader.readLine();
+    FileInputStream fileInputStream = new FileInputStream(fileName);
+    Scanner scanner = new Scanner(fileInputStream);
+    ArrayList<Integer> arrayList = new ArrayList<>();
+    while (scanner.hasNextInt()) {
+      int buf = scanner.nextInt();
+      if (buf % 2 == 0) {
+        arrayList.add(buf);
+      }
+    }
+    Collections.sort(arrayList);
+    for (int i = 0; i < arrayList.size(); i++) {
+      System.out.println(arrayList.get(i));
+    }
+    scanner.close();
+    bufferedReader.close();
+  }
+}
+*/
 
 /*
 Сортировка четных чисел из файла
