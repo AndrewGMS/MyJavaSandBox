@@ -22,7 +22,386 @@ import java.util.Date;
 import java.lang.StackTraceElement;
 import  java.util.function.Function;
 
+
+public class Solution {
+  public static void main(String[] args) {
+    List<Apartment> apartments = new ArrayList<Apartment>();
+    apartments.add(new OneRoomApt());
+    apartments.add(new TwoRoomApt());
+    apartments.add(new ThreeRoomApt());
+
+    cleanAllApartments(apartments);
+  }
+
+  public static void cleanAllApartments(List<Apartment> apartments) {
+    //написать тут вашу реализацию пунктов 1-4
+    for (Apartment apartment: apartments) {
+      if (apartment instanceof OneRoomApt) {
+        ((OneRoomApt) apartment).clean1Room();
+      } else if (apartment instanceof TwoRoomApt) {
+        ((TwoRoomApt) apartment).clean2Rooms();
+      } else if (apartment instanceof ThreeRoomApt) {
+        ((ThreeRoomApt) apartment).clean3Rooms();
+      }
+    }
+    
+  }
+
+  static interface Apartment {
+  }
+
+  static class OneRoomApt implements Apartment {
+    void clean1Room() {
+      System.out.println("1 room is cleaned");
+    }
+  }
+
+  static class TwoRoomApt implements Apartment {
+    void clean2Rooms() {
+      System.out.println("2 rooms are cleaned");
+    }
+  }
+
+  static class ThreeRoomApt implements Apartment {
+    void clean3Rooms() {
+      System.out.println("3 rooms are cleaned");
+    }
+  }
+}
+
+/*
+public class Solution {
+  public static void main(String[] args) throws Exception {
+    //ввести с консоли несколько ключей (строк), пункт 7
+    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+    Movie movie = null;
+    String key = null;
+    boolean isContinue = true;
+    do  {
+      //создаем объект, пункт 2
+      key = bufferedReader.readLine();
+      movie = MovieFactory.getMovie(key);
+      if (movie != null) System.out.println(movie.getClass().getSimpleName());
+    } while (movie != null);
+
+        /*
+8 Создать переменную movie класса Movie и для каждой введенной строки(ключа):
+8.1 получить объект используя MovieFactory.getMovie и присвоить его переменной movie
+8.2 вывести на экран movie.getClass().getSimpleName()
+
+    bufferedReader.close();
+
+  }
+
+  static class MovieFactory {
+
+    static Movie getMovie(String key) {
+      Movie movie = null;
+      //создание объекта SoapOpera (мыльная опера) для ключа "soapOpera"
+      if ("soapOpera".equals(key)) {
+        movie = new SoapOpera();
+      } else if ("cartoon".equals(key)) {
+        movie = new Cartoon();
+      } else if ("thriller".equals(key)) {
+        movie = new Thriller();
+      }
+      //напишите тут ваш код, пункты 5,6
+      return movie;
+    }
+  }
+
+  static abstract class Movie {
+  }
+
+  static class SoapOpera extends Movie {
+  }
+
+  //Напишите тут ваши классы, пункт 3
+  static class Cartoon extends Movie {}
+  static class Thriller extends Movie {}
+}
+
+*/
+/*
+public class Solution {
+  public static void main(String[] args) {
+    Object obj = new Circle();
+    Movable movable = (Movable) obj;
+    Drawable drawable = new Rectangle();
+
+    printMainInfo(drawable);
+    printMainInfo(movable);
+  }
+
+  public static void printMainInfo(Object object) {
+    if (object instanceof Drawable) {
+      ((Drawable) object).draw();
+    } else if (object instanceof Movable) {
+      ((Movable) object).move();
+    }
+
+  }
+
+  static interface Movable {
+
+    void move();
+  }
+
+  static class Circle implements Movable {
+
+    public void draw() {
+      System.out.println("Can be drawn");
+    }
+
+    public void move() {
+      System.out.println("Can be moved");
+    }
+
+  }
+
+  static interface Drawable {
+    void draw();
+  }
+
+  static class Rectangle implements Drawable {
+    public void draw() {
+      System.out.println("Can be drawn");
+    }
+
+    public void move() {
+      System.out.println("Can be moved");
+    }
+  }
+} */
+/*
+    Реализовать метод printMainInfo
+        Напиши реализацию метода printMainInfo, чтобы:
+        Если в метод передают объект типа Drawable, у этого объекта вызывался метод draw.
+        Если в метод передают объект типа Movable, у этого объекта вызывался метод move.
+
+        Requirements:
+        1. Класс Solution должен содержать реализацию метода printMainInfo с одним параметром типа Object.
+        2. Метод printMainInfo должен быть статическим.
+        3. Метод printMainInfo должен иметь самый широкий уровень доступа — public.
+        4. Метод printMainInfo должен вызывать у переданного ему в качестве параметра объекта метод draw, если этот объект реализует интерфейс Drawable.
+        5. Метод printMainInfo должен вызывать у переданного ему в качестве параметра объекта метод move, если этот объект реализует интерфейс Movable.
+
+*/
+
+/*
 import static java.lang.Thread.*;
+public class Solution {
+  public static void main(String[] args) throws Exception {
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    Person person = null;
+    String key = null;
+
+    //тут цикл по чтению ключей, пункт 1
+   boolean isContinue = true;
+   while (isContinue) {
+      //создаем объект, пункт 2
+      key = reader.readLine();
+      switch (key) {
+        case "user" :
+         person = new Person.User();
+        break;
+        case "loser":
+          person = new Person.Loser();
+          break;
+        case "coder":
+          person = new Person.Coder();
+          break;
+        case "proger":
+          person = new Person.Proger();
+          break;
+        default:
+          isContinue = false;
+      }
+
+      doWork(person); //вызываем doWork
+
+    }
+  }
+
+  public static void doWork(Person person) {
+    // пункт 3
+    if (person instanceof Person.User) {
+      ((Person.User) person).live();
+    } else if (person instanceof Person.Loser) {
+      ((Person.Loser) person).doNothing();
+    } else if (person instanceof Person.Coder) {
+      ((Person.Coder) person).writeCode();
+    } else if (person instanceof Person.Proger) {
+      ((Person.Proger) person).enjoy();
+    }
+  }
+}
+
+
+interface Person {
+  class User implements Person {
+    void live() {
+      System.out.println("I usually just live.");
+    }
+  }
+
+  class Loser implements Person {
+    void doNothing() {
+      System.out.println("I usually do nothing.");
+    }
+  }
+
+  class Coder implements Person {
+    void writeCode() {
+      System.out.println("I usually write code.");
+    }
+  }
+
+  class Proger implements Person {
+    void enjoy() {
+      System.out.println("It's a wonderful life!");
+    }
+  }
+
+}
+*/
+/*
+User, Loser, Coder and Proger
+Давай напишем программу, которая определит, чем заняться тому или иному человеку.
+Для этого нужно:
+Ввести [в цикле] с клавиатуры несколько строк (ключей).
+Строки (ключи) могут быть такими: "user", "loser", "coder", "proger".
+Ввод окончен, когда строка не совпадает ни с одной из выше указанных.
+Для каждой введенной строки нужно:
+Создать соответствующий объект [см. Person.java], например, для строки "user" нужно создать объект класса User.
+Передать этот объект в метод doWork.
+Написать реализацию метода doWork, который:
+Вызывает метод live() у переданного объекта, если этот объект (person) имеет тип User.
+Вызывает метод doNothing(), если person имеет тип Loser.
+Вызывает метод writeCode(), если person имеет тип Coder.
+Вызывает метод enjoy(), если person имеет тип Proger.
+
+Requirements:
+1. Метод main должен считывать строки с клавиатуры.
+2. Метод main должен прекращать считывать строки с клавиатуры, как только введенная строка не совпадает с одной из ожидаемых (user, loser, coder, proger).
+3. Для каждой корректной (user, loser, coder, proger) введенной строки должен быть вызван метод doWork с соответствующим объектом класса Person в качестве параметра.
+4. В классе Solution должен быть реализован метод doWork с одним параметром типа Person.
+5. Метод doWork должен вызывать метод live() у переданного объекта, если этот объект имеет тип User.
+6. Метод doWork должен вызывать метод doNothing() у переданного объекта, если этот объект имеет тип Loser.
+7. Метод doWork должен вызывать метод writeCode() у переданного объекта, если этот объект имеет тип Coder.
+8. Метод doWork должен вызывать метод enjoy() у переданного объекта, если этот объект имеет тип Proger.
+ */
+/*
+public class Solution {
+  public static void main(String[] args) throws Exception {
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+    Person person = null;
+    String key;
+    while (!(key = reader.readLine()).equals("exit")) {
+      if ("player".equals(key)) {
+        person = new Player();
+      } else if ("dancer".equals(key)) {
+        person = new Dancer();
+      }
+      haveFun(person);
+    }
+  }
+
+  public static void haveFun(Person person) {
+    //напишите тут ваш код
+    if (person != null) {
+    if (person.getClass().getSimpleName().equals("Player")) {
+      Player player = (Player) person;
+      player.play();
+    } else {
+      Dancer dancer = (Dancer) person;
+      dancer.dance();
+    }
+    }
+  }
+
+  interface Person {
+  }
+
+  static class Player implements Person {
+    void play() {
+      System.out.println("playing");
+    }
+  }
+
+  static class Dancer implements Person {
+    void dance() {
+      System.out.println("dancing");
+    }
+  }
+}
+
+*/
+/*
+Player and Dancer
+Посмотри, что делает эта программа.
+Затем измени haveFun так, чтобы он вызывал метод:
+play(), если person имеет тип Player.
+dance(), если person имеет тип Dancer.
+
+Requirements:
+1. Класс Player должен реализовывать интерфейс Person.
+2. Класс Dancer должен реализовывать интерфейс Person.
+3. Метод haveFun() должен вызывать метод play() у переданного ему объекта, если объект является игроком (Player).
+4. Метод haveFun() должен вызывать метод dance() у переданного ему объекта, если объект является танцором (Dancer).
+5. Метод main() должен считывать данные с клавиатуры.
+6. Метод main() должен прекращать считывать данные с клавиатуры, если введенная строка равна "exit".
+
+*/
+
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+    Object obj = new Jerry();
+
+    Mouse mouse = (Mouse) obj;
+    GrayMouse grayMouse = (GrayMouse) mouse;
+    Jerry jerry = (Jerry) grayMouse;
+
+    printClasses(obj, mouse, grayMouse, jerry);
+
+  }
+
+  public static void printClasses(Object obj, Mouse mouse, GrayMouse grayMouse, Jerry jerry) {
+    System.out.println(jerry.getClass().getSimpleName());
+    System.out.println(grayMouse.getClass().getSimpleName());
+    System.out.println(mouse.getClass().getSimpleName());
+    System.out.println(obj.getClass().getSimpleName());
+  }
+
+  static class Mouse {
+  }
+
+  static class GrayMouse extends Mouse {
+  }
+
+  static class Jerry extends GrayMouse {
+  }
+}
+
+*/
+/*
+Без ошибок
+Давай напишем программу, которая создает мышонка.
+Для этого инициализируй объект obj таким классом, чтобы метод main() выполнился без ошибок.
+
+
+Requirements:
+1. Класс GrayMouse должен наследоваться от класса Mouse.
+2. Класс Jerry должен наследоваться от класса GrayMouse.
+3. В переменной obj должен храниться объект, который будет одновременно являться и Mouse, и GrayMouse, и Jerry.
+4. Метод main должен вызывать метод printClasses.
+
+ */
+
 
 /*
 public class Solution {
