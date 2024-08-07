@@ -23,6 +23,60 @@ import java.lang.StackTraceElement;
 import  java.util.function.Function;
 
 
+
+public class Solution {
+  public static void main(String[] args) throws Exception {
+    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+ //   int numberFirst = Integer.parseInt(bufferedReader.readLine());
+ //   int numberSecond = Integer.parseInt(bufferedReader.readLine());
+       int numberFirst = 100;
+       int numberSecond = 90;
+
+    bufferedReader.close();
+
+
+    int nOD = 1;
+
+    for (int i = 1; i <=numberFirst ; i++) {
+      if ((numberFirst % i == 0) & (numberSecond % i == 0)) {
+        nOD = i;
+      }
+    }
+
+    System.out.println(nOD);
+
+    while (numberFirst != numberSecond) {
+      System.out.println(" -1 " + numberFirst);
+      System.out.println(" -2 " + numberSecond);
+      if (numberFirst > numberSecond) {
+        numberFirst -= numberSecond;
+      }
+      if (numberSecond > numberFirst) {
+        numberSecond -= numberFirst;
+      }
+    }
+
+    System.out.println(numberFirst);
+  }
+}
+
+
+/*
+НОД
+Давай найдем наибольший общий делитель (НОД). Для этого:
+Введи с клавиатуры 2 целых положительных числа.
+Выведи в консоли наибольший общий делитель.
+
+Requirements:
+1. Программа должна считывать с клавиатуры 2 строки.
+2. Программа должна выводить данные на экран.
+3. Программа должна выводить на экран наибольший общий делитель (НОД) чисел, считанных с клавиатуры, и успешно завершаться.
+
+ */
+
+
+/*
 public class Solution {
   static void initList(List<Number> list) {
     list.add(new Double(1000f));
@@ -84,7 +138,7 @@ public class Solution {
   }
 }
 
-
+*/
 /*
 Исправь четыре ошибки
 У нас есть программа, которая должна заполнять список и выводить его определенным образом в консоли.
