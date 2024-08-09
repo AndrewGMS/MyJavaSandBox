@@ -24,6 +24,114 @@ import  java.util.function.Function;
 
 
 
+
+public class Solution {
+  public static void main(String[] args) {
+    List<Book> books = new LinkedList<Book>();
+    books.add(new MarkTwainBook("Tom Sawyer"));
+    books.add(new AgathaChristieBook("Hercule Poirot"));
+    System.out.println(books);
+  }
+
+  abstract static class Book {
+    private String author;
+
+    public Book(String author) {
+      this.author = author;
+    }
+
+    public abstract Book getBook();
+
+    public abstract String getTitle();
+
+    private String getOutputByBookType() {
+      String agathaChristieOutput = author + ": " + getBook().getTitle() + " is a detective";
+      String markTwainOutput = getBook().getTitle() + " was written by " + author;
+
+      String output = "output";
+      //Add your code here
+
+      return output;
+    }
+
+    public String toString() {
+      return getOutputByBookType();
+    }
+  }
+
+
+}
+
+
+/*
+
+ООП - книги
+Давай напишем программу, которая будет определять жанр книги, или автора, который ее написал.
+Для этого:
+Создай public static класс MarkTwainBook, который наследуется от Book. Имя автора — [Mark Twain].
+Параметр конструктора — название книги (title).
+В классе MarkTwainBook реализуй все абстрактные методы.
+Для метода getBook измени тип возвращаемого значения на более подходящий.
+Создай по аналогии AgathaChristieBook. Имя автора — [Agatha Christie].
+В классе Book реализуй тело метода getOutputByBookType() так, чтобы он возвращал:
+agathaChristieOutput — для книг Агаты Кристи;
+markTwainOutput — для книг Марка Твена.
+
+Requirements:
+1. Класс Solution должен содержать public static класс MarkTwainBook.
+2. Класс MarkTwainBook должен быть потомком класса Book.
+3. В классе MarkTwainBook должен быть корректно реализован конструктор с одним параметром типа String (название книги).
+4. Конструктор класса MarkTwainBook должен вызывать конструктор класса предка (Book) с параметром "Mark Twain".
+5. Метод getBook в классе MarkTwainBook должен иметь тип возвращаемого значения MarkTwainBook и возвращать текущий объект.
+6. Класс Solution должен содержать public static класс AgathaChristieBook.
+7. Класс AgathaChristieBook должен быть потомком класса Book.
+8. В классе AgathaChristieBook должен быть корректно реализован конструктор с одним параметром типа String (название книги).
+9. Конструктор класса AgathaChristieBook должен вызывать конструктор класса предка (Book) с параметром "Agatha Christie".
+10. Метод getBook в классе AgathaChristieBook должен иметь тип возвращаемого значения AgathaChristieBook и возвращать текущий объект.
+11. Метод getTitle в классах AgathaChristieBook и MarkTwainBook должен возвращать название конкретной книги.
+12. Метод getOutputByBookType должен возвращать корректную строку для объектов типа AgathaChristieBook.
+13. Метод getOutputByBookType должен возвращать корректную строку для объектов типа MarkTwainBook.
+14. В классе MarkTwainBook должно быть создано поле title типа String (название книги).
+15. В классе AgathaChristieBook должно быть создано поле title типа String (название книги).
+ */
+
+
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+
+
+
+
+
+
+  }
+}
+*/
+
+/*
+Singleton
+Класс является синглтоном (реализует паттерн Singleton), если позволяет создать всего один объект своего типа.
+
+Реализуй Singleton pattern:
+Создай класс Singleton в отдельном файле.
+Добавь в него статический метод getInstance().
+При любом вызове метода getInstance() он должен возвращать один и тот же объект класса Singleton.
+Подумай, каким образом можно запретить создание других объектов этого класса.
+Сделай все конструкторы в классе Singleton приватными (private).
+В итоге должна быть возможность создать объект (экземпляр класса) используя только метод getInstance.
+
+Requirements:
+1. Класс Singleton должен быть создан в отдельном файле.
+2. Класс Singleton не должен позволять создавать объекты своего типа извне класса.
+3. Класс Singleton должен содержать приватное статическое поле instance типа Singleton.
+4. В классе Singleton должен быть реализован публичный статический метод getInstance() возвращающий значение поля instance.
+5. Метод getInstance должен всегда возвращать один и тот же объект.
+ */
+
+
+/*
 public class Solution {
   public static void main(String[] args) throws Exception {
     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -61,7 +169,7 @@ public class Solution {
   }
 }
 
-
+*/
 /*
 НОД
 Давай найдем наибольший общий делитель (НОД). Для этого:
