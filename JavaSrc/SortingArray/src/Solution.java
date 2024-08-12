@@ -2,6 +2,7 @@
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.imageio.stream.FileImageOutputStream;
+import java.awt.print.Book;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystemException;
@@ -23,8 +24,269 @@ import java.lang.StackTraceElement;
 import  java.util.function.Function;
 
 
+public class Solution {
+  public static int A = 0;
+
+  static {
+    //throw an exception here - выбросьте эксепшн тут
+
+    if (true) throw new ExceptionInInitializerError();
+
+  }
+
+  public static int B = 5;
+
+  public static void main(String[] args) {
+    System.out.println(B);
+  }
+}
+
+/*
+
+Статики и исключения
+В статическом блоке класса Solution напиши код, выполнение которого приведет к возникновению исключения.
+В результате класс не загрузится, и вместо значения переменной B появится сообщение об ошибке:
+Exception in thread "main" java.lang.ExceptionInInitializerError
+at java.lang.Class.forName0(Native Method)
+at java.lang.Class.forName(Class.java:186)
+at com.intellij.rt.execution.application.AppMain.main(AppMain.java:113)
+Caused by: java.lang.RuntimeException:
+at com.javarush.task.task15.task1517.Solution.<clinit>(Solution.java:22)
+
+Hint: Нужно погуглить причину, если получилось следующее:
+java: initializer must be able to complete normally
+java: unreachable statement
 
 
+Requirements:
+1. В классе Solution в статическом блоке должно возникать исключение (Exception).
+2. Программа не должна ничего выводить на экран, кроме автоматического сообщения о возникшем исключении.
+3. Программа не должна считывать данные с клавиатуры.
+4. Класс Solution должен быть public.
+ */
+
+/*
+public class Solution {
+  int intVar;
+  double doubleVar;
+  Double DoubleVar;
+  boolean booleanVar;
+  Object ObjectVar;
+  Exception ExceptionVar;
+  String StringVar;
+
+  public static void main(String[] args) {
+    Solution solution = new Solution();
+    System.out.println(solution.intVar);
+    System.out.println(solution.doubleVar);
+    System.out.println(solution.DoubleVar);
+    System.out.println(solution.booleanVar);
+    System.out.println(solution.ObjectVar);
+    System.out.println(solution.ExceptionVar);
+    System.out.println(solution.StringVar);
+
+  }
+}
+*/
+/*
+Значения по умолчанию
+В этой задаче тебе нужно:
+Создать 7 нестатических public полей класса:
+intVar типа int
+doubleVar типа double
+DoubleVar типа Double
+booleanVar типа boolean
+ObjectVar типа Object
+ExceptionVar типа Exception
+StringVar типа String
+Убедиться, что они инициализируются дефолтными значениями.
+Вывести их значения в заданном порядке в методе main()
+
+Requirements:
+1. В классе Solution должно быть объявлено поле intVar типа int.
+2. В классе Solution должно быть объявлено поле doubleVar типа double.
+3. В классе Solution должно быть объявлено поле DoubleVar типа Double.
+4. В классе Solution должно быть объявлено поле booleanVar типа boolean.
+5. В классе Solution должно быть объявлено поле ObjectVar типа Object.
+6. В классе Solution должно быть объявлено поле ExceptionVar типа Exception.
+7. В классе Solution должно быть объявлено поле StringVar типа String.
+8. Метод main должен выводить значения полей на экран (каждое — с новой строки или через пробел) в заданном порядке. Инициализировать переменные не нужно.
+
+ */
+
+/*
+public class Solution {
+  public static int A;
+  public static int B;
+  static {
+    try {
+      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+      A = Integer.parseInt(bufferedReader.readLine());
+      B = Integer.parseInt(bufferedReader.readLine());
+    }
+    catch (IOException e) {
+      A = 0;
+      B = 0;
+    }
+    finally {
+      bufferedReader.close();
+    }
+  }
+
+
+  public static final int MIN = min(A, B);
+
+  public static void main(String[] args) {
+    System.out.println(MIN);
+  }
+
+  public static int min(int a, int b) {
+    return a < b ? a : b;
+  }
+}
+*/
+
+/*
+Статики-2
+        В этой задаче тебе нужно:
+        В статическом блоке считать с консоли А и В — две переменные с типом int.
+        Обработать IOException в блоке catch.
+        Закрыть поток ввода методом close().
+
+        Requirements:
+        1. Поле A должно быть публичным и статическим.
+        2. Поле B должно быть публичным и статическим.
+        3. Программа должна считывать данные с клавиатуры в статическом блоке.
+        4. Программа должна инициализировать поля A и B в статическом блоке согласно введенным с клавиатуры значениям.
+        5. Программа должна выводить в консоль минимальное из введенных с клавиатуры значений.*/
+/*
+public class Solution {
+  public static void main(String[] args) {
+    printMatrix(2, 3, "8");
+  }
+
+  public static void printMatrix(int m, int n, String value) {
+    System.out.println("Заполняем объектами String");
+    printMatrix(m, n, (Object) value);
+  }
+
+  public static void printMatrix(String value) {
+    printMatrix(3, 3, (Object) value);
+  }
+
+
+
+
+  public static void printMatrix(int m, int n, Object value) {
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < n; j++) {
+        System.out.print(value);
+      }
+      System.out.println();
+    }
+  }
+}
+
+*/
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+    print((short) 1);
+    print((Number) 1);
+    print(1);
+    print((Integer) 1);
+    print((int) 1);
+  }
+
+  public static void print(Integer i) {
+    System.out.println("Это Integer");
+  }
+
+ // public static void print(int i) {System.out.println("Это Integer"); }
+
+  // public static void print(Short i) {     System.out.println("Это Object");   }
+
+  public static void print(Object i) {
+    System.out.println("Это Object");
+  }
+
+  public static void print(double i) {
+    System.out.println("Это double");
+  }
+
+  // public static void print(Double i) {    System.out.println("Это double");  }
+
+ // public static void print(float i) {   System.out.println("Это Double");  }
+}
+*/
+/*
+Что-то лишнее
+        Удали реализации всех лишних методов, чтобы вывод программы выглядел так:
+        Это double
+        Это Object
+        Это double
+        Это Integer
+        Это double
+
+
+        Requirements:
+        1. В классе Solution должен остаться метод print() с одним параметром типа Integer.
+        2. В классе Solution должен остаться метод print() с одним параметром типа Object.
+        3. В классе Solution должен остаться метод print() с одним параметром типа double.
+        4. Вывод на экран должен соответствовать условию.
+
+*/
+
+
+/*
+public class Solution {
+  public interface HasWeight {
+    int getWeight();
+  }
+
+  public interface HasHeight {
+    int getHeight();
+  }
+
+  public static class Human implements HasWeight, HasHeight {
+    @Override
+    public int getHeight() {
+      return 1;
+    }
+    @Override
+    public int getWeight() {
+      return 2;
+    }
+  }
+
+  public static void main(String[] args) {
+    Human human = new Human();
+    System.out.println(human.getHeight());
+    System.out.println(human.getWeight());
+  }
+}
+
+*/
+/*
+ООП - исправь ошибки в наследовании
+У каждого человека есть рост и вес. Класс Human реализует соответствующие интерфейсы.
+Но, похоже, в такой реализации закралась ошибка. Обрати внимание на вывод программы.
+Исправь ошибки в интерфейсах (подсказка: переименуй методы, согласно требований к задаче) и,
+соответственно, в остальном коде. На экран должны быть выведены рост и вес человека (любые положительные целые числа).
+
+
+Requirements:
+1. Метод int getValue() интерфейса HasWeight должен быть переименован в getWeight.
+2. Метод int getValue() интерфейса HasHeight должен быть переименован в getHeight.
+3. В классе Human должны быть переопределены методы getWeight и getHeight. Каждый из них должен возвращать любое целое число больше 0.
+4. В классе Human не должно быть метода getValue.
+5. В методе main у объекта класса human должны вызываться методы getWeight и getHeight.
+ */
+
+
+/*
 public class Solution {
   public static void main(String[] args) {
     List<Book> books = new LinkedList<Book>();
@@ -32,6 +294,38 @@ public class Solution {
     books.add(new AgathaChristieBook("Hercule Poirot"));
     System.out.println(books);
   }
+
+  public static class MarkTwainBook extends Book {
+
+    private String title;
+
+    public MarkTwainBook(String title) {
+      super("Mark Twain");
+      this.title = title;
+    }
+    public String getTitle() {
+      return title;
+    }
+
+    public MarkTwainBook getBook() { return this;}
+
+  }
+
+  public static class AgathaChristieBook extends Book {
+
+    private String title;
+    public AgathaChristieBook(String title) {
+      super("Agatha Christie");
+      this.title = title;
+    }
+    public String getTitle() {
+      return title;
+    }
+
+    public AgathaChristieBook getBook() { return this;};
+
+  }
+
 
   abstract static class Book {
     private String author;
@@ -49,6 +343,13 @@ public class Solution {
       String markTwainOutput = getBook().getTitle() + " was written by " + author;
 
       String output = "output";
+
+      if (getBook() instanceof MarkTwainBook) {
+        output = markTwainOutput;
+      } else if (getBook() instanceof AgathaChristieBook) {
+        output = agathaChristieOutput;
+      }
+
       //Add your code here
 
       return output;
@@ -62,7 +363,7 @@ public class Solution {
 
 }
 
-
+*/
 /*
 
 ООП - книги
