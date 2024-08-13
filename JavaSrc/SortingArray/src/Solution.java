@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.imageio.stream.FileImageOutputStream;
 import java.awt.print.Book;
 import java.io.*;
+import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystemException;
 import java.rmi.RemoteException;
@@ -24,6 +25,314 @@ import java.lang.StackTraceElement;
 import  java.util.function.Function;
 
 
+
+
+public class Solution {
+  public static void main(String[] args) {
+    new B(6);
+  }
+
+  public static class A {
+    private int f1 = 7;
+
+    public A(int f1) {
+      this.f1 = f1;
+      initialize();
+    }
+
+    private void initialize() {
+
+      System.out.println("A: " +  f1);
+    }
+  }
+
+  public static class B extends A {
+    protected int f1 = 3;
+
+    public B(int f1) {
+      super(f1);
+      this.f1 += f1;
+      initialize();
+    }
+
+    protected void initialize() {
+      System.out.println("B: " +f1);
+    }
+  }
+}
+
+/*
+Дебаг, дебаг, и еще раз дебаг
+Программа выводит 0 9, а должна — 6 9. Найди одну(!) ошибку и исправь ее.
+Используй дебаг. Для этого поставь breakpoint-ы (Ctrl+F8), потом зайди в меню Run -> Debug.
+F9 - выполнение кода до следующего breakpoint-а.
+F8 - переход к следующей строке кода.
+
+
+Requirements:
+1. Программа должна выводить данные на экран.
+2. Вывод на экран должен соответствовать условию задачи.
+3. У метода initialize() в классе A должен быть правильный модификатор доступа.
+4. Программа не должна считывать данные с клавиатуры.
+ */
+
+
+/*
+
+BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+    String fileName = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+    // fileName = bufferedReader.readLine();
+    FileInputStream fileInputStream = new FileInputStream(fileName);
+    Scanner scanner = new Scanner(fileInputStream);
+    ArrayList<Integer> arrayList = new ArrayList<>();
+    while (scanner.hasNextInt()) {
+      int buf = scanner.nextInt();
+      if (buf % 2 == 0) {
+        arrayList.add(buf);
+      }
+    }
+    Collections.sort(arrayList);
+    for (int i = 0; i < arrayList.size(); i++) {
+      System.out.println(arrayList.get(i));
+    }
+    scanner.close();
+    bufferedReader.close();
+  }
+ */
+/*
+public class Solution {
+  public static List<String> lines = new ArrayList<String>();
+
+  static {
+    try {
+      FileInputStream fileInputStream = new FileInputStream(Statics.FILE_NAME);
+      Scanner scanner = new Scanner(fileInputStream);
+      while (scanner.hasNext()) {
+        lines.add(scanner.nextLine());
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void main(String[] args) {
+    System.out.println(lines);
+  }
+
+
+
+
+
+
+
+}
+
+
+*/
+/*
+
+Файл в статическом блоке
+Для решения этой задачи:
++ Инициализируй переменную Statics.FILE_NAME полным путем к файлу с данными, который содержит несколько строк.
+В статическом блоке считай из файла с именем Statics.FILE_NAME все строки и добавь их по отдельности в List lines.
+
+Requirements:
++1. Константа FILE_NAME не должна быть пустой.
+2. В статическом блоке все строки из файла с именем FILE_NAME должны быть добавлены по отдельности в список lines.
++3. Поле FILE_NAME НЕ должно быть final.
++4. Класс Solution должен содержать список lines.
+ */
+
+
+/*
+public class Solution {
+  static {
+    init();
+  }
+
+  static {
+    System.out.println("Static block");
+  }
+
+  {
+    System.out.println("Non-static block");
+    printAllFields(this);
+  }
+
+  public int i = 6;
+
+  public String name = "First name";
+
+
+
+  public Solution() {
+    System.out.println("Solution constructor");
+    printAllFields(this);
+  }
+
+  public static void init() {
+    System.out.println("static void init()");
+  }
+
+  public static void main(String[] args) {
+    System.out.println("public static void main");
+    Solution s = new Solution();
+  }
+
+  public static void printAllFields(Solution obj) {
+    System.out.println("static void printAllFields");
+    System.out.println(obj.i);
+    System.out.println(obj.name);
+  }
+}
+*/
+/*
+    Порядок загрузки переменных
+        Разберись, что и в какой последовательности инициализируется в этой программе, а затем:
+        Поставь брейкпойнты и используй дебаггер.
+        Исправь порядок инициализации данных так, чтобы результат был следующим:
++ static void init()
++        Static block
++ public static void main
++        Non-static block
++ static void printAllFields
++        0
++        null
++        Solution constructor
++static void printAllFields
++        6
++        First name
+
+        Requirements:
+        1. Программа должна выводить данные на экран.
+        2. Вывод на экран должен соответствовать условию задачи.
+        3. Результатом работы статического инициализатора класса Solution должен быть вывод на экран строк "static void init()" и "Static block".
+        4. Программа не должна считывать данные с клавиатуры.
+
+     */
+
+
+/*
+public class Solution {
+  public static void main(String[] args) throws IOException {
+    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    String buffer = bufferedReader.readLine();
+    while (!buffer.equals("exit")) {
+       try {
+        if (buffer.indexOf(".") >= 0) {
+          print((Double) Double.parseDouble(buffer));
+        } else if ((Integer.parseInt(buffer) > 0) && (Integer.parseInt(buffer) < 128)) {
+          print((Short) Short.parseShort(buffer));
+        } else if ((Integer.parseInt(buffer) >= 128) || (Integer.parseInt(buffer) <= 0)) {
+          print((Integer) Integer.parseInt(buffer));
+        } else {
+          print("+" + buffer);
+        }
+      } catch (NumberFormatException e) {
+        print(buffer);
+      }
+     buffer = bufferedReader.readLine();
+    }
+
+
+
+    //напиште тут ваш код
+  }
+
+  public static void print(Double value) {
+    System.out.println("Это тип Double, значение " + value);
+  }
+
+  public static void print(String value) {
+    System.out.println("Это тип String, значение " + value);
+  }
+
+  public static void print(short value) {
+    System.out.println("Это тип short, значение " + value);
+  }
+
+  public static void print(Integer value) {
+    System.out.println("Это тип Integer, значение " + value);
+  }
+}
+
+*/
+/*
+Разные методы для разных типов
+В этой задаче тебе нужно:
+Считывать с консоли данные, пока не будет введено слово "exit".
+Для каждого значения, кроме "exit", вызвать метод print(). Если значение:
+содержит точку '.', вызвать метод print() для Double;
+больше нуля, но меньше 128, вызвать метод print() для short;
+меньше либо равно нулю или больше либо равно 128, вызвать метод print() для Integer;
+иначе — вызвать метод print() для String.
+
+Requirements:
++1. Программа должна считывать данные с клавиатуры.
++2. Программа должна прекращать считывать данные с клавиатуры после того, как введена строка "exit".
++3. Если введенная строка содержит точку("."), и ее можно корректно преобразовать в число типа Double - должен быть вызван метод print(Double value).
+4. Если введенная строка может быть корректно преобразована в число типа short и полученное число больше 0, но меньше 128 - должен быть вызван метод print(short value).
+5. Если введенная строка может быть корректно преобразована в число типа Integer и полученное число меньше или равно 0 или больше или равно 128 - должен быть вызван метод print(Integer value).
+6. Во всех остальных случаях должен быть вызван метод print(String value).
+
+ */
+
+
+/*
+public class Solution {
+  public static void main(String[] args) throws IOException {
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+//    int input = Integer.parseInt(reader.readLine());
+    int input = 150;
+
+    reader.close();
+
+    System.out.println(factorial(input));
+  }
+
+  public static String factorial(int n) {
+    //add your code here
+    String result = "";
+    if (n < 0) {
+      result = "0";
+    } else if (n == 0) {
+      result = "1";
+    } else {
+      BigDecimal buf = new BigDecimal(1);
+      for (int i = 1; i <= n ; i++) {
+        buf = buf.multiply(new BigDecimal(i));
+      }
+      result = "" + buf;
+    }
+    return result;
+  }
+}
+*/
+/*
+Факториал
+Напиши метод, который вычисляет факториал - произведение всех чисел от 1 до введенного числа, включая его.
+
+Пример вычислений: 4! = factorial(4) = 1*2*3*4
+Пример вывода: 24
+
+Для этого:
+Введи с консоли число меньше либо равно 150.
+Реализуй функцию factorial.
+Если введенное число меньше 0, выведи 0.
+0! = 1
+
+Requirements:
+1. Программа должна считывать данные с клавиатуры.
+2. Программа должна выводить на экран факториал введенного числа.
+3. Метод factorial должен возвращать строковое представление факториала числа, переданного ему в качестве параметра.
+4. Метод factorial должен принимать один параметр типа int.
+ */
+
+
+
+/*
 public class Solution {
   public static int A = 0;
 
@@ -40,7 +349,7 @@ public class Solution {
     System.out.println(B);
   }
 }
-
+*/
 /*
 
 Статики и исключения
