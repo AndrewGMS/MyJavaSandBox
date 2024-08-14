@@ -26,6 +26,688 @@ import  java.util.function.Function;
 
 
 
+public class Solution {
+    public static void main(String[] args) throws InterruptedException {
+        Cat cat1 = new Cat("Мурка");
+        Cat cat2 = new Cat("Пушинка");
+    }
+
+    private static void investigateWorld() {
+        try {
+            Thread.sleep(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public static class Cat extends Thread {
+        protected Kitten kitten1;
+        protected Kitten kitten2;
+
+        public Cat(String name) {
+            super(name);
+            kitten1 = new Kitten("Котенок 1, мама - " + getName());
+            kitten2 = new Kitten("Котенок 2, мама - " + getName());
+            start();
+        }
+
+        public void run() {
+            System.out.println(getName() + " родила 2 котят");
+            try {
+                initAllKittens();
+            } catch (InterruptedException e) {
+            }
+            System.out.println(getName() + ": Все котята в корзинке. " + getName() + " собрала их назад");
+        }
+
+        private void initAllKittens() throws InterruptedException {
+            kitten1.start();
+            kitten1.join();
+            kitten2.start();
+            kitten2.join();
+        }
+    }
+
+    public static class Kitten extends Thread {
+        public Kitten(String name) {
+            super(name);
+        }
+
+        public void run() {
+            System.out.println(getName() + ", вылез из корзинки");
+            investigateWorld();
+        }
+    }
+}
+/*
+    Расставь вызовы методов join()
+1. Разберись, что делает программа.
+        2. Расставь вызовы методов join() так, чтобы для каждой кошки выполнялось следующее:
+        2.1. Сначала кошка рожает котят.
+        2.2. Потом все котята вылезают из корзинки в произвольном порядке.
+        2.3. В конце кошка собирает их назад в корзинку.
+        2.4. Все события для одной кошки могут быть перемешаны с событиями для другой кошки.
+        2.5. Добавить сон котят (200 мс) в investigateWorld.
+
+
+        Requirements:
+        1. У каждого котенка (объекта типа Kitten) должен быть вызван метод join.
+        2. Метод investigateWorld должен обеспечивать сон котенка на 200 мс. Используй метод Thread.sleep(200).
+        3. Программа должна создавать две кошки и четырех котят.
+        4. Методы, которые отвечают за вывод в консоль, не изменять.
+        5. Вывод программы должен отображать выполнение требований условия.
+        */
+
+/*
+public class Solution {
+    public static int totalSpeechCount = 200;
+    public static int utterancesPerSpeech = 1000000;
+
+    public static void main(String[] args) throws InterruptedException {
+        Politician ivanov = new Politician("Иванов");
+        ivanov.join();
+        Politician petrov = new Politician("Петров");
+        Politician sidorov = new Politician("Сидоров");
+
+        while (ivanov.getSpeechCount() + petrov.getSpeechCount() + sidorov.getSpeechCount() < totalSpeechCount) {
+
+                   }
+
+        System.out.println(ivanov);
+        System.out.println(petrov);
+        System.out.println(sidorov);
+    }
+
+    public static class Politician extends Thread {
+        private volatile int utteranceCount;
+
+        public Politician(String name) {
+            super(name);
+            start();
+        }
+
+        public void run() {
+            while (utteranceCount < totalSpeechCount * utterancesPerSpeech) {
+                utteranceCount++;
+            }
+        }
+
+        public int getSpeechCount() {
+            return utteranceCount / utterancesPerSpeech;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%s сказал речь %d раз", getName(), getSpeechCount());
+        }
+    }
+}
+*/
+/*
+Продвижение на политических дебатах
+1. Разберись, что делает программа.
+2. Нужно сделать так, чтобы Иванов сказал больше всего речей на политических дебатах.
+3. Подумай, какой метод можно вызвать у объекта ivanov, чтобы Иванов разговаривал, пока не завершится всё свободное время.
+
+
+Requirements:
+1. Вызови метод join у нужного объекта.
+2. Метод toString класса политик Politician должен выводить сколько речей сказал политик, например: "Иванов сказал речь 35 раз".
+3. Программа должна создавать 3 объекта типа Politician.
+4. Методы, которые отвечают за вывод в консоль, не изменять.
+5. Вывод программы должен свидетельствовать о том, что Иванов сказал больше всего речей на политических дебатах.
+ */
+
+/*
+public class Solution {
+
+    public static void main(String[] args) throws InterruptedException {
+        List<Horse> horses = prepareHorsesAndStart(10);
+        while (calculateHorsesFinished(horses) != horses.size()) {
+        }
+    }
+
+    public static int calculateHorsesFinished(List<Horse> horses) throws InterruptedException {
+        int finishedCount = 0;
+        for (Horse horse : horses) {
+            if (!horse.isFinished()) {
+                System.out.println(String.format("Waiting for %s",  horse.getName()));
+                horse.join();
+
+            } else finishedCount++;
+
+        }
+
+        return finishedCount;
+    }
+
+    public static List<Horse> prepareHorsesAndStart(int horseCount) {
+        List<Horse> horses = new ArrayList<>(horseCount);
+        String number;
+        for (int i = 1; i < horseCount + 1; i++) {
+            number = i < 10 ? ("0" + i) : "" + i;
+            horses.add(new Horse("Horse_" + number));
+        }
+
+        System.out.println("All horses start the race!");
+        for (int i = 0; i < horseCount; i++) {
+            horses.get(i).start();
+        }
+        return horses;
+    }
+}
+
+class Horse extends Thread {
+
+    private boolean isFinished;
+
+    public Horse(String name) {
+        super(name);
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void run() {
+        String s = "";
+        for (int i = 0; i < 1001; i++) {   // Delay
+            s += "" + i;
+            if (i == 1000) {
+                s = " has finished the race!";
+                System.out.println(getName() + s);
+                isFinished = true;
+            }
+        }
+    }
+}
+*/
+/*
+Horse Racing
+Разберись, что делает программа.
+Реализуй метод calculateHorsesFinished.
+Он должен:
+1. Посчитать количество финишировавших лошадей и возвратить его. Используй метод isFinished().
+2. Если лошадь еще не пришла к финишу (!isFinished()), то:
+2.1. Вывести в консоль "Waiting for " + horse.getName().
+2.2. Подождать, пока она завершит гонку. Подумай, какой метод нужно использовать для этого.
+2.3. Не считать такую лошадь финишировавшей.
+
+
+Requirements:
+1. Метод calculateHorsesFinished должен вернуть количество финишировавших лошадей.
+2. Метод calculateHorsesFinished должен вызывать метод isFinished у каждой лошади из переданного списка.
+3. Если какая-либо из переданных в списке лошадей еще не финишировала, метод calculateHorsesFinished должен вывести в консоль "Waiting for " + horse.getName().
+
+ Пример сообщения для первой лошади: "Waiting for Horse_01".
+4. Если какая-либо из переданных в списке лошадей еще не финишировала, метод calculateHorsesFinished
+должен подождать пока она финиширует. Используй правильный метод для ожидания.
+5. После завершения работы программы, консоль должна содержать информацию о том, что все лошади финишировали.
+Пример сообщения для первой лошади: "Horse_01 has finished the race!".
+ */
+
+/*
+public class Solution {
+    public static void main(String[] args) throws InterruptedException {
+        PrintListThread firstThread = new PrintListThread("firstThread");
+        PrintListThread secondThread = new PrintListThread("secondThread");
+        firstThread.start();
+        firstThread.join();
+        secondThread.start();
+    }
+
+    public static void printList(List<String> list, String threadName) {
+        for (String item : list) {
+            System.out.println(String.format("%s : %s", threadName, item));
+        }
+    }
+
+    public static List<String> getList(int n) {
+        List<String> result = new ArrayList<String>();
+        if (n < 1) return result;
+
+        for (int i = 0; i < n; i++) {
+            result.add(String.format("String %d", (i + 1)));
+        }
+        return result;
+    }
+
+    public static class PrintListThread extends Thread {
+        public PrintListThread(String name) {
+            super(name);
+        }
+
+        public void run() {
+            printList(getList(20), getName());
+        }
+    }
+}
+*/
+/*
+join: в нужное время в нужном месте
+Подумай, в каком месте и для какого объекта нужно вызвать метод join, чтобы результат выводился по-порядку
+сначала для firstThread, а потом для secondThread.
+Вызови метод join в нужном месте.
+
+Пример вывода:
+firstThread : String 1
+firstThread : String 2
+...
+firstThread : String 19
+firstThread : String 20
+secondThread : String 1
+...
+secondThread : String 20
+
+
+Requirements:
+1. Метод main должен вызывать метод join для объекта firstThread.
+2. Метод main не должен вызывать метод join для объекта secondThread.
+3. Метод main не должен вызывать System.out.println() или System.out.print().
+4. Вывод программы должен соответствовать примеру из задания.
+ */
+
+/*
+public class Solution {
+    public static int delay = 1000;
+
+    public static void main(String[] args) {
+        Thread violin = new Thread(new Violin("Player"));
+        violin.start();
+    }
+
+    public static void sleepNSeconds(int n) {
+        try {
+            Thread.sleep(n * delay);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public interface MusicalInstrument extends Runnable {
+        Date startPlaying();
+
+        Date stopPlaying();
+    }
+
+    public static class Violin implements MusicalInstrument{
+        private String owner;
+
+        public Violin(String owner) {
+            this.owner = owner;
+        }
+
+        public Date startPlaying() {
+            System.out.println(this.owner + " is starting to play");
+            return new Date();
+        }
+
+        public Date stopPlaying() {
+            System.out.println(this.owner + " is stopping playing");
+            return new Date();
+        }
+
+        @Override
+        public void run() {
+            Date dateStart = startPlaying();
+            sleepNSeconds(1);
+            Date dateEnd = stopPlaying();
+            System.out.println(String.format("Playing %s ms", dateEnd.getTime() - dateStart.getTime()));
+
+        }
+    }
+}
+*/
+/*
+Поговорим о музыке
+1. Измени класс Violin так, чтоб он стал таском для нити. Используй интерфейс MusicalInstrument
+2. Реализуй необходимый метод в нити Violin. Реализация должна быть следующей:
+2.1. Считай время начала игры - метод startPlaying().
+2.2. Подожди 1 секунду - метод sleepNSeconds(int n), где n - количество секунд.
+2.3. Считай время окончания игры - метод stopPlaying().
+2.4. Выведи на консоль продолжительность игры в миллисекундах. Используй методы из пунктов 2.1 и 2.3.
+
+Пример "Playing 1002 ms".
+
+
+Requirements:
++ 1. Класс Violin не должен быть унаследован от какого-либо дополнительного класса.
++ 2. Класс Violin должен реализовывать интерфейс MusicalInstrument.
++ 3. Метод run класса Violin должен вызывать метод startPlaying.
+4. Метод run класса Violin должен вызывать метод sleepNSeconds с параметром 1 секунда.
+5. Метод run класса Violin должен вызывать метод stopPlaying.
+6. Метод run класса Violin должен выводить на консоль продолжительность игры в миллисекундах. Используй формат из примера.
+ */
+
+/*
+public class Solution {
+    public static void main(String[] args) throws InterruptedException {
+        Thread thread = new Thread(new SpecialThread());
+        thread.start();
+
+        System.out.println("*****************");
+
+        for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+            System.out.println(element);
+        }
+    }
+
+    public static class SpecialThread implements Runnable {
+        @Override
+        public void run() {
+            for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+                System.out.println(element);
+            }
+        }
+    }
+}
+*/
+/*
+Вывод стек-трейса
+1. Создать таск (public static класс SpecialThread, который реализует интерфейс Runnable).
+2. SpecialThread должен выводить в консоль свой стек-трейс.
+
+Подсказка: main thread уже выводит в консоль свой стек-трейс.
+
+
+Requirements:
+1. Добавь в класс Solution публичный статический класс SpecialThread.
+2. Класс SpecialThread не должен быть унаследован от какого-либо дополнительного класса.
+3. Класс SpecialThread должен реализовывать интерфейс Runnable.
+4. Метод run класса SpecialThread должен выводить свой стек-трейс.
+ */
+
+/*
+public class Solution {
+    public static volatile List<Thread> list = new ArrayList<Thread>(5);
+
+    public static void main(String[] args) {
+        list.add(new Thread(new SpecialThread()));
+        list.add(new Thread(new SpecialThread()));
+        list.add(new Thread(new SpecialThread()));
+        list.add(new Thread(new SpecialThread()));
+        list.add(new Thread(new SpecialThread()));
+
+    }
+
+    public static class SpecialThread implements Runnable {
+        public void run() {
+            System.out.println("it's a run method inside SpecialThread");
+        }
+    }
+}
+*/
+/*
+    Список и нити
+        В методе main добавить в статический объект list 5 нитей. Каждая нить должна быть новым объектом класса Thread, работающим со своим объектом класса SpecialThread.
+
+
+        Requirements:
+        1. В методе main создай 5 объектов типа SpecialThread.
+        2. В методе main создай 5 объектов типа Thread.
+        3. Добавь 5 разных нитей в список list.
+        4. Каждая нить из списка list должна работать со своим объектом класса SpecialThread.
+        5. Класс SpecialThread изменять нельзя.
+
+        */
+
+
+
+/*
+public class Solution {
+    public static void main(String[] args) {
+        TestThread thread = new TestThread();
+        thread.start();
+    }
+
+    public static class TestThread extends Thread {
+        static {
+            System.out.println("it's a static block inside TestThread");
+        }
+
+        @Override
+        public void run() {
+            System.out.println("it's a run method");
+        }
+    }
+}
+
+*/
+/*
+My second thread
+1. Создать public static класс TestThread, унаследованный от класса Thread.
+2. Создать статик блок внутри TestThread, который выводит в консоль "it's a static block inside TestThread".
+3. Метод run должен выводить в консоль "it's a run method".
+
+
+Requirements:
+1. Добавь в класс Solution публичный статический класс TestThread.
+2. Класс TestThread должен быть унаследован от класса Thread.
+3. Класс TestThread не должен реализовывать какие-либо дополнительные интерфейсов.
+4. Создать статик блок внутри TestThread, который выводит в консоль "it's a static block inside TestThread".
+5. Метод run класса TestThread должен выводить "it's a run method".
+6. Метод main не изменять.
+ */
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+    TestThread task = new TestThread();
+    new Thread(task).start();
+  }
+
+  public static class TestThread implements Runnable {
+      @Override
+      public void run() {
+          System.out.println("My first thread");
+      }
+  }
+}
+
+*/
+/*
+
+My first thread
+Создать public static class TestThread - нить с интерфейсом Runnable.
+TestThread должен выводить в консоль "My first thread".
+
+
+Requirements:
+1. Добавь в класс Solution публичный статический класс TestThread.
+2. Класс TestThread должен реализовывать интерфейс Runnable.
+3. Метод run класса TestThread должен выводить "My first thread".
+4. Программа должна вывести "My first thread".
+5. Метод main не изменять.
+ */
+
+
+/*
+public class Solution {
+  public static void main(String[] args) {
+    System.out.println(new Hryvnia().getAmount());
+  }
+
+  public static abstract class Money {
+    abstract Money getMoney();
+
+    public Object getAmount() {
+      return getMoney().getAmount();
+    }
+  }
+
+  //add your code below - добавь код ниже
+  public static class Hryvnia extends Money {
+    private double amount = 123d;
+
+
+    public Double getAmount() {
+      return amount;
+    }
+
+    public Hryvnia getMoney() {
+      return this;
+    }
+  }
+}
+
+*/
+/*
+
+ООП. Hryvnia — тоже деньги
+Исправь класс Hryvnia так, чтоб избежать возникновения ошибки StackOverflowError.
+
+
+Requirements:
++ 1. Класс Hryvnia должен быть потомком класса Money.
+2. В классе Hryvnia должен быть реализован метод getAmount.
+3. Метод getAmount в классе Hryvnia должен возвращать значение поля amount.
+4. При выполнении программы не должны возникать исключения или ошибки.
+ */
+
+
+/*
+public class Solution {
+  public static void main(String[] args) throws IOException {
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+//    String url = reader.readLine();
+    String url = "http://javarush.ru/alpha/index.html?lvl=15&view&name=Amigo";
+//    String url = "http://javarush.ru/alpha/index.html?obj=3.14&name=Amigo";
+    String paramsSubString = url.substring(url.lastIndexOf("?") + 1);
+    String[] splitParams = paramsSubString.split("&");
+    String objValue = null;
+
+    StringBuilder resultBuilder = new StringBuilder();
+    for (String splitParam : splitParams) {
+      String[] paramAndValue = splitParam.split("=");
+      resultBuilder.append(paramAndValue[0]);
+      resultBuilder.append(" ");
+
+      if (paramAndValue[0].equals("obj")) {
+        objValue = paramAndValue[1];
+      }
+    }
+
+    System.out.println(resultBuilder.toString().trim());
+
+    if (objValue != null) {
+      try {
+        alert(Double.parseDouble(objValue));
+      } catch (NumberFormatException nfe) {
+        alert(objValue);
+      }
+    }
+  }
+
+  public static void alert(double value) {
+    System.out.println("double: " + value);
+  }
+
+  public static void alert(String value) {
+    System.out.println("String: " + value);
+  }
+}
+*/
+/*
+public class Solution {
+  public static void main(String[] args) throws IOException {
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+//    String url = reader.readLine();
+    String url = "http://javarush.ru/alpha/index.html?lvl=15&view&name=Amigo";
+//    String url = "http://javarush.ru/alpha/index.html?obj=dfd3.14&name=Amigo";
+    String params = "";
+    String objValue = "";
+ //   System.out.println(url);
+    if (url.indexOf("?") > 0) {
+      url = url.substring(url.indexOf("?") + 1);
+      if (!url.substring(url.length() -1).equals("&")) {
+        url += "&";
+      }
+
+  //    System.out.println(url);
+      while (url.length() > 0) {
+        String buf = url.substring(0, url.indexOf("&"));
+        url = url.substring(url.indexOf("&") + 1);
+   //     System.out.println(url);
+   //     System.out.println(buf);
+        String paramsName = buf.indexOf("=") >= 0 ? buf.substring(0, buf.indexOf("=")): buf;
+
+        if (paramsName.equals("obj")) {
+          objValue = paramsName.equals("obj") ? buf.substring(buf.indexOf("=") + 1) : "";
+        }
+
+        params += params.length() > 0 ? " " : "";
+        params += paramsName;
+
+     //   System.out.println(params);
+//        int indexStart = url.indexOf("&");
+//        int indexStart = url.indexOf("=");
+//        int indexEnd = url.indexOf("=");
+      }
+      // System.out.println(params + "- params");
+      // System.out.println(objValue + "- obj");
+    }
+    System.out.println(params);
+    if (objValue.length() > 0) {
+      try {
+        alert(Double.parseDouble(objValue));
+      } catch (Exception e) {
+        alert(objValue);
+      }
+    }
+
+    //напишите тут ваш код
+  }
+
+  public static void alert(double value) {
+    System.out.println("double: " + value);
+  }
+
+  public static void alert(String value) {
+    System.out.println("String: " + value);
+  }
+}
+*/
+/*
+
+Парсер реквестов
+Для решения этой задачи тебе нужно:
+Считать с консоли URL-ссылку.
+Вывести на экран список всех параметров через пробел (Параметры идут после ? и разделяются &, например, lvl=15).
+URL содержит минимум 1 параметр.
+Выводить параметры нужно в той же последовательности, в которой они представлены в URL.
+Если присутствует параметр obj, то передать его значение в нужный метод alert():
+alert(double value) - для чисел (не забывай о том, что число может быть дробным);
+alert(String value) - для строк.
+Обрати внимание на то, что метод alert() необходимо вызывать после вывода списка всех параметров на экран.
+Пример 1
+
+Ввод:
+http://javarush.ru/alpha/index.html?lvl=15&view&name=Amigo
+
+Вывод:
+lvl view name
+
+Пример 2
+
+Ввод:
+http://javarush.ru/alpha/index.html?obj=3.14&name=Amigo
+
+Вывод:
+obj name
+double: 3.14
+
+
+Requirements:
+1. Программа должна считывать с клавиатуры только одну строку.
+2. Класс Solution не должен содержать статические поля.
+3. Программа должна выводить данные на экран в соответствии с условием.
+4. Программа должна вызывать метод alert() с параметром double, если значение параметра obj можно корректно преобразовать в число типа double.
+5. Программа должна вызывать метод alert() с параметром String, если значение параметра obj нельзя корректно преобразовать в число типа double.
+ */
+
+/*
 
 public class Solution {
   public static void main(String[] args) {
@@ -60,7 +742,7 @@ public class Solution {
     }
   }
 }
-
+*/
 /*
 Дебаг, дебаг, и еще раз дебаг
 Программа выводит 0 9, а должна — 6 9. Найди одну(!) ошибку и исправь ее.
