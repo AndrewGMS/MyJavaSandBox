@@ -25,7 +25,648 @@ import java.lang.StackTraceElement;
 import  java.util.function.Function;
 
 
+public class Solution {
+    public static byte threadCount = 3;
+    static List<Thread> threads = new ArrayList<Thread>(threadCount);
 
+    public static void main(String[] args) throws InterruptedException {
+        initThreadsAndStart();
+        Thread.sleep(3000);
+        ourInterruptMethod();
+    }
+
+    public static void ourInterruptMethod() {
+        //add your code here - добавь код тут
+        for (int i = 0; i < threads.size(); i++) {
+            threads.get(i).interrupt();
+
+        }
+    }
+
+    private static void initThreadsAndStart() {
+        Water water = new Water("water");
+        for (int i = 0; i < threadCount; i++) {
+            threads.add(new Thread(water, "#" + i));
+        }
+
+        for (int i = 0; i < threadCount; i++) {
+            threads.get(i).start();
+        }
+    }
+
+    public static class Water implements Runnable {
+        private String sharedResource;
+
+
+        public Water(String sharedResource) {
+            this.sharedResource = sharedResource;
+        }
+
+        public void run() {
+            //fix 2 variables - исправь 2 переменных
+            boolean isCurrentThreadInterrupted = Thread.currentThread().isInterrupted();
+            String threadName = Thread.currentThread().getName();
+
+            try {
+                while (!isCurrentThreadInterrupted) {
+
+                    System.out.println("Объект " + sharedResource + ", нить " + threadName);
+                    Thread.sleep(1000);
+                }
+            } catch (InterruptedException e) {
+            }
+        }
+    }
+}
+
+
+/*
+Один для всех, все - для одного
+1. Разберись, как работает программа.
+1.1. Обрати внимание, что объект Water - один для всех нитей.
+2. Реализуй метод ourInterruptMethod, чтобы он прерывал все нити из threads.
+3. В методе run исправь значения переменных:
+3.1. isCurrentThreadInterrupted - должна равняться значению метода isInterrupted у текущей нити.
+3.2. threadName - должна равняться значению метода getName (реализовано в классе Thread) у текущей нити.
+
+
+Requirements:
+1. Метод ourInterruptMethod должен прервать все нити из списка threads.
+2. Метод run должен получать текущую нить с помощью Thread.currentThread.
+3. Метод run должен использовать метод isInterrupted текущей нити.
+4. Метод run должен использовать метод getName текущей нити.
+5. Метод main должен работать примерно 3 сек.
+ */
+
+
+/*
+public class Solution {
+    public static boolean areStop = false;
+
+    public static void main(String[] args) throws InterruptedException {
+        Thread t = new Thread(new TestThread());
+        t.start();
+        Thread.sleep(3000);
+        ourInterruptMethod();
+    }
+
+
+
+    public static void ourInterruptMethod() {
+      areStop = true;
+    }
+
+    public static class TestThread implements Runnable {
+
+        public void run() {
+            while (!areStop) {
+                try {
+                    System.out.println("he-he");
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                }
+            }
+        }
+    }
+}
+*/
+
+/*
+А без interrupt слабо?
+Разберись, как работает программа.
+Реализуй метод ourInterruptMethod таким образом, чтобы он прерывал нить TestThread. Исправь остальной код программы, если это необходимо. Нельзя использовать метод interrupt.
+
+
+Requirements:
++1. В классе Solution должен быть публичный статический метод ourInterruptMethod без параметров.
++2. Метод run должен выводить надпись "he-he" каждые пол секунды, пока не будет вызван метод ourInterruptMethod.
+3. Необходимо изменить условие цикла while в методе run.
++4. Метод main должен создавать объект типа Thread передавая в конструктор объект типа TestThread.
++5. Метод main должен вызывать метод start у объекта типа Thread.
++6. Метод main должен вызывать метод ourInterruptMethod.
+ */
+
+
+/*
+public class Solution {
+    public static void main(String[] args) throws InterruptedException {
+        //Add your code here - добавь код тут
+        TestThread testThread = new TestThread();
+        testThread.start();
+        testThread.interrupt();
+    }
+
+    //Add your code below - добавь код ниже
+    public static class TestThread extends Thread{
+        public void run() {}
+    }
+}
+*/
+/*
+    Снова interrupt
+    Создай нить TestThread.
+        В методе main создай экземпляр нити, запусти, а потом прерви ее используя метод interrupt().
+
+
+        Requirements:
+        1. Класс TestThread должен быть унаследован от Thread.
+        2. Класс TestThread должен иметь public void метод run.
+        3. Метод main должен создавать объект типа TestThread.
+        4. Метод main должен вызывать метод start у объекта типа TestThread.
+        5. Метод main должен вызывать метод interrupt у объекта типа TestThread.
+
+        */
+
+/*
+public class Solution {
+    public static volatile int numSeconds = 4;
+
+    public static void main(String[] args) throws InterruptedException {
+        RacingClock clock = new RacingClock();
+        //add your code here - добавь код тут
+        Thread.sleep(3500);
+        clock.interrupt();
+    }
+
+    public static class RacingClock extends Thread {
+        public RacingClock() {
+           start();
+
+
+
+        }
+
+        public void run() {
+            //add your code here - добавь код тут
+            try {
+                while (numSeconds > 0) {
+                    System.out.print(numSeconds + " ");
+                    numSeconds--;
+                    Thread.sleep(1000);
+                }
+                System.out.println("Марш!");
+            } catch (InterruptedException e) {
+                System.out.println("Прервано!");
+            }
+        }
+    }
+}
+*/
+/*
+
+Отсчет на гонках
+1. Разберись, что делает программа.
+2. Реализуй логику метода run так, чтобы каждую секунду через пробел
+выдавался отсчет начиная с numSeconds до 1, а потом слово [Марш!] (см примеры).
+3. Если нить работает 3.5 секунды или более, прерви ее методом interrupt и внутри нити выведи в консоль слово [Прервано!].
+
+Пример для numSeconds=4 :
+"4 3 2 1 Прервано!"
+
+4. Если нить работает менее 3.5 секунд, она должна завершиться сама.
+Пример для numSeconds=3 :
+"3 2 1 Марш!"
+
+PS: метод sleep выбрасывает InterruptedException.
+
+
+Requirements:
+1. Метод run класса RacingClock должен содержать цикл.
+2. Объект класса RacingClock должен каждую секунду уменьшать значение переменной numSeconds на единицу.
+3. Метод main должен вызывать Thread.sleep(3500).
+4. Метод main должен вызывать метод interrupt у объекта clock.
+5. Если numSeconds равно 3, то программа должна вывести "3 2 1 Марш!".
+6. Если numSeconds равно 4, то программа должна вывести "4 3 2 1 Прервано!".
+
+ */
+
+
+/*
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        InputStreamReader in = new InputStreamReader(System.in);
+        BufferedReader reader = new BufferedReader(in);
+        //create and run thread
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.start();
+        //read a string
+        reader.readLine();
+        stopwatch.interrupt();
+        //close streams
+        reader.close();
+        in.close();
+    }
+
+    public static class Stopwatch extends Thread {
+        private int seconds;
+
+        public void run() {
+            try {
+                //напишите тут ваш код
+                while (true) {
+                    Thread.sleep(1000);
+                    seconds++;
+                }
+            } catch (InterruptedException e) {
+                System.out.println(seconds);
+            }
+        }
+    }
+}
+*/
+/*
+Считаем секунды
+1. Напиши реализацию метода run в нити Stopwatch (секундомер).
+2. Stopwatch должен посчитать количество секунд, которое прошло от создания нити до ввода строки.
+3. Выведи количество секунд в консоль.
+
+
+Requirements:
+1. Метод run класса Stopwatch (секундомер) должен содержать цикл.
+2. Метод run должен вызывать Thread.sleep(1000).
+3. Метод run должен увеличивать значение поля seconds на 1 каждую секунду.
+4. После прерывания работы нити Stopwatch (вызова метода interrupt), метод run должен вывести количество секунд (seconds) в консоль.
+5. В классе Stopwatch должен быть только один метод run.
+ */
+
+/*
+public class Solution {
+    public static volatile Runway RUNWAY = new Runway();   // взлетная полоса
+
+    public static void main(String[] args) throws InterruptedException {
+        Plane plane1 = new Plane("Самолет #1");
+        Plane plane2 = new Plane("Самолет #2");
+        Plane plane3 = new Plane("Самолет #3");
+    }
+
+    private static void waiting() {
+        // напишите тут ваш код
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+        }
+
+    }
+
+    private static void takingOff() {
+        // исправь этот метод
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+        }
+    }
+
+    public static class Plane extends Thread {
+        public Plane(String name) {
+            super(name);
+            start();
+        }
+
+        public void run() {
+            boolean isAlreadyTakenOff = false;
+            while (!isAlreadyTakenOff) {
+                if (RUNWAY.trySetTakingOffPlane(this)) {    // если взлетная полоса свободна, занимаем ее
+                    System.out.println(getName() + " взлетает");
+                    takingOff();// взлетает
+                    System.out.println(getName() + " уже в небе");
+                    isAlreadyTakenOff = true;
+                    RUNWAY.setTakingOffPlane(null);
+                } else if (!this.equals(RUNWAY.getTakingOffPlane())) {  // если взлетная полоса занята самолетом
+                    System.out.println(getName() + " ожидает");
+                    waiting(); // ожидает
+                }
+            }
+        }
+    }
+
+    public static class Runway { // взлетная полоса
+        private Thread t;
+
+        public Thread getTakingOffPlane() {
+            return t;
+        }
+
+        public void setTakingOffPlane(Thread t) {
+            synchronized (this) {
+                this.t = t;
+            }
+        }
+
+        public boolean trySetTakingOffPlane(Thread t) {
+            synchronized (this) {
+                if (this.t == null) {
+                    this.t = t;
+                    return true;
+                }
+                return false;
+            }
+        }
+    }
+}
+*/
+/*
+Аэропорт
+1. Разберись, что делает программа.
+2. Исправь метод takingOff(взлет) - сейчас он работает оооочень долго. Взлет должен занимать 100 миллисекунд.
+3. Реализуй метод waiting по аналогии с методом takingOff.
+
+
+Requirements:
++1. Метод takingOff должен работать примерно 100 мс.
++2. Метод waiting должен работать примерно 100 мс.
++3. В методе main должно создаваться 3 самолета.
+4. В классе Solution должен быть вложенный класс Plane (самолет).
+5. В классе Solution должен быть вложенный класс Runway (взлетная полоса).
+ */
+/*
+public class Solution {
+    public static volatile List<String> list = new ArrayList<String>(5);
+
+    static {
+        for (int i = 0; i < 5; i++) {
+            list.add("Строка " + i);
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        Thread t = new Thread(new Countdown(3), "Countdown");
+        t.start();
+    }
+
+    public static class Countdown implements Runnable {
+        private int countFrom;
+
+        public Countdown(int countFrom) {
+            this.countFrom = countFrom;
+        }
+
+        public void run() {
+            try {
+                while (countFrom > 0) {
+                    printCountdown();
+                }
+            } catch (InterruptedException e) {
+            }
+        }
+
+        public void printCountdown() throws InterruptedException {
+            countFrom--;
+            Thread.sleep(500);
+            System.out.println(list.get(countFrom));
+
+        }
+    }
+}
+*/
+/*
+Обратный отсчет
+1. Разберись, что делает программа.
+2. Реализуй логику метода printCountdown так, чтобы программа каждые полсекунды выводила объект из переменной list. Выводить нужно в обратном порядке - от переданного в Countdown индекса до нуля.
+
+Пример:
+Передан индекс 3
+
+Пример вывода в консоль:
+Строка 2
+Строка 1
+Строка 0
+
+
+Requirements:
+1. Метод printCountdown должен работать примерно полсекунды.
+2. Метод printCountdown должен уменьшать (декрементировать) значение переменной countFrom на 1.
+3. Метод printCountdown должен выводить элемент списка list с индексом равным новому значению countFrom.
+4. Метод main должен создавать один объект типа Countdown.
+5. Вывод программы должен соответствовать примеру из условия.
+ */
+
+/*
+public class Solution {
+    public static volatile boolean isStopped = false;
+
+    public static void main(String[] args) throws InterruptedException {
+        Clock clock = new Clock("Лондон", 23, 59, 57);
+        Thread.sleep(4000);
+        isStopped = true;
+        Thread.sleep(1000);
+    }
+
+    public static class Clock extends Thread {
+        private String cityName;
+        private int hours;
+        private int minutes;
+        private int seconds;
+
+        public Clock(String cityName, int hours, int minutes, int seconds) {
+            this.cityName = cityName;
+            this.hours = hours;
+            this.minutes = minutes;
+            this.seconds = seconds;
+            start();
+        }
+
+        public void run() {
+            try {
+                while (!isStopped) {
+                    printTime();
+                }
+            } catch (InterruptedException e) {
+            }
+        }
+
+        private void printTime() throws InterruptedException {
+            //add your code here - добавь код тут
+
+            if (seconds == 59) {
+                seconds = 0;
+                if (minutes == 59) {
+                    minutes = 0;
+                    if (hours == 23) {
+                        hours = 0;
+                    } else hours++;
+                } else minutes++;
+            } else seconds++;
+
+            Thread.sleep(1000);
+            if (hours == 0 && minutes == 0 && seconds == 0) {
+                System.out.println(String.format("В г. %s сейчас полночь!", cityName));
+            } else {
+                System.out.println(String.format("В г. %s сейчас %d:%d:%d!", cityName, hours, minutes, seconds));
+            }
+        }
+    }
+}
+*/
+/*
+Big Ben clock
+1. Разберись, что делает программа.
+2. Реализуй логику метода printTime так, чтобы каждую секунду выдавалось время начиная с установленного в конструкторе (время, которое передали в конструктор, не выводить).
+
+Пример:
+В г. Лондон сейчас 23:59:58!
+В г. Лондон сейчас 23:59:59!
+В г. Лондон сейчас полночь!
+В г. Лондон сейчас 0:0:1!
+
+
+Requirements:
+1. Метод printTime должен работать примерно секунду.
+2. Метод printTime должен увеличивать (инкрементировать) количество секунд, хранимое в переменной seconds.
+3. Секунд, после инкремента времени, не может быть больше 59. Должно увеличиться количество минут.
+4. Минут, после инкремента времени, не может быть больше 59. Должно увеличиться количество часов.
+5. Часов, после инкремента времени, не может быть больше 23.
+ */
+
+/*
+public class Solution {
+    public static volatile boolean isStopped = false;
+
+    public static void main(String[] args) throws InterruptedException {
+        Runner ivanov = new Runner("Ivanov", 4);
+        Runner petrov = new Runner("Petrov", 2);
+        //на старт!
+        //внимание!
+        //марш!
+        ivanov.start();
+        petrov.start();
+        Thread.sleep(2000);
+        isStopped = true;
+        Thread.sleep(1000);
+    }
+
+    public static class Stopwatch extends Thread {
+        private Runner owner;
+        private int stepNumber;
+
+        public Stopwatch(Runner runner) {
+            this.owner = runner;
+        }
+
+        public void run() {
+            try {
+                while (!isStopped) {
+                    doStep();
+                }
+            } catch (InterruptedException e) {
+            }
+        }
+
+        private void doStep() throws InterruptedException {
+            stepNumber++;
+            Thread.sleep(1000/owner.getSpeed());
+            System.out.println(owner.getName() + " делает шаг №" + stepNumber + "!");
+        }
+    }
+
+    public static class Runner {
+        Stopwatch stopwatch;
+        private String name;
+        private int speed;
+
+        public Runner(String name, int speed) {
+            this.name = name;
+            this.speed = speed;
+            this.stopwatch = new Stopwatch(this);
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getSpeed() {
+            return speed;
+        }
+
+        public void start() {
+            stopwatch.start();
+        }
+    }
+}
+
+*/
+/*
+Stopwatch (Секундомер)
+1. Разберись, что делает программа.
+2. Реализуй логику метода doStep так, чтобы учитывалась скорость бегуна.
+2.1. Метод getSpeed() в классе Runner показывает, сколько шагов в секунду делает бегун.
+Нужно, чтобы бегун действительно делал заданное количество шагов в секунду.
+Если Иванов делает 4 шага в секунду, то за 2 секунды он сделает 8 шагов.
+Если Петров делает 2 шага в секунду, то за 2 секунды он сделает 4 шага.
+2.2. Метод sleep в классе Thread принимает параметр типа long.
+
+ВАЖНО! Используй метод Thread.sleep(), а не Stopwatch.sleep().
+
+
+Requirements:
++ 1. Метод getSpeed должен возвращать int.
++ 2. Поле speed класса Runner должно иметь тип int.
++ 3. Конструктор класса Runner должен принимать String и int.
+4. Метод doStep должен учитывать скорость бегуна. Если скорость бегуна 2 шага в секунду, метод должен работать пол секунды; если скорость бегуна 4 шага в секунду, метод должен работать четверть секунды.
+5. Вывод программы должен отображать сколько шагов сделали Иванов и Петров за 2 секунды.
+ */
+
+/*
+public class Solution {
+    public static volatile boolean isStopped = false;
+
+    public static void main(String[] args) throws InterruptedException {
+        Clock clock = new Clock();
+        Thread.sleep(2000);
+        isStopped = true;
+        System.out.println("The clock has to be stopped");
+        Thread.sleep(2000);
+        System.out.println("Double-check");
+    }
+
+    public static class Clock extends Thread {
+        public Clock() {
+            setPriority(MAX_PRIORITY);
+            start();
+        }
+
+        public void run() {
+            try {
+                while (!isStopped) {
+                    printTikTak();
+                }
+            } catch (InterruptedException e) {
+            }
+        }
+
+        private void printTikTak() throws InterruptedException {
+            try {
+                Thread.sleep(500);
+                System.out.println("Tik");
+                Thread.sleep(500);
+                System.out.println("Tak");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }
+}
+*/
+
+/*
+Часы
+1. Разберись, что делает программа.
+2. Реализуй логику метода printTikTak:
+2.1. Через первые полсекунды должна выводиться в консоль фраза: Tik
+2.2. Через вторые полсекунды должна выводиться в консоль фраза: Tak
+
+
+Requirements:
+1. Метод printTikTak должен выводить две строчки: "Tik" и "Tak".
+2. Метод printTikTak должен работать примерно секунду.
+3. Метод printTikTak должен два раза заснуть на полсекунды. Используй метод Thread.sleep(500)."Tik" и "Tak".
+4. В консоли не должно быть сообщений после фразы "Double-check".
+5. Метод main должен создавать объект типа Clock.
+
+ */
+
+/*
 public class Solution {
     public static void main(String[] args) throws InterruptedException {
         Cat cat1 = new Cat("Мурка");
@@ -81,6 +722,8 @@ public class Solution {
         }
     }
 }
+
+*/
 /*
     Расставь вызовы методов join()
 1. Разберись, что делает программа.
