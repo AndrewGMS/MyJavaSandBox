@@ -22,10 +22,620 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.lang.StackTraceElement;
+import java.util.concurrent.atomic.AtomicInteger;
 import  java.util.function.Function;
 
 
+public class Solution {
+    public static volatile BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+    public static void main(String[] args) throws InterruptedException {
+        Read3Strings t1 = new Read3Strings();
+        Read3Strings t2 = new Read3Strings();
+
+        //add your code here - добавьте код тут
+        t1.start();
+        t1.join();
+        t2.start();
+        t2.join();
+        t1.printResult();
+        t2.printResult();
+    }
+
+    //add your code here - добавьте код тут
+
+    public static class Read3Strings extends Thread {
+        private String result = "";
+
+
+        public void printResult() {
+            System.out.println(result);
+        }
+
+        @Override
+        public void run() {
+
+            try {
+                result = reader.readLine();
+                result = result + " " +reader.readLine();
+                result = result + " " +reader.readLine();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }
+}
+
+
+/*
+Только по-очереди!
++ 1. В классе Solution создать public static класс нити Read3Strings унаследовавшись от Thread.
+2. В методе run реализовать чтение с консоли трех строк.
+3. Три подряд введенных строки должны считываться в одной нити и объединяться в одну строку через пробел.
+4. В методе main вывести результат для каждой нити.
+5. Используй join.
+
+Пример:
+
+Входные данные:
+a
+b
+c
+d
+e
+f
+
+Выходные данные:
+a b c
+d e f
+
+
+Requirements:
++1. Объяви в классе Solution public static класс Read3Strings.
++2. Класс Read3Strings должен быть унаследован от Thread.
++3. Метод run класса Read3Strings должен считывать три строки.
+4. Класс Read3Strings должен содержать публичный метод printResult.
+5. Метод printResult должен выводить в консоль 3 считанные строки, разделив их пробелами.
+6. Метод main должен вызывать методы start у созданных нитей.
+7. Метод main должен вызывать методы join у созданных нитей.
+8. Вывод программы должен отображать, что потоки считывали строки последовательно, а не параллельно.
+ */
+
+/*
+public class Solution {
+    public static volatile AtomicInteger readStringCount = new AtomicInteger(0);
+    public static volatile BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+    public static void main(String[] args) throws IOException {
+        //read count of strings
+        int count = Integer.parseInt(reader.readLine());
+
+        //init threads
+        ReaderThread consoleReader1 = new ReaderThread();
+        ReaderThread consoleReader2 = new ReaderThread();
+        ReaderThread consoleReader3 = new ReaderThread();
+
+        consoleReader1.start();
+        consoleReader2.start();
+        consoleReader3.start();
+
+        while (count > readStringCount.get()) {
+        }
+
+        consoleReader1.interrupt();
+        consoleReader2.interrupt();
+        consoleReader3.interrupt();
+        System.out.println("#1:" + consoleReader1);
+        System.out.println("#2:" + consoleReader2);
+        System.out.println("#3:" + consoleReader3);
+
+        reader.close();
+    }
+
+    public static class ReaderThread extends Thread {
+        private List<String> result = new ArrayList<String>();
+
+        public void run() {
+            //напишите тут ваш код
+            String string;
+            try {
+                while (!Thread.currentThread().isInterrupted()) {
+                    if ((string = reader.readLine()) != null) {
+                        result.add(string);
+                        readStringCount.incrementAndGet();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+
+
+        }
+
+        @Override
+        public String toString() {
+            return result.toString();
+        }
+    }
+}
+*/
+/*
+Кто первый встал - того и тапки
+1. Разберись, что делает программа.
+1.1. Каждая нить должна читать с консоли строки. Используй готовый static BufferedReader reader.
+1.2. Используй AtomicInteger readStringCount, чтобы посчитать, сколько строк уже считано с консоли всеми нитями.
+2. Реализуй логику метода run:
+2.1. Пока нить не прервана (!isInterrupted) читай с консоли строки и добавляй их в поле List<String> result.
+2.2. Используй readStringCount для подсчета уже считанных с консоли строк.
+2.3. Тело метода run нужно поместить в блок try-catch.
+
+
+Requirements:
+1. Метод run должен работать пока нить не прервана (!isInterrupted).
+2. Метод run НЕ должен создавать свои InputStreamReader-ы или BufferedReader-ы.
+3. Метод run должен считывать строки из reader и добавлять их в список result.
+4. Метод run должен после каждого считывания увеличивать счетчик прочитанных строк readStringCount на 1.
+5. Программа должна выводить данные, считанные каждым потоком.
+
+ */
+
+
+
+
+
+/*
+public class Solution {
+    public static void main(String[] args) throws InterruptedException {
+        OnlineGame onlineGame = new OnlineGame();
+        onlineGame.start();
+    }
+
+    public static class OnlineGame extends Thread {
+        public static volatile boolean isWinnerFound = false;
+
+        public static List<String> steps = new ArrayList<String>();
+
+        static {
+            steps.add("Начало игры");
+            steps.add("Сбор ресурсов");
+            steps.add("Рост экономики");
+            steps.add("Убийство врагов");
+        }
+
+        protected Gamer gamer1 = new Gamer("Ivanov", 3);
+        protected Gamer gamer2 = new Gamer("Petrov", 1);
+        protected Gamer gamer3 = new Gamer("Sidorov", 5);
+
+        public void run() {
+            gamer1.start();
+            gamer2.start();
+            gamer3.start();
+
+            while (!isWinnerFound) {
+            }
+            gamer1.interrupt();
+            gamer2.interrupt();
+            gamer3.interrupt();
+        }
+    }
+
+    public static class Gamer extends Thread {
+        private int rating;
+
+        public Gamer(String name, int rating) {
+            super(name);
+            this.rating = rating;
+        }
+
+        @Override
+        public void run() {
+            //Add your code here - добавь код тут
+
+                try {
+                    for (int i = 0; i < OnlineGame.steps.size(); i++) {
+                    System.out.println(getName() +":"+ OnlineGame.steps.get(i));
+                    Thread.sleep(1000/rating);
+                    }
+
+                    if (!OnlineGame.isWinnerFound) {
+                        OnlineGame.isWinnerFound = true;
+                        System.out.println(getName() + ":победитель!");
+                    }
+
+
+
+                } catch (InterruptedException e) {
+                    System.out.println(getName() + ":проиграл");
+                }
+
+
+
+        }
+    }
+}
+*/
+/*
+Поиграем?
+Три человека играют в игру. Каждый игрок(Gamer) характеризуется двумя параметрами: фамилией(name) и количеством действий в секунду (rating).
+Нужно вывести в консоль ход игры и определить победителя и проигравших.
+Итак...
+1. Разберись, что делает программа.
+1.1. List<String> steps хранит последовательность действий, которое каждый игрок выполняет от 0 до последнего.
+1.2. isWinnerFound показывает, найден победитель или нет.
+1.3. Метод sleep выбрасывает InterruptedException и принимает параметр типа long.
+1.4. Игроки играют независимо друг от друга.
+2. Реализуй логику метода run так, чтобы для каждого игрока:
+2.1. Через равные интервалы времени (1000ms / rating) выводились в консоль действия, описанные в steps.
+2.2. Любой текст должен начинаться с фамилии игрока (метод getName()), потом следовать двоеточие, а затем сам текст.
+
+Пример:
+Ivanov:Начало игры
+
+2.3. Когда игрок выполнит все действия из steps, то он считается победителем. Выведи getName() + ":победитель!"
+2.4. Когда найден победитель, то игра останавливается, и остальные игроки считаются побежденными. Выведи для них getName() + ":проиграл"
+
+
+Requirements:
+1. Метод run класса Gamer через равные интервалы времени (1000ms / rating) должен выводить в консоль фамилию игрока (метод getName()), потом двоеточие, а затем текст из OnlineGame.steps. Пример: Ivanov:Начало игры
+2. Когда все игровые шаги будут выполнены, а победитель еще не найден, метод run должен установить флаг OnlineGame.isWinnerFound в true (сообщить остальным, что он победитель).
+3. Если игрок стал победителем, его метод run должен вывести надпись getName() + ":победитель!". Например: Sidorov:победитель!
+4. Методы run всех игроков которые не стали победителями (были прерваны), должны вывести надписи getName() + ":проиграл". Например: Petrov:проиграл
+5. Метод run не должен кидать исключение при прерывании.
+*/
+
+
+/*
+public class Solution {
+    public static int number = 5;
+
+    public static void main(String[] args) {
+        new Thread(new CountdownRunnable(), "Уменьшаем").start();
+        new Thread(new CountUpRunnable(), "Увеличиваем").start();
+    }
+
+    public static class CountUpRunnable implements Runnable{
+        //Add your code here - добавь код тут
+        private int countIndexUp = 0;
+
+        public void run() {
+            try {
+                while (true) {
+
+                    countIndexUp += 1;
+                    System.out.println(toString());
+                    Thread.sleep(500);
+                    if (countIndexUp == Solution.number) return;
+
+                }
+            } catch (InterruptedException e) {
+            }
+        }
+
+        public String toString() {
+            return Thread.currentThread().getName() + ": " + countIndexUp;
+        }
+    }
+
+
+    public static class CountdownRunnable implements Runnable {
+        private int countIndexDown = Solution.number;
+
+        public void run() {
+            try {
+                while (true) {
+                    System.out.println(toString());
+                    countIndexDown -= 1;
+                    if (countIndexDown == 0) return;
+                    Thread.sleep(500);
+                }
+            } catch (InterruptedException e) {
+            }
+        }
+
+        public String toString() {
+            return Thread.currentThread().getName() + ": " + countIndexDown;
+        }
+    }
+}
+*/
+/*
+Создание по образцу
+Разберись, как работает программа.
+По образу и подобию CountdownRunnable создай нить CountUpRunnable, которая выводит значения в нормальном порядке - от 1 до number.
+
+
+Requirements:
+1. Класс CountUpRunnable должен реализовывать интерфейс Runnable.
+2. Класс CountUpRunnable должен иметь публичный метод run без параметров.
+3. Метод run класса CountUpRunnable должен работать примерно 2,5 секунды.
+4. Метод run класса CountUpRunnable должен каждые полсекунды выводить имя потока, двоеточие и значение счетчика от 1 до 5 (например: "Увеличиваем: 1").
+5. Метод run класса CountUpRunnable должен вызывать Thread.sleep(500).
+ */
+
+/*
+public class Solution {
+    static Thread t1 = new T1();
+    static Thread t2 = new T2();
+
+    public static void main(String[] args) throws InterruptedException {
+        t1.start();
+        t2.start();
+        t1.interrupt();
+     //   t2.interrupt();
+    }
+
+    public static class T1 extends Thread {
+        @Override
+        public void run() {
+            try {
+                t2.join();
+                System.out.println("T1 finished");
+            } catch (InterruptedException e) {
+                System.out.println("T1 was interrupted");
+            }
+        }
+    }
+
+    public static class T2 extends Thread {
+        @Override
+        public void run() {
+            try {
+                t1.join();
+                System.out.println("T2 finished");
+            } catch (InterruptedException e) {
+                System.out.println("T2 was interrupted");
+            }
+        }
+    }
+}
+*/
+/*
+Взаимная блокировка
+1. Разберись, как работает программа.
+2. Не меняя классы T1 и T2 сделай так, чтобы их нити завершились, не обязательно успешно.
+3. Метод sleep не использовать.
+
+
+Requirements:
+1. Метод main должен запускать нить t1.
+2. Метод main должен запускать нить t2.
+3. Класс T1 не изменять.
+4. Класс T2 не изменять.
+5. Метод sleep не использовать.
+6. Вывод программы должен состоять из 2х строк, информирующих о завершении нитей. Например: "T1 was interrupted" и "T2 finished".
+7. Нити t1 и t2 должны завершаться (не обязательно успешно).
+ */
+/*
+public class Solution {
+    public static MyThread t = new MyThread();
+    static String message = "inside main ";
+
+    public static void main(String a[]) throws Exception {
+        t.start();
+        t.join();
+        for (int i = 0; i < 10; i++) {
+            System.out.println(message + i);
+            sleep();
+        }
+    }
+
+    public static void sleep() {
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+        }
+    }
+
+    static class MyThread extends Thread {
+        String message = "inside MyThread ";
+
+        public void run() {
+            for (int i = 0; i < 10; i++) {
+                System.out.println(message + i);
+                Solution.sleep();
+            }
+        }
+    }
+}
+*/
+/*
+Последовательные выполнения нитей Ӏ Java Core: 6 уровень, 13 лекция
+1. Разберись, что делает программа.
+2. Сделай так, чтоб программа сначала выводила результат нити, а когда нить завершится - продолжила метод main.
+
+3. Пример выходных данных:
+inside MyThread 0
+inside MyThread 1
+...
+inside MyThread 9
+inside main 0
+inside main 1
+...
+inside main 9
+
+
+Requirements:
+1. Метод main должен вызывать метод start у нити t.
+2. Метод main должен вызывать метод join у нити t.
+3. Сначала программа должна вывести 10 строк начинающихся с "inside MyThread".
+4. В конце программа должна вывести 10 строк начинающихся с "inside main".
+5. Всего программа должна вывести 20 строк.
+ */
+
+
+
+/*
+public class Solution {
+    static int count = 15;
+    static volatile int createdThreadCount;
+
+    public static void main(String[] args) {
+            System.out.println(new GenerateThread());
+    }
+
+    public static class GenerateThread extends Thread{
+        @Override
+        public String toString() {
+            return getName() + " created";
+        }
+
+        @Override
+        public void run() {
+            if (createdThreadCount < count) System.out.println( new GenerateThread());
+        }
+
+        public GenerateThread() {
+            super(String.valueOf(++createdThreadCount));
+            start();
+        }
+    }
+}
+*/
+
+/*
+Рекурсивное создание нитей
+1. Измени класс GenerateThread так, чтобы он стал нитью.
+2. Создай конструктор GenerateThread, который должен:
+2.1. Вызвать конструктор суперкласса с параметром String - номером созданной нити. Используй createdThreadCount.
+2.2. Запустить текущую нить.
+2.3. Номер первой нити должен начинается с 1.
+3. Переопредели метод toString, для этого внутри GenerateThread нажми Alt+Insert -> Override Methods. Начни печатать toString.
+3.1. Метод toString должен возвращать № текущей нити и слово " created". Используй getName().
+
+Пример:
+8 created
+
+4. Пока количество созданных нитей меньше Solution.count метод run должен:
+4.1. Создать новую нить типа GenerateThread.
+4.2. Вывести в консоль созданную в пункте 4.1 нить.
+5. В итоге должно быть выведено в консоль 15 строк.
+
+
+Requirements:
++ 1. Класс GenerateThread должен быть унаследован от Thread.
+2. В классе GenerateThread должен быть открытый конструктор без параметров.
+3. Конструктор класса GenerateThread должен увеличивать значение createdThreadCount и передавать его в виде строки в конструктор суперкласса.
+4. Конструктор класса GenerateThread должен запускать нить.
+5. Метод toString класса GenerateThread должен возвращать имя нити и слово " created". Пример: "8 created".
+6. Если количество созданных нитей меньше Solution.count, метод run должен создать новую нить типа GenerateThread.
+7. Если количество созданных нитей меньше Solution.count, метод run должен вывести созданную нить в консоль.
+8. Вывод программы должен соответствовать заданию, показывать, что все 15 нитей были созданы.
+
+ */
+/*
+public class Solution {
+    public volatile static int COUNT = 4;
+
+    public static void main(String[] args) throws InterruptedException {
+        for (int i = 0; i < COUNT; i++) {
+            new SleepingThread().join();
+        }
+    }
+
+    public static class SleepingThread extends Thread {
+        private static volatile int threadCount = 0;
+        private volatile int countdownIndex = COUNT;
+
+        public SleepingThread() {
+            super(String.valueOf(++threadCount));
+            start();
+        }
+
+        public void run() {
+            while (true) {
+                System.out.println(this);
+                if (--countdownIndex == 0) return;
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    System.out.println("Нить прервана");
+                    return;
+                }
+
+            }
+        }
+
+        public String toString() {
+            return "#" + getName() + ": " + countdownIndex;
+        }
+    }
+}
+*/
+/*
+Последовательные выполнения нитей Ӏ Java Core: 6 уровень, 13 лекция
+1. В методе run после всех действий поставь задержку в 10 миллисекунд. Выведи "Нить прервана", если нить будет прервана.
+2. Сделай так, чтобы все нити выполнялись последовательно: сначала для нити №1 отсчет с COUNT до 1, потом для нити №2 с COUNT до 1 и т.д.
+
+Пример:
+#1: 4
+#1: 3
+...
+#1: 1
+#2: 4
+...
+
+
+Requirements:
+1. Программа должна создавать 4 объекта типа SleepingThread.
++  2. Метод main должен вызвать join у каждой создаваемой SleepingThread нити.
++ 3. Метод run должен использовать Thread.sleep(10).
+4. Вывод программы должен соответствовать условию.
+5. Если нить SleepingThread прерывается, она должна вывести сообщение "Нить прервана".
+ */
+
+/*
+public class Solution {
+    static int count = 5;
+
+    public static void main(String[] args) {
+        ThreadNamePrinter tnp = new ThreadNamePrinter();
+        tnp.start();
+        for (int i = 0; i < count; i++) {
+            tnp.printMsg();
+        }
+    }
+
+    public static class ThreadNamePrinter extends Thread {
+        public void run() {
+            for (int i = 0; i < count; i++) {
+                printMsg();
+            }
+        }
+
+        public void printMsg() {
+            Thread t = Thread.currentThread();//присвой переменной t текущую нить
+            String name = t.getName();
+            System.out.println("Name=" + name);
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+               e.printStackTrace();
+            }
+            //add sleep here - добавь sleep тут
+        }
+    }
+}
+*/
+/*
+Thread.currentThread - всегда возвращает текущую нить
+        1. В методе printMsg присвой переменной t текущую нить.
+        2. В методе printMsg после всех действий поставь задержку в 1 миллисекунду.
+
+
+        Requirements:
+        1. Метод printMsg должен получать текущую нить с помощью Thread.currentThread.
+        2. Метод printMsg должен должен усыплять нить на 1 миллисекунду.
+        3. Метод printMsg должен вызывать метод getName у текущей нити.
+        4. Метод main должен вызвать метод printMsg у объекта типа ThreadNamePrinter 5 раз.
+        5. Метод run должен вызвать метод printMsg 5 раз.
+        6. Метод printMsg у объекта типа ThreadNamePrinter суммарно должен быть вызван 10 раз.
+*/
+
+/*
 public class Solution {
     public static Thread.UncaughtExceptionHandler handler = new OurUncaughtExceptionHandler();
 
@@ -34,6 +644,9 @@ public class Solution {
 
         Thread threadA = new Thread(commonThread, "Нить 1");
         Thread threadB = new Thread(commonThread, "Нить 2");
+
+        threadA.setUncaughtExceptionHandler(handler);
+        threadB.setUncaughtExceptionHandler(handler);
 
         threadA.start();
         threadB.start();
@@ -64,7 +677,7 @@ public class Solution {
         }
     }
 }
-
+*/
 
 /*
 Отдебажим все на свете
