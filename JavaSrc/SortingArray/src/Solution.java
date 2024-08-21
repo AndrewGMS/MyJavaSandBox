@@ -26,6 +26,115 @@ import java.util.concurrent.atomic.AtomicInteger;
 import  java.util.function.Function;
 
 
+
+public class Solution {
+    public static String firstFileName;
+    public static String secondFileName;
+
+    //напишите тут ваш код
+    static {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        try {
+//            firstFileName = bufferedReader.readLine();
+//            secondFileName = bufferedReader.readLine();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+        firstFileName = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+        secondFileName = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+    }
+
+
+    public static void main(String[] args) throws InterruptedException {
+        systemOutPrintln(firstFileName);
+        systemOutPrintln(secondFileName);
+    }
+
+    public static void systemOutPrintln(String fileName) throws InterruptedException {
+        ReadFileInterface f = new ReadFileThread();
+        f.setFileName(fileName);
+        f.start();
+        f.join();
+        System.out.println(f.getFileContent());
+    }
+
+    public interface ReadFileInterface {
+
+        void setFileName(String fullFileName);
+
+        String getFileContent();
+
+        void join() throws InterruptedException;
+
+        void start();
+    }
+
+
+    //напишите тут ваш код
+    public static class ReadFileThread extends Thread implements ReadFileInterface {
+        private String fileName;
+        private String result = "";
+
+        @Override
+        public void run() {
+            try {
+                FileInputStream fileInputStream = new FileInputStream(fileName);
+                Scanner scanner = new Scanner(fileInputStream);
+                while (scanner.hasNext()) {
+                    if (!result.equals("")) {result = result + " ";}
+                    result = result + scanner.next();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public String getFileContent() {
+
+            return result;
+        }
+        @Override
+        public void setFileName(String fullFileName) {
+            fileName = fullFileName;
+        }
+    }
+}
+
+
+
+/*
+Последовательный вывод файлов
+1. Разберись, что делает программа.
+2. В статическом блоке считай 2 имени файла firstFileName и secondFileName.
++ 3. Внутри класса Solution создай нить public static ReadFileThread, которая реализует
+интерфейс ReadFileInterface (Подумай, что больше подходит - Thread или Runnable).
+3.1. Метод setFileName должен устанавливать имя файла, из которого будет читаться содержимое.
+3.2. Метод getFileContent должен возвращать содержимое файла.
+3.3. В методе run считай содержимое файла, закрой поток. Раздели пробелом строки файла.
+4. Подумай, в каком месте нужно подождать окончания работы нити, чтобы обеспечить последовательный вывод файлов.
+4.1. Для этого добавь вызов соответствующего метода.
+
+Ожидаемый вывод:
+[все тело первого файла]
+[все тело второго файла]
+
+(квадратные скобки выводить не нужно)
+
+Requirements:
++ 1. Статический блок класса Solution должен считывать с консоли имена двух файлов и сохранять их в переменные firstFileName и secondFileName.
++ 2. Объяви в классе Solution public static класс ReadFileThread.
++3. Класс ReadFileThread должен реализовывать интерфейс ReadFileInterface.
++ 4. Класс ReadFileThread должен быть унаследован от подходящего класса.
+5. Метод run класса ReadFileThread должен считывать строки из файла, установленного методом setFileName.
+ А метод getFileContent, этого же класса, должен возвращать вычитанный контент.
+ Возвращаемое значение - это одна строка, состоящая из строк файла, разделенных пробелами.
+6. Метод systemOutPrintln должен вызывать метод join у созданного объекта f.
+7. Вывод программы должен состоять из 2х строк. Каждая строка - содержимое одного файла.
+ */
+
+/*
 public class Solution {
     public static volatile BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -69,7 +178,7 @@ public class Solution {
     }
 }
 
-
+*/
 /*
 Только по-очереди!
 + 1. В классе Solution создать public static класс нити Read3Strings унаследовавшись от Thread.
