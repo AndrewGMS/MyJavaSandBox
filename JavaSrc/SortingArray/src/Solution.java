@@ -25,8 +25,192 @@ import java.lang.StackTraceElement;
 import java.util.concurrent.atomic.AtomicInteger;
 import  java.util.function.Function;
 
+public class Solution {
+
+    public static void main(String[] args) {
+
+    }
+
+    public static class Note {
+
+        public final List<String> notes = new ArrayList<String>();
+
+        public void addNote(int index, String note) {
+            System.out.println("Сейчас будет добавлена заметка [" + note + "] На позицию " + index);
+           synchronized (this) {notes.add(index, note);}
+
+            System.out.println("Уже добавлена заметка [" + note + "]");
+        }
+
+        public void removeNote(int index) {
+            System.out.println("Сейчас будет удалена заметка с позиции " + index);
+            String note;
+            synchronized (this) {note = notes.remove(index);}
+            System.out.println("Уже удалена заметка [" + note + "] с позиции " + index);
+        }
+    }
+
+}
+
+/*
+Синхронизированные заметки
+1. Класс Note будет использоваться нитями. Поэтому сделай так, чтобы обращения к листу notes блокировали мьютекс notes, не this
+2. Все System.out.println не должны быть заблокированы (синхронизированы), т.е. не должны находиться в блоке synchronized
 
 
+Requirements:
+1. Метод addNote() должен добавлять записки в список notes.
+2. Метод removeNote() должен удалять записку из списка notes.
+3. В методе addNote() должен находиться synchronized блок.
+4. В методе removeNote() должен находиться synchronized блок.
+5. Synchronized блок в методе addNote() должен блокировать мьютекс notes.
+6. Synchronized блок в методе removeNote() должен блокировать мьютекс notes.
+7. В synchronized блоке метода addNote() должен находиться вызов метода add у notes.
+8. В synchronized блоке метода removeNote() должен находиться вызов метода remove у notes.
+9. Все команды вывода на экран не должны находиться в блоке synchronized.
+ */
+
+
+/*
+public class Solution {
+    public static int threadCount = 10;
+    public static int[] testArray = new int[1000];
+
+    static {
+        for (int i = 0; i < Solution.testArray.length; i++) {
+            testArray[i] = i;
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        StringBuffer expectedResult = new StringBuffer();
+        for (int i = 1000 - 1; i >= 0; i--) {
+            expectedResult.append(i).append(" ");
+        }
+
+        initThreads();
+
+        StringBuffer result = new StringBuffer();
+        for (int i = 0; i < testArray.length; i++) {
+            result.append(testArray[i]).append(" ");
+        }
+        System.out.println(result);
+        System.out.println((result.toString()).equals(expectedResult.toString()));
+    }
+
+    public static void initThreads() throws InterruptedException {
+        List<Thread> threads = new ArrayList<Thread>(threadCount);
+        for (int i = 0; i < threadCount; i++) threads.add(new SortThread());
+        for (Thread thread : threads) thread.start();
+        for (Thread thread : threads) thread.join();
+    }
+
+    public static void sort(int[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[i] < array[j]) {
+                    int k = array[i];
+                    array[i] = array[j];
+                    array[j] = k;
+                }
+            }
+        }
+    }
+
+    public static class SortThread extends Thread {
+        @Override
+        public void run() {
+            sort(testArray);
+        }
+    }
+}
+
+*/
+
+/*
+Вместе быстрее? Ща проверим :)
+1. Разберись, что и как работает.
+2. Создай public static нить SortThread, которая в методе run отсортирует статический массив testArray используя метод sort.
+
+
+Requirements:
+1. Класс Solution должен содержать public static класс SortThread.
+2. Класс SortThread должен быть нитью.
+3. В методе run класса SortThread должен вызывать метод sort() с параметром testArray.
+4. Программа должна выводить текст на экран.
+ */
+
+/*
+public class Solution {
+    public static void main(String[] args) {
+        new NoteThread().start();
+        new NoteThread().start();
+    }
+
+    public static class Note {
+
+        public static final List<String> notes = new ArrayList<>();
+
+        public static void addNote(String note) {
+            notes.add(0, note);
+        }
+
+        public static void removeNote(String threadName) {
+            String note = notes.remove(0);
+            if (note == null) {
+                System.out.println("Другая нить удалила нашу заметку");
+            } else if (!note.startsWith(threadName)) {
+                System.out.println("Нить [" + threadName + "] удалила чужую заметку [" + note + "]");
+            } else {
+                System.out.println("Нить [" + threadName + "] удалила свою заметку [" + note + "]");
+            }
+        }
+    }
+
+    public static class NoteThread extends Thread {
+        @Override
+        public void run() {
+            for (int i = 0; i < 1000; i++) {
+                Note.addNote(getName() + "-Note" + i);
+
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Note.removeNote(getName());
+            }
+        }
+    }
+}
+
+*/
+
+
+/*
+Заметки
+Асинхронность выполнения нитей.
+1. Класс Note будет использоваться нитями.
+2. Создай public static нить NoteThread (Runnable не является нитью), которая в методе run 1000 раз (index = 0-999) сделает следующие действия:
+2.1. Используя метод addNote добавит заметку с именем [getName() + "-Note" + index], например, при index=4
+"Thread-0-Note4"
+2.2. Заснет на 1 миллисекунду
+2.3. Используя метод removeNote удалит заметку
+2.4. В качестве параметра в removeNote передай имя нити - метод getName()
+
+
+Requirements:
++ 1. Класс Solution должен содержать public static класс NoteThread.
+2. Класс NoteThread должен быть нитью.
+3. В методе run класса NoteThread должен быть цикл.
+4. Метод run класса NoteThread должен 1000 раз вызывать метод addNote c параметром (getName() + "-Note" + index).
+5. Метод run класса NoteThread должен 1000 раз вызывать Thread.sleep() c параметром (1).
+6. Метод run класса NoteThread должен 1000 раз вызывать метод removeNote c параметром (getName()).
+ */
+
+
+
+/*
 public class Solution {
     public static String firstFileName;
     public static String secondFileName;
@@ -101,7 +285,7 @@ public class Solution {
         }
     }
 }
-
+*/
 
 
 /*
