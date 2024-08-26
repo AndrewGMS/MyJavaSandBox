@@ -24,8 +24,244 @@ import java.util.Date;
 import java.lang.StackTraceElement;
 import java.util.concurrent.atomic.AtomicInteger;
 import  java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 
+public class Beach implements Comparable<Beach>{
+    private String name;      //название
+    private float distance;   //расстояние
+    private int quality;    //качество
+
+    @Override
+    public synchronized  int compareTo(Beach o) {
+        if (this.distance < o.distance) return 1;
+        else if (this.distance > o.distance) return -1;
+        else if (this.quality > o.quality) return 1;
+        else if (this.quality < o.quality) return -1;
+        else return 0;
+    }
+
+    public Beach(String name, float distance, int quality) {
+        this.name = name;
+        this.distance = distance;
+        this.quality = quality;
+    }
+
+    public synchronized String getName() {
+        return name;
+    }
+
+    public synchronized void setName(String name) {
+        this.name = name;
+    }
+
+    public synchronized float getDistance() {
+        return distance;
+    }
+
+    public synchronized void setDistance(float distance) {
+        this.distance = distance;
+    }
+
+    public synchronized int getQuality() {
+        return quality;
+    }
+
+    public synchronized void setQuality(int quality) {
+        this.quality = quality;
+    }
+
+    public static void main(String[] args) {
+
+    }
+}
+
+
+
+/*
+
+Comparable
+Реализуй интерфейс Comparable<Beach> в классе Beach. Пляжи(Beach) будут использоваться нитями, поэтому позаботься, чтобы все методы были синхронизированы.
+Реализуй метод compareTo так, чтобы при сравнении двух пляжей он выдавал:
+– положительное число, если первый пляж лучше;
+– отрицательное число, если второй пляж лучше;
+– ноль, если пляжи одинаковые.
+Сравни каждый критерий по отдельности, чтобы победителем был пляж с лучшими показателями по большинству критериев. Учти при сравнении, чем меньше расстояние к пляжу (distance), тем пляж лучше.
+
+
+Requirements:
+1. Класс Beach должен содержать три поля: String name, float distance, int quality.
+2. Класс Beach должен реализовывать интерфейс Comparable<Beach>.
+3. Метод compareTo класса Beach должен учитывать качество пляжа (quality) и дистанцию (distance).
+4. Все методы класса Beach, кроме метода main, должны быть синхронизированы.
+ */
+/*
+    Общий список
+1. Изменить класс Solution так, чтобы он стал списком. (Необходимо реализовать интерфейс java.util.List).
+        2. Список Solution должен работать только с целыми числами Long.
+        3. Воспользуйся полем original.
+        4. Список будет использоваться нитями, поэтому позаботься, чтобы все методы были синхронизированы.
+
+
+        Requirements:
+        1. Класс Solution должен реализовывать интерфейс List<Long>.
+        2. Класс Solution должен содержать private поле original типа ArrayList<Long>.
+        3. Все переопределенные в классе Solution методы интерфейса List должны вызывать соответствующие методы объекта original.
+        4. Все методы класса Solution, кроме метода main, должны быть синхронизированы.
+
+        */
+
+/*
+public class Solution {
+    public static volatile List<Person> allPeople = new ArrayList<Person>();
+
+    static {
+        allPeople.add(Person.createMale("Иванов Иван", new Date()));  //сегодня родился    id=0
+        allPeople.add(Person.createMale("Петров Петр", new Date()));  //сегодня родился    id=1
+    }
+
+    public static void main(String[] args) {
+        //напишите тут ваш код
+        switch (args[0]) {
+            case "-c": synchronized(allPeople) {
+//                -c name sex bd
+                // -c Миронов м 15/04/1990 Смирнов м 18/04/1971 Смирнова м 19/04/1984
+                int cntParams = (args.length - 1) / 3;
+                Date bd;
+                Locale locale = new Locale("en");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", locale);
+
+                for (int i = 0; i < cntParams; i++) {
+                try {
+                    bd = sdf.parse(args[i*3+3]);
+                    if (args[i*3+2].equals("м")) {
+                        allPeople.add(Person.createMale(args[i*3+1], bd));
+                    }
+                    if (args[i*3+2].equals("ж")) {
+                        allPeople.add(Person.createFemale(args[i*3+1], bd));
+                    }
+                    System.out.println(allPeople.size()-1);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+//                    int id = allPeople.size()-1;
+//                    System.out.println(allPeople.get(id).getName() + " " + (allPeople.get(id).getSex() == Sex.MALE ? "м" : "ж") + " " + sdf.format(allPeople.get(id).getBirthDate()));
+            }
+            }
+            break;
+            case "-i": synchronized (allPeople){
+//                -i id
+//                 name sex (м/ж) bd (формат 15-Apr-1990)
+                Locale locale = new Locale("en");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", locale);
+                int cntParams = (args.length - 1) / 1;
+                for (int i = 0; i < cntParams; i++) {
+                    int id = Integer.parseInt(args[i + 1]);
+                    System.out.println(allPeople.get(id).getName() + " " + (allPeople.get(id).getSex() == Sex.MALE ? "м" : "ж") + " " + sdf.format(allPeople.get(id).getBirthDate()));
+                }
+            }
+            break;
+            case "-u": synchronized (allPeople){
+//                -u id name sex bd
+                // -u 0 Миронов м 15/04/1990 1 Смирнов м 18/04/1971 0 Смирнова м 19/04/1984
+                Date bd;
+                Locale locale = new Locale("en");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", locale);
+
+                int cntParams = (args.length - 1) / 4;
+                for (int i = 0; i < cntParams; i++) {
+                try {
+                    int id = Integer.parseInt(args[i*4+1]);
+
+                    bd = sdf.parse(args[i*4+4]);
+                    allPeople.get(id).setName(args[i*4+2]);
+                    allPeople.get(id).setBirthDate(bd);
+
+
+                    if (args[i*4+3].equals("м")) {
+                        allPeople.get(id).setSex(Sex.MALE);
+                    }
+                    if (args[i*4+3].equals("ж")) {
+                        allPeople.get(id).setSex(Sex.FEMALE);
+                    }
+//                    System.out.println(allPeople.get(id).getName() + " " + (allPeople.get(id).getSex() == Sex.MALE ? "м" : "ж") + " " + sdf.format(allPeople.get(id).getBirthDate()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                }
+            }
+
+
+            break;
+            case "-d": synchronized (allPeople){
+//                -d id
+                int cntParams = (args.length - 1) / 1;
+
+                for (int i = 0; i < cntParams; i++) {
+                    int id = Integer.parseInt(args[i + 1]);
+
+                    allPeople.get(id).setName(null);
+                    allPeople.get(id).setBirthDate(null);
+                    allPeople.get(id).setSex(null);
+
+//                    System.out.println(allPeople.get(id).getName() + " " + (allPeople.get(id).getSex() == Sex.MALE ? "м" : "ж") + " " );
+
+                }
+            }
+            break;
+        }
+//        System.out.println(allPeople);
+    }
+}
+
+
+*/
+/*
+CRUD 2
+CrUD Batch - multiple Creation, Updates, Deletion.
+
+Программа запускается с одним из следующих наборов параметров:
+-c name1 sex1 bd1 name2 sex2 bd2 ...
+-u id1 name1 sex1 bd1 id2 name2 sex2 bd2 ...
+-d id1 id2 id3 id4 ...
+-i id1 id2 id3 id4 ...
+
+Значения параметров:
+name - имя, String
+sex - пол, "м" или "ж", одна буква
+bd - дата рождения в следующем формате 15/04/1990
+-с - добавляет всех людей с заданными параметрами в конец allPeople, выводит id (index) на экран в соответствующем порядке
+-u - обновляет соответствующие данные людей с заданными id
+-d - производит логическое удаление человека с id, заменяет все его данные на null
+-i - выводит на экран информацию о всех людях с заданными id: name sex bd
+
+id соответствует индексу в списке.
+Формат вывода даты рождения 15-Apr-1990
+Все люди должны храниться в allPeople.
+Порядок вывода данных соответствует вводу данных.
+Обеспечить корректную работу с данными для множества нитей (чтоб не было затирания данных).
+Используй Locale.ENGLISH в качестве второго параметра для SimpleDateFormat.
+
+Пример вывода для параметра -і с двумя id:
+Миронов м 15-Apr-1990
+Миронова ж 25-Apr-1997
+
+
+Requirements:
++1. Класс Solution должен содержать public static volatile поле allPeople типа List<Person>.
++2. Класс Solution должен содержать статический блок, в котором добавляются два человека в список allPeople.
++ 3. При параметре -с программа должна добавлять всех людей с заданными параметрами в конец списка allPeople, и выводить id каждого (index) на экран.
++ 4. При параметре -u программа должна обновлять данные людей с заданными id в списке allPeople.
++ 5. При параметре -d программа должна логически удалять людей с заданными id в списке allPeople.
+6. При параметре -i программа должна выводить на экран данные о всех людях с заданными id по формату указанному в задании.
++7. Метод main класса Solution должен содержать оператор switch по значению args[0].
++ 8. Каждый case оператора switch должен иметь блок синхронизации по allPeople.
+ */
+
+
+
+
+/*
 public class Solution {
     public static List<Person> allPeople = new ArrayList<Person>();
 
@@ -102,8 +338,6 @@ public class Solution {
                 allPeople.get(id).setName(null);
                 allPeople.get(id).setBirthDate(null);
                 allPeople.get(id).setSex(null);
-
-
             }
             break;
         }
@@ -111,7 +345,7 @@ public class Solution {
     }
 }
 
-
+*/
 /*
 CRUD
 CRUD - Create, Read, Update, Delete.

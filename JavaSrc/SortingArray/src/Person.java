@@ -1,5 +1,7 @@
 import java.util.Date;
 
+import java.util.Date;
+
 public class Person {
     private String name;
     private Sex sex;
@@ -42,6 +44,6 @@ public class Person {
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
+
+
 }
-
-
