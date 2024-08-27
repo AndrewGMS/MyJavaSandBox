@@ -27,6 +27,275 @@ import  java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 
+
+public class Solution {
+    public static void main(String[] args) throws Exception {
+    try {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+      //  String filename = bufferedReader.readLine();
+        String fileName = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+        bufferedReader.close();
+        FileInputStream fileInputStream = new FileInputStream(fileName);
+   //     Scanner scanner = new Scanner(fileInputStream);
+        int buffer = 0;
+        int maxValue = 0;
+         while((buffer = fileInputStream.read()) != -1) {
+            maxValue = maxValue < buffer ? buffer : maxValue;
+            }
+         fileInputStream.close();
+        System.out.println(maxValue);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    }
+
+
+}
+
+
+
+/*
+Максимальный байт
+Ввести с консоли имя файла.
+Найти максимальный байт в файле, вывести его на экран.
+Закрыть поток ввода-вывода.
+
+
+Requirements:
+1. Программа должна считывать имя файла с консоли.
+2. Для чтения из файла используй поток FileInputStream.
+3. В консоль должен выводиться максимальный байт, считанный из файла.
+4. Поток чтения из файла должен быть закрыт.
+ */
+
+
+/*
+
+public class Solution {
+    public static List<String> allLines = new ArrayList<String>();
+    public static List<String> forRemoveLines = new ArrayList<String>();
+
+    public static void main(String[] args) {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            String firstFileName = "";
+            String secondFileName = "";
+            firstFileName = bufferedReader.readLine();
+            secondFileName = bufferedReader.readLine();
+//            firstFileName = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data1.txt";
+//            secondFileName = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+            bufferedReader.close();
+            FileInputStream fileInputStream = new FileInputStream(firstFileName);
+            Scanner scanner = new Scanner(fileInputStream);
+            while (scanner.hasNext()) {
+                allLines.add(scanner.next());
+            }
+            scanner.close();
+
+
+            fileInputStream = new FileInputStream(secondFileName);
+            scanner = new Scanner(fileInputStream);
+            while (scanner.hasNext()) {
+                forRemoveLines.add(scanner.next());
+            }
+            scanner.close();
+            new Solution().joinData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(allLines);
+        System.out.println(forRemoveLines);
+    }
+
+    public void joinData() throws CorruptedDataException{
+        if (allLines.containsAll(forRemoveLines))
+            allLines.removeAll(forRemoveLines);
+        else {
+            allLines.clear();
+            throw new CorruptedDataException();
+        }
+
+
+
+    }
+}
+*/
+/*
+Транзакционность
+Сделать метод joinData транзакционным, т.е. если произошел сбой, то данные не должны быть изменены.
+1. Считать с консоли 2 имени файла.
+2. Считать построчно данные из файлов. Из первого файла - в allLines, из второго - в forRemoveLines.
+В методе joinData:
+3. Если список allLines содержит все строки из forRemoveLines, то удалить из списка allLines все строки, которые есть в forRemoveLines.
+4. Если условие из п.3 не выполнено, то:
+4.1. очистить allLines от данных
+4.2. выбросить исключение CorruptedDataException
+Метод joinData должен вызываться в main. Все исключения обработайте в методе main.
+Не забудь закрыть потоки.
+
+
+Requirements:
++1. Класс Solution должен содержать public static поле allLines типа List<String>.
++2. Класс Solution должен содержать public static поле forRemoveLines типа List<String>.
+3. Класс Solution должен содержать public void метод joinData() который может бросать исключение CorruptedDataException.
++4. Программа должна считывать c консоли имена двух файлов.
++5. Программа должна считывать построчно данные из первого файла в список allLines.
++6. Программа должна считывать построчно данные из второго файла в список forRemoveLines.
+7. Метод joinData должен удалить в списке allLines все строки из списка forRemoveLines, если в allLines содержатся все строки из списка forRemoveLines.
+8. Метод joinData должен очистить список allLines и выбросить исключение CorruptedDataException, если в allLines не содержатся все строки из списка forRemoveLines.
+9. Метод joinData должен вызываться в main.
+ */
+
+
+/*
+public class Solution {
+    public static void main(String[] args) {
+        Thread myThread1 = new Thread(new MyRunnable("Коля", 35));
+        Thread myThread2 = new Thread(new MyRunnable("Лена", 21));
+        Thread myThread3 = new Thread(new MyRunnable("Ваня", 19));
+        myThread1.start();
+        myThread2.start();
+        myThread3.start();
+    }
+
+    public static synchronized void printInfo(String name, int age) {
+        for (int i = 1; i <= 5; i++) {
+
+                System.out.print(i);
+                System.out.print(".");
+                System.out.print(" ");
+                System.out.print("Меня");
+                System.out.print(" ");
+                System.out.print("зовут");
+                System.out.print(" ");
+                System.out.print(name);
+                System.out.print(",");
+                System.out.print(" ");
+                System.out.print("мне");
+                System.out.print(" ");
+                System.out.print(age);
+                System.out.println();
+
+        }
+    }
+
+    public static class MyRunnable implements Runnable {
+        private final String name;
+        private final int age;
+
+        public MyRunnable(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        @Override
+        public void run() {
+            printInfo(name, age);
+        }
+    }
+}
+
+*/
+/*
+public class Solution {
+    public static DrugsController drugsController = new DrugsController();
+    public static volatile boolean isStopped = false;
+
+    public static void main(String[] args) throws InterruptedException {
+        Thread apteka = new Thread(new Apteka(), "Apteka");
+        Thread man = new Thread(new Person(), "Мужчина");
+        Thread woman = new Thread(new Person(), "Женщина");
+
+        apteka.start();
+        man.start();
+        woman.start();
+        System.out.println("Started");
+        Thread.sleep(1000);
+        isStopped = true;
+        System.out.println("Stopped");
+    }
+
+    public static class Apteka implements Runnable{
+        @Override
+        public synchronized void run() {
+
+                while (!Solution.isStopped) {
+                    drugsController.buy(getRandomDrug(), getRandomCount());
+                    waitAMoment();
+                    waitAMoment();
+                    waitAMoment();
+
+                }
+
+            }
+    }
+
+    public static class Person implements Runnable {
+        @Override
+        public synchronized void run() {
+
+                while (!Solution.isStopped) {
+                    drugsController.sell(getRandomDrug(), getRandomCount());
+                    waitAMoment();
+
+                }
+
+        }
+    }
+
+
+
+    public static int getRandomCount() {
+        return (int) (Math.random() * 3) + 1;
+    }
+
+    public static Drug getRandomDrug() {
+        int index = (int) ((Math.random() * 1000) % (DrugsController.allDrugs.size()));
+        List<Drug> drugs = new ArrayList<>(DrugsController.allDrugs.keySet());
+        return drugs.get(index);
+    }
+
+    private static void waitAMoment() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+        }
+    }
+}
+
+*/
+
+
+
+/*
+Аптека
+Реализуй интерфейс Runnable в классах Apteka и Person.
+Все нити должны работать пока не isStopped.
+Логика для Apteka: drugsController должен сделать продажу (вызвать метод void sell(Drug drug, int count)) случайного лекарства (getRandomDrug) в количестве (getRandomCount) и подождать 300 мс.
+Логика для Person: drugsController должен сделать покупку (вызвать метод void buy(Drug drug, int count)) случайного лекарства (getRandomDrug) в количестве (getRandomCount) и подождать 100 мс.
+Расставь synchronized там, где это необходимо.
+
+
+Requirements:
++1. Класс Solution должен содержать public static поле drugsController типа DrugsController.
++2. Класс Solution должен содержать public static поле isStopped типа boolean.
++3. Класс Solution должен содержать private static void метод waitAMoment(), который должен ждать 100 мс.
++4. Класс Apteka должен реализовывать интерфейс Runnable.
++5. Нить Apteka должна работать пока isStopped = false.
+6. Нить Apteka должна использовать drugsController для продажи случайного лекарства (getRandomDrug) в количестве (getRandomCount).
+7. Нить Apteka должна ждать 300мс между продажами, используя метод waitAMoment().
+8. Класс Person должен реализовывать интерфейс Runnable.
+9. Нить Person должна работать пока isStopped = false.
+10. Нить Person должна использовать drugsController для покупки случайного лекарства (getRandomDrug) в количестве (getRandomCount).
+11. Нить Person должна ждать 100мс между покупками, используя метод waitAMoment().
+12. Методы класса DrugsController должны быть synchronized.
+
+ */
+
+
+/*
 public class Beach implements Comparable<Beach>{
     private String name;      //название
     private float distance;   //расстояние
@@ -75,7 +344,7 @@ public class Beach implements Comparable<Beach>{
 
     }
 }
-
+*/
 
 
 /*
