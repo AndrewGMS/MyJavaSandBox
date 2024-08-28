@@ -27,7 +27,16 @@ import  java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        String str = "dfdsfdsfs ";
+        str = str.concat("10");
+        System.out.println(str);
+    }
+}
 
+
+/*
 public class Solution {
     public static void main(String[] args) throws Exception {
     try {
@@ -54,7 +63,7 @@ public class Solution {
 
 }
 
-
+*/
 
 /*
 Максимальный байт
