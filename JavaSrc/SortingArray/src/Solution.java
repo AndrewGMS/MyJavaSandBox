@@ -26,15 +26,64 @@ import java.util.concurrent.atomic.AtomicInteger;
 import  java.util.function.Function;
 import java.util.function.UnaryOperator;
 
-
 public class Solution {
+    public static Map<Integer, Integer> allBytes = new HashMap<>();
+
     public static void main(String[] args) throws Exception {
-        String str = "dfdsfdsfs ";
-        str = str.concat("10");
-        System.out.println(str);
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+                //  String filename = bufferedReader.readLine();
+                String fileName = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+                bufferedReader.close();
+                FileInputStream fileInputStream = new FileInputStream(fileName);
+                int buffer = 0;
+
+                while((buffer = fileInputStream.read()) != -1) {
+
+                    allBytes.computeIfPresent(buffer, (key, value) -> value + 1);
+                    allBytes.putIfAbsent(buffer, 1);
+                    allBytes.values().toArray().
+
+                }
+                fileInputStream.close();
+                System.out.println(allBytes);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+
+
     }
 }
 
+/*
+Самые частые байты
+Ввести с консоли имя файла.
+Найти байт или байты с максимальным количеством повторов.
+Вывести их на экран через пробел.
+Закрыть поток ввода-вывода.
+
+
+Requirements:
++1. Программа должна считывать имя файла с консоли.
++2. Для чтения из файла используй поток FileInputStream.
+3. В консоль через пробел должны выводиться все байты из файла с максимальным количеством повторов.
+4. Данные в консоль должны выводится в одну строку.
+5. Поток чтения из файла должен быть закрыт.
+ */
+
+
+/*
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        String str = "dfdsfdsfs ";
+        str.concat("10");
+        System.out.println(str);
+    }
+}
+*/
 
 /*
 public class Solution {
