@@ -14,18 +14,70 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.lang.StackTraceElement;
 import java.util.concurrent.atomic.AtomicInteger;
 import  java.util.function.Function;
 import java.util.function.UnaryOperator;
 
+
+/*
+public class Solution {
+    public static Map<Integer, Integer> allBytes = new HashMap<>();
+
+    public static void main(String[] args) throws Exception {
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            String fileName = bufferedReader.readLine();
+            // String fileName = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+            bufferedReader.close();
+            FileInputStream fileInputStream = new FileInputStream(fileName);
+            int buffer = 0;
+
+            while(fileInputStream.available() > 0) {
+                buffer = fileInputStream.read();
+                allBytes.computeIfPresent(buffer, (key, value) -> value + 1);
+                allBytes.putIfAbsent(buffer, 1);
+            }
+            fileInputStream.close();
+
+            int minCount = allBytes.get(buffer);
+            for (Map.Entry<Integer, Integer> entry : allBytes.entrySet()) {
+                if (minCount > entry.getValue()) {
+                    minCount = entry.getValue();
+                }
+            }
+
+//                System.out.println(allBytes.entrySet());
+
+            for (Map.Entry<Integer, Integer> entry : allBytes.entrySet()) {
+                if (minCount == entry.getValue()) {
+                    System.out.print(entry.getKey() + " ");
+                }
+            }
+
+    }
+}
+*/
+
+/*
+Самые редкие байты
+Ввести с консоли имя файла.
+Найти байт или байты с минимальным количеством повторов.
+Вывести их на экран через пробел.
+Закрыть поток ввода-вывода.
+
+
+Requirements:
+1. Программа должна считывать имя файла с консоли.
+2. Для чтения из файла используй поток FileInputStream.
+3. В консоль через пробел должны выводиться все байты из файла с минимальным количеством повторов.
+4. Данные в консоль должны выводится в одну строку.
+5. Поток чтения из файла должен быть закрыт.
+ */
+
+/*
 public class Solution {
     public static Map<Integer, Integer> allBytes = new HashMap<>();
 
@@ -42,22 +94,30 @@ public class Solution {
 
                     allBytes.computeIfPresent(buffer, (key, value) -> value + 1);
                     allBytes.putIfAbsent(buffer, 1);
-                    allBytes.values().toArray().
-
                 }
-                fileInputStream.close();
-                System.out.println(allBytes);
 
+                fileInputStream.close();
+
+                int maxCount = 0;
+                for (Map.Entry<Integer, Integer> entry : allBytes.entrySet()) {
+                    if (maxCount < entry.getValue()) {
+                        maxCount = entry.getValue();
+                    }
+                }
+
+//                System.out.println(allBytes.entrySet());
+
+                for (Map.Entry<Integer, Integer> entry : allBytes.entrySet()) {
+                    if (maxCount == entry.getValue()) {
+                        System.out.print(entry.getKey() + " ");
+                    }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
-
-
     }
 }
-
+*/
 /*
 Самые частые байты
 Ввести с консоли имя файла.
