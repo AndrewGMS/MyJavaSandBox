@@ -22,6 +22,458 @@ import  java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 
+
+public class Solution {
+
+    public class TableInterfaceWrapper implements TableInterface{
+        TableInterface tableInterface;
+
+
+        public TableInterfaceWrapper(TableInterface tableInterface) {
+            this.tableInterface = tableInterface;
+        }
+        @Override
+        public void setModel(List rows) {
+                    System.out.println(rows.size());
+                    tableInterface.setModel(rows);
+                }
+
+
+                @Override
+                public String getHeaderText() {
+                    return tableInterface.getHeaderText().toUpperCase();
+                }
+
+                @Override
+                public void setHeaderText(String newHeaderText) {
+                    tableInterface.setHeaderText(newHeaderText);
+                }
+        }
+
+
+    public interface TableInterface {
+        void setModel(List rows);
+
+        String getHeaderText();
+
+        void setHeaderText(String newHeaderText);
+    }
+
+    public static void main(String[] args) {
+    }
+}
+
+/*
+Таблица
+Измени класс TableInterfaceWrapper так, чтобы он стал Wrapper-ом для TableInterface.
+Метод setModel должен вывести в консоль количество элементов в списке перед обновлением модели (вызовом метода setModel у объекта типа TableInterface).
+Метод getHeaderText должен возвращать текст в верхнем регистре - используй метод toUpperCase().
+
+
+Requirements:
+1. Класс TableInterfaceWrapper должен реализовывать интерфейс TableInterface.
+2. Класс TableInterfaceWrapper должен инициализировать в конструкторе поле типа TableInterface.
+3. Метод setModel() должен вывести в консоль количество элементов в новом листе перед обновлением модели.
+4. Метод getHeaderText() должен возвращать текст в верхнем регистре.
+5. Метод setHeaderText() должен устанавливать текст для заголовка без изменений.
+
+ */
+
+
+/*
+public class AmigoOutputStream extends FileOutputStream {
+    public static String fileName = "C:/tmp/result.txt";
+    FileOutputStream fileOutputStream;
+
+    public static void main(String[] args) throws FileNotFoundException {
+        new AmigoOutputStream(new FileOutputStream(fileName));
+    }
+
+
+    public AmigoOutputStream(FileOutputStream fileOutputStream) {
+      super(fileName);
+      this.fileOutputStream = fileOutputStream;
+    }
+
+    @Override
+    public void write(int b) throws IOException {
+        fileOutputStream.write(b);
+    }
+
+    @Override
+    public void write(byte[] b) throws IOException {
+        super.write(b);
+    }
+
+    @Override
+    public void write(byte[] b, int off, int len) throws IOException {
+        fileOutputStream.write(b, off, len);
+    }
+
+    @Override
+    public void close() throws IOException {
+        flush();
+        write("JavaRush © All rights reserved.".getBytes());
+        fileOutputStream.close();
+    }
+
+    @Override
+    public void flush() throws IOException {
+        fileOutputStream.flush();
+    }
+}
+*/
+/*
+AmigoOutputStream
+1 Измени класс AmigoOutputStream так, чтобы он стал Wrapper-ом для класса FileOutputStream. Используй наследование.
+2 При вызове метода close() должны выполняться следующая последовательность действий:
+2.1 Вызвать метод flush().
+2.2 Записать в конец файла фразу "JavaRush © All rights reserved.", используй метод getBytes().
+2.3 Закрыть поток методом close().
+
+
+Requirements:
++ 1. Метод main изменять нельзя.
++ 2. Класс AmigoOutputStream должен наследоваться от класса FileOutputStream.
++ 3. Класс AmigoOutputStream должен принимать в конструкторе объект типа FileOutputStream.
+4. Все методы write(), flush(), close() в классе AmigoOutputStream должны делегировать свое выполнение объекту FileOutputStream.
+5. Метод close() должен сначала вызвать метод flush(), затем записать в конец файла текст, затем закрыть поток.
+
+ */
+
+/*
+public class Solution {
+
+    public static void main(String[] args) {
+        new Thread(new DecoratorRunnableImpl(new DecoratorMyRunnableImpl(new RunnableImpl()))).start();
+    }
+
+    public static class RunnableImpl implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("RunnableImpl body");
+        }
+    }
+
+    public static class DecoratorRunnableImpl implements Runnable {
+        private Runnable component;
+
+        public DecoratorRunnableImpl(Runnable component) {
+            this.component = component;
+        }
+
+        @Override
+        public void run() {
+            System.out.println("DecoratorRunnableImpl body");
+            component.run();
+        }
+    }
+
+
+    public static class DecoratorMyRunnableImpl implements Runnable {
+        private Runnable component;
+
+        public DecoratorMyRunnableImpl(Runnable component) {
+            this.component = component;
+        }
+
+        @Override
+        public void run() {
+            System.out.println("DecoratorMyRunnableImpl body");
+            component.run();
+        }
+    }
+
+
+}
+*/
+/*
+
+Wrapper (Decorator)
+Разберись, что делает программа.
+Аналогично классу DecoratorRunnableImpl создай класс DecoratorMyRunnableImpl.
+Вывод в консоль должен быть таким:
+DecoratorRunnableImpl body
+DecoratorMyRunnableImpl body
+RunnableImpl body
+
+
+Requirements:
+1. Создай класс DecoratorMyRunnableImpl, аналогичный DecoratorRunnableImpl.
+2. После запуска, каждый класс должен вывести в консоль "<свое имя класса> body", например "DecoratorRunnableImpl body".
+3. Классы RunnableImpl и DecoratorRunnableImpl изменять нельзя.
+4. Метод main изменять нельзя.
+ */
+
+/*
+public class Solution {
+    public static void main(String[] args) throws DownloadException {
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        FileInputStream inputStream;
+        try {
+            while (true) {
+
+
+//        String fileName1 = bufferedReader.readLine();
+            String fileName1 = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+
+            inputStream = new FileInputStream(fileName1);
+            if (inputStream.available() < 1000) {
+                inputStream.close();
+                throw new DownloadException();
+            }
+            }
+
+            } catch (Exception e) {
+            e.printStackTrace();
+         }
+
+        }
+
+
+
+
+
+    public static class DownloadException extends Exception {
+
+    }
+}
+
+*/
+
+/*
+
+DownloadException
+1 Считывать с консоли имена файлов.
+2 Если файл меньше 1000 байт, то:
+2.1 Закрыть потоки работы с файлами.
+2.2 Выбросить исключение DownloadException.
+
+
+Requirements:
+++ 1. Программа должна считать имена файлов с консоли.
+++2. Для чтения из файлов используй поток FileInputStream.
+3. Программа должна работать, пока введенный файл не окажется меньше 1000 байт.
+4. Программа должна завершиться исключением DownloadException.
+5. Поток FileInputStream должен быть закрыт.
+ */
+
+/*
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        String fileName1 = bufferedReader.readLine();
+        String fileName1 = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+//        String fileName2 = bufferedReader.readLine();
+        String fileName2 = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data1.txt";
+
+        bufferedReader.close();
+        FileInputStream inputStream = new FileInputStream(fileName1);
+        FileOutputStream outputStream1 = new FileOutputStream(fileName2);
+        if (inputStream.available() > 0) {
+            //читаем весь файл одним куском
+           byte[] buffer = new byte[inputStream.available()];
+     //       byte buffer[] = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57};
+           inputStream.read(buffer);
+           for (int i = 0; i < buffer.length/2 ; i++) {
+                byte buf = buffer[i];
+                buffer[i] = buffer[buffer.length - 1 - i];
+                buffer[buffer.length - 1 - i] = buf;
+           }
+           outputStream1.write(buffer, 0, buffer.length);
+        }
+        inputStream.close();
+        outputStream1.close();
+    }
+}
+*/
+
+/*
+Реверс файла
+        Считать с консоли 2 имени файла: файл1, файл2.
+        Записать в файл2 все байты из файл1, но в обратном порядке.
+        Закрыть потоки.
+
+
+        Requirements:
+        1. Программа должна два раза считать имена файлов с консоли.
+        2. Для чтения из файла используй поток FileInputStream, для записи в файл - FileOutputStream
+        3. Во второй файл нужно записать все байты из первого в обратном порядке.
+        4. Потоки FileInputStream и FileOutputStream должны быть закрыты.
+*/
+/*
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        String fileName1 = bufferedReader.readLine();
+        String fileName1 = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+//        String fileName2 = bufferedReader.readLine();
+        String fileName2 = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data1.txt";
+//        String fileName3 = bufferedReader.readLine();
+        String fileName3 = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data2.txt";
+        bufferedReader.close();
+        FileInputStream inputStream = new FileInputStream(fileName1);
+        FileOutputStream outputStream1 = new FileOutputStream(fileName2);
+        FileOutputStream outputStream2 = new FileOutputStream(fileName3);
+        if (inputStream.available() > 0) {
+            //читаем весь файл одним куском
+            byte[] buffer = new byte[inputStream.available()];
+            inputStream.read(buffer);
+            outputStream1.write(buffer, 0, buffer.length - buffer.length / 2);
+            outputStream2.write(buffer, buffer.length - buffer.length / 2 , buffer.length / 2);
+        }
+        inputStream.close();
+        outputStream1.close();
+        outputStream2.close();
+    }
+}
+*/
+
+/*
+Разделение файла
+Считать с консоли три имени файла: файл1, файл2, файл3.
+Разделить файл1 по следующему критерию:
+Первую половину байт записать в файл2, вторую половину байт записать в файл3.
+Если в файл1 количество байт нечетное, то файл2 должен содержать большую часть.
+Закрыть потоки.
+
+
+Requirements:
+1. Программа должна три раза считать имена файлов с консоли.
+2. Для чтения из файла используй поток FileInputStream, для записи в файлы - FileOutputStream
+3. Первую половину байт из первого файла нужно записать во второй файл.
+4. Вторую половину байт из первого файла нужно записать в третий файл.
+5. Потоки FileInputStream и FileOutputStream должны быть закрыты.
+ */
+/*
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        String fileName = bufferedReader.readLine();
+            String fileName = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+        bufferedReader.close();
+        FileInputStream fileInputStream = new FileInputStream(fileName);
+        int count = 0;
+        while(fileInputStream.available() > 0) {
+            if (fileInputStream.read() == 44) count++;
+        }
+        fileInputStream.close();
+        System.out.print(count);
+    }
+}
+
+*/
+
+/*
+Подсчет запятых
+С консоли считать имя файла.
+Посчитать в файле количество символов ',', количество вывести на консоль.
+Закрыть потоки.
+
+Подсказка:
+нужно сравнивать с ascii-кодом символа ','.
+
+
+Requirements:
+1. Программа должна считывать имя файла с консоли.
+2. Для чтения из файла используй поток FileInputStream.
+3. В консоль должно выводится число запятых в считанном файле.
+4. Поток чтения из файла должен быть закрыт.
+ */
+
+/*
+public class Solution {
+    public static void main(String[] args) throws IOException {
+//        FileInputStream inputStream = new FileInputStream("c:/data.txt");
+        FileInputStream inputStream = new FileInputStream("Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt");
+        // Создаем поток-записи-байт-в-файл
+//        FileOutputStream outputStream = new FileOutputStream("c:/result.txt");
+        FileOutputStream outputStream = new FileOutputStream("Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data1.txt");
+
+        if (inputStream.available() > 0) {
+            //читаем весь файл одним куском
+            byte[] buffer = new byte[inputStream.available()];
+            inputStream.read(buffer);
+            outputStream.write(buffer, 0, buffer.length);
+        }
+
+        inputStream.close();
+        outputStream.close();
+    }
+}
+*/
+
+
+
+/*
+Исправить ошибки
+Исправить функциональность в соответствии с требованиями.
+
+Программа должна:
+1. Переписать все байты одного файла в другой одним куском.
+2. Закрывать потоки ввода-вывода.
+
+Подсказка:
+4 ошибки.
+
+
+Requirements:
++1. Программа должна использовать классы FileInputStream и FileOutputStream.
++2. Программа должна переписать все байты одного файла в другой одним куском.
++3. Потоки FileInputStream и FileOutputStream должны быть закрыты.
+4. Нужно исправить 4 ошибки.
+ */
+
+/*
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        int arr[] = new int[256];
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String fileName = bufferedReader.readLine();
+    //    String fileName = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+        bufferedReader.close();
+        FileInputStream fileInputStream = new FileInputStream(fileName);
+        int buffer = 0;
+
+        while(fileInputStream.available() > 0) {
+            buffer = fileInputStream.read();
+            arr[buffer]++;
+        }
+        fileInputStream.close();
+             for (int i = 0; i < 256; i++) {
+                 if (arr[i] > 0) System.out.print(i + " ");
+             }
+    }
+}
+*/
+/*
+
+Сортировка байт
+Ввести с консоли имя файла.
+Считать все байты из файла.
+Не учитывая повторений - отсортировать их по байт-коду в возрастающем порядке.
+Вывести на экран.
+Закрыть поток ввода-вывода.
+
+Пример байт входного файла:
+44 83 44
+
+Пример вывода:
+44 83
+
+
+Requirements:
+1. Программа должна считывать имя файла с консоли.
+2. Для чтения из файла используй поток FileInputStream.
+3. В консоль через пробел должны выводиться все уникальные байты из файла в порядке возрастания.
+4. Данные в консоль должны выводится в одну строку.
+5. Поток чтения из файла должен быть закрыт.
+ */
+
+
+
+
 /*
 public class Solution {
     public static Map<Integer, Integer> allBytes = new HashMap<>();
