@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.nio.file.FileSystemException;
 import java.rmi.RemoteException;
+import java.sql.Array;
 import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -21,8 +22,146 @@ import java.util.concurrent.atomic.AtomicInteger;
 import  java.util.function.Function;
 import java.util.function.UnaryOperator;
 
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        //String fileMane = bufferedReader.readLine();
+        String fileName = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\goodsdata.txt";
+        bufferedReader.close();
+//        System.out.println(fileName);
+        for (String arg: args) {System.out.println(arg);}
+        if ("-c".equals(args[0])) {
+            FileReader fileReader = new FileReader(fileName);
+            char charBuffer[] = new char[8+30+8+4];
+            int maxId = 0;
+            System.out.println("19846   Шорты пляжные синие           159.00  12  ".length());
+            System.out.println("198478  Шорты пляжные черные с рисунко173.00  17  ".length());
+            System.out.println("19847983Куртка для сноубордистов, разм10173.991234".length());
 
 
+            while (fileReader.read(charBuffer) > 0) {
+    //            System.out.println(String.copyValueOf(charBuffer, 0, charBuffer.length));
+                String stringId = String.copyValueOf(charBuffer, 0, 8).trim();
+             //   stringId = "19846";
+                int currentId = Integer.parseInt(stringId);
+
+
+                if (maxId < currentId ) maxId = currentId;
+                System.out.println(String.copyValueOf(charBuffer, 0, charBuffer.length));
+            }
+            fileReader.close();
+            System.out.println("maxId " + maxId);
+            maxId++;
+//            FileWriter fileWriter = new FileWriter(fileName);
+//          //  fileWriter.flush();
+//            String strId = String.valueOf(maxId);
+//            System.out.println(String.format("%-8s%-30s%-8s%-4s", strId, args[1], args[2], args[3]));
+//            fileWriter.write(String.format("%-8s%-30s%-8s%-4s", strId, args[1], args[2], args[3]).toCharArray());
+//            fileWriter.close();
+
+// .padEnd(desiredLength, ' * ');
+
+
+        }
+
+
+
+
+    }
+}
+
+
+/*
+Прайсы
+CRUD для таблицы внутри файла.
+Напиши программу, которая считывает с консоли путь к файлу для операций CRUD и при запуске со следующим набором параметров:
+-c productName price quantity
+добавляет товар с заданными параметрами с новой строки в конец файла, генерируя id (8 символов) самостоятельно путем инкремента максимального id, найденного в файле.
+
+Значения параметров:
+-c - флаг, который означает добавления товара.
+productName - название товара, 30 символов.
+price - цена, 8 символов.
+quantity - количество, 4 символа.
+
+В файле данные хранятся в следующей последовательности (без разделяющих пробелов):
+id productName price quantity
+
+Данные дополнены пробелами до их длины.
+
+Для чтения и записи файла нужно использовать FileReader и FileWriter соответственно.
+
+Пример содержимого файла:
+19846   Шорты пляжные синие           159.00  12
+198478  Шорты пляжные черные с рисунко173.00  17
+19847983Куртка для сноубордистов, разм10173.991234
+
+
+Requirements:
++1. Программа должна считать имя файла для операций CRUD с консоли.
++2. В классе Solution не должны быть использованы статические переменные.
++3. При запуске программы без параметров список товаров должен остаться неизменным.
+4. При запуске программы с параметрами "-c productName price quantity" в конец файла должна добавится новая строка с товаром.
++5. Товар должен иметь следующий id, после максимального, найденного в файле.
+6. Форматирование новой строки товара должно четко совпадать с указанным в задании.
+7. Созданные для файлов потоки должны быть закрыты.
+ */
+
+/*
+public class Solution {
+    public static void main(String[] args) throws IOException{
+
+        if ((args[0].equals("-e")) || (args[0].equals("-d"))) {
+            try (FileInputStream fileInputStream = new FileInputStream(args[1]);
+            FileOutputStream fileOutputStream = new FileOutputStream(args[2]))
+            {
+                switch (args[0]) {
+                    case "-e" : {
+                        while (fileInputStream.available() > 0)
+                            fileOutputStream.write(fileInputStream.read() + 1);
+                    }
+                    case "-d" : {
+                        while (fileInputStream.available() > 0)
+                            fileOutputStream.write(fileInputStream.read() - 1 );
+                    }
+                    default: {
+                        fileInputStream.close();
+                        fileOutputStream.close();
+                    }
+
+                }
+
+            }
+        }
+    }
+}
+*/
+
+/*
+Шифровка
+Придумать механизм шифровки/дешифровки.
+
+Программа запускается с одним из следующих наборов параметров:
+-e fileName fileOutputName
+-d fileName fileOutputName
+
+где:
+fileName - имя файла, который необходимо зашифровать/расшифровать.
+fileOutputName - имя файла, куда необходимо записать результат шифрования/дешифрования.
+-e - ключ указывает, что необходимо зашифровать данные.
+-d - ключ указывает, что необходимо расшифровать данные.
+
+
+Requirements:
+1. Считывать с консоли ничего не нужно.
+2. Создай поток для чтения из файла, который приходит вторым параметром ([fileName]).
+3. Создай поток для записи в файл, который приходит третьим параметром ([fileOutputName]).
+4. В режиме "-e" программа должна зашифровать [fileName] и записать в [fileOutputName].
+5. В режиме "-d" программа должна расшифровать [fileName] и записать в [fileOutputName].
+6. Созданные для файлов потоки должны быть закрыты.
+
+ */
+/*
 public class Solution {
 
     public class TableInterfaceWrapper implements TableInterface{
@@ -62,7 +201,7 @@ public class Solution {
     public static void main(String[] args) {
     }
 }
-
+*/
 /*
 Таблица
 Измени класс TableInterfaceWrapper так, чтобы он стал Wrapper-ом для TableInterface.
