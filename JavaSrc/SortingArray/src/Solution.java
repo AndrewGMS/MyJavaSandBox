@@ -1,6 +1,3 @@
-
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import javax.imageio.stream.FileImageOutputStream;
 import java.awt.print.Book;
 import java.io.*;
@@ -23,50 +20,38 @@ import  java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 public class Solution {
+
     public static void main(String[] args) throws Exception {
+        if (args.length == 0) return;
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        //String fileMane = bufferedReader.readLine();
-        String fileName = "Y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\goodsdata.txt";
+    //    String fileName = bufferedReader.readLine();
+        String fileName = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\goodsdata.txt";
         bufferedReader.close();
 //        System.out.println(fileName);
-        for (String arg: args) {System.out.println(arg);}
+//        for (String arg: args) {System.out.println(arg);}
         if ("-c".equals(args[0])) {
             FileReader fileReader = new FileReader(fileName);
-            char charBuffer[] = new char[8+30+8+4];
+            char charBuffer[] = new char[8+30+8+4+2];
             int maxId = 0;
-            System.out.println("19846   Шорты пляжные синие           159.00  12  ".length());
-            System.out.println("198478  Шорты пляжные черные с рисунко173.00  17  ".length());
-            System.out.println("19847983Куртка для сноубордистов, разм10173.991234".length());
 
-
-            while (fileReader.read(charBuffer) > 0) {
-    //            System.out.println(String.copyValueOf(charBuffer, 0, charBuffer.length));
+            while (fileReader.readLine() (charBuffer) > 0) {
+                System.out.println(String.copyValueOf(charBuffer, 0, charBuffer.length));
                 String stringId = String.copyValueOf(charBuffer, 0, 8).trim();
-             //   stringId = "19846";
+                System.out.println(stringId.equals("19846"));
+//                stringId = "19846";
                 int currentId = Integer.parseInt(stringId);
-
-
                 if (maxId < currentId ) maxId = currentId;
                 System.out.println(String.copyValueOf(charBuffer, 0, charBuffer.length));
             }
             fileReader.close();
-            System.out.println("maxId " + maxId);
+   //         System.out.println("maxId " + maxId);
             maxId++;
-//            FileWriter fileWriter = new FileWriter(fileName);
-//          //  fileWriter.flush();
-//            String strId = String.valueOf(maxId);
-//            System.out.println(String.format("%-8s%-30s%-8s%-4s", strId, args[1], args[2], args[3]));
-//            fileWriter.write(String.format("%-8s%-30s%-8s%-4s", strId, args[1], args[2], args[3]).toCharArray());
-//            fileWriter.close();
-
-// .padEnd(desiredLength, ' * ');
-
-
+            FileWriter fileWriter = new FileWriter(fileName, true);
+            String strId = String.valueOf(maxId);
+   //         System.out.println(String.format("%-8s%-30s%-8s%-4s", strId, args[1], args[2], args[3]));
+            fileWriter.write(String.format("%-8s%-30s%-8s%-4s", strId, args[1], args[2], args[3]).toCharArray());
+            fileWriter.close();
         }
-
-
-
-
     }
 }
 
