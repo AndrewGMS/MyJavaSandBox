@@ -3,6 +3,7 @@ import java.awt.print.Book;
 import java.io.*;
 import java.math.BigDecimal;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystemException;
 import java.rmi.RemoteException;
 import java.sql.Array;
@@ -19,6 +20,48 @@ import java.util.concurrent.atomic.AtomicInteger;
 import  java.util.function.Function;
 import java.util.function.UnaryOperator;
 
+
+
+
+public class Solution {
+
+    public static void main(String[] args) throws Exception {
+        if (args.length == 0) return;
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        //    String fileName = bufferedReader.readLine();
+        String fileName = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\goodsdata.txt";
+        bufferedReader.close();
+//        System.out.println(fileName);
+//        for (String arg: args) {System.out.println(arg);}
+        if ("-c".equals(args[0])) {
+
+            BufferedReader bufferedFileReader = new   BufferedReader(new InputStreamReader(new FileInputStream(fileName), StandardCharsets.UTF_8));
+            // BufferedReader bufferedFileReader = new BufferedReader(new FileReader(fileName));
+            int maxId = 0;
+            while (bufferedFileReader.ready()) {
+                String currentString = bufferedFileReader.readLine();
+                System.out.println(currentString);
+                int currentId = Integer.parseInt(currentString.substring(0, 8).trim());
+                System.out.println(currentId);
+                if (maxId < currentId) maxId = currentId;
+            }
+            bufferedFileReader.close();
+//            System.out.println(maxId);
+            maxId++;
+
+            FileWriter fileWriter = new FileWriter(fileName, true);
+            String strId = String.valueOf(maxId);
+//            System.out.println(String.format("%-8s%-30s%-8s%-4s", strId, args[1], args[2], args[3]));
+            fileWriter.write("\n");
+            fileWriter.write(String.format("%-8s%-30s%-8s%-4s", strId, args[1], args[2], args[3]).toCharArray());
+            fileWriter.close();
+        }
+    }
+}
+
+
+
+/*
 public class Solution {
 
     public static void main(String[] args) throws Exception {
@@ -30,11 +73,17 @@ public class Solution {
 //        System.out.println(fileName);
 //        for (String arg: args) {System.out.println(arg);}
         if ("-c".equals(args[0])) {
+         //   BufferedReader bufferedFileReader = new BufferedReader(new FileReader(fileName));
+
+
             FileReader fileReader = new FileReader(fileName);
             char charBuffer[] = new char[8+30+8+4+2];
             int maxId = 0;
 
-            while (fileReader.readLine() (charBuffer) > 0) {
+
+
+
+            while (fileReader.read(charBuffer) > 0) {
                 System.out.println(String.copyValueOf(charBuffer, 0, charBuffer.length));
                 String stringId = String.copyValueOf(charBuffer, 0, 8).trim();
                 System.out.println(stringId.equals("19846"));
@@ -54,7 +103,7 @@ public class Solution {
         }
     }
 }
-
+*/
 
 /*
 Прайсы
@@ -2070,7 +2119,7 @@ public class Solution {
 }
 */
 /*
-Последовательные выполнения нитей Ӏ Java Core: 6 уровень, 13 лекция
+Последовательные выполнения нитей ? Java Core: 6 уровень, 13 лекция
 1. Разберись, что делает программа.
 2. Сделай так, чтоб программа сначала выводила результат нити, а когда нить завершится - продолжила метод main.
 
@@ -2193,7 +2242,7 @@ public class Solution {
 }
 */
 /*
-Последовательные выполнения нитей Ӏ Java Core: 6 уровень, 13 лекция
+Последовательные выполнения нитей ? Java Core: 6 уровень, 13 лекция
 1. В методе run после всех действий поставь задержку в 10 миллисекунд. Выведи "Нить прервана", если нить будет прервана.
 2. Сделай так, чтобы все нити выполнялись последовательно: сначала для нити №1 отсчет с COUNT до 1, потом для нити №2 с COUNT до 1 и т.д.
 
@@ -4656,7 +4705,7 @@ public class Solution {
         ((ThreeRoomApt) apartment).clean3Rooms();
       }
     }
-    
+
   }
 
   static interface Apartment {
@@ -6040,7 +6089,7 @@ public class Solution {
 */
 /*
 
-Задача по алгоритмам Ӏ Java Syntax: 9 уровень, 11 лекция
+Задача по алгоритмам ? Java Syntax: 9 уровень, 11 лекция
 Задача: Пользователь вводит с клавиатуры список слов (и чисел).
 Слова вывести в возрастающем порядке, числа - в убывающем.
 
@@ -6220,7 +6269,7 @@ public class Solution {
       if (isVowel(element))
           type1 = type1 + element + ' ';
           else type2 = type2 + element + ' ';
-      
+
 
     System.out.println(type1);
     System.out.println(type2);
@@ -6674,7 +6723,7 @@ catch (ArithmeticException e) {
 /*
 
 
-Исключение при работе с числами Ӏ Java Syntax: 9 уровень, 6 лекция
+Исключение при работе с числами ? Java Syntax: 9 уровень, 6 лекция
 Перехватить исключение, возникающее при выполнении кода:
 int a = 42 / 0;
 Вывести на экран тип перехваченного исключения.
@@ -6920,7 +6969,7 @@ public class Solution {
 
 */
 /*
-Задача по алгоритмам Ӏ Java Syntax: 8 уровень, 11 лекция
+Задача по алгоритмам ? Java Syntax: 8 уровень, 11 лекция
 Задача: Введи с клавиатуры 20 слов и выведи их в алфавитном порядке. Каждое слово - с новой строки.
 
 
