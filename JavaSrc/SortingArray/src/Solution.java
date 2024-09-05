@@ -20,6 +20,100 @@ import java.util.concurrent.atomic.AtomicInteger;
 import  java.util.function.Function;
 import java.util.function.UnaryOperator;
 
+
+public class Solution {
+    public static void main(String[] args) throws IOException{
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        //    String fileName1 = bufferedReader.readLine();
+        //    String fileName2 = bufferedReader.readLine();
+        String fileName1 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data4.txt";
+        String fileName2 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+        bufferedReader.close();
+
+        File file1 = new File(fileName1);
+
+        FileInputStream fileInputStream1 = new FileInputStream(file1);
+        List<Integer> charBuffer = new ArrayList<>();
+        while (fileInputStream1.available() > 0)
+            charBuffer.add(fileInputStream1.read());
+        fileInputStream1.close();
+
+
+        FileInputStream fileInputStream2 = new FileInputStream(fileName2);
+        FileOutputStream fileOutputStream1 = new FileOutputStream(fileName1);
+        while (fileInputStream2.available() > 0)
+            fileOutputStream1.write(fileInputStream2.read());
+        for (Integer buf: charBuffer) {
+            fileOutputStream1.write(buf);
+        }
+
+        fileInputStream2.close();
+        fileOutputStream1.close();
+
+    }
+}
+
+
+/*
+Объединение файлов
+        Считать с консоли 2 имени файла.
+        В начало первого файла записать содержимое второго файла так, чтобы получилось объединение файлов.
+        Закрыть потоки.
+
+
+        Requirements:
+       + 1. Программа должна два раза считать имена файлов с консоли.
+       + 2. Не используй в программе статические переменные.
+        3. Для первого файла создай поток для чтения и считай его содержимое.
+        4. Затем, для первого файла создай поток для записи(поток для записи должен быть один). Для второго - для чтения.
+        5. Содержимое первого и второго файла нужно объединить в первом файле.
+        6. Сначала должно идти содержимое второго файла, затем содержимое первого.
+        7. Созданные для файлов потоки должны быть закрыты.
+*/
+/*
+public class Solution {
+    public static void main(String[] args) throws IOException{
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        //    String fileName1 = bufferedReader.readLine();
+        //    String fileName2 = bufferedReader.readLine();
+        //    String fileName3 = bufferedReader.readLine();
+        String fileName1 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data4.txt";
+        String fileName2 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data.txt";
+        String fileName3 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data1.txt";
+        bufferedReader.close();
+
+        FileInputStream fileInputStream2 = new FileInputStream(fileName2);
+        FileInputStream fileInputStream3 = new FileInputStream(fileName3);
+        FileOutputStream fileOutputStream1 = new FileOutputStream(fileName1);
+        while (fileInputStream2.available() > 0)
+            fileOutputStream1.write(fileInputStream2.read());
+        while (fileInputStream3.available() > 0)
+            fileOutputStream1.write(fileInputStream3.read());
+        fileInputStream2.close();
+        fileInputStream3.close();
+        fileOutputStream1.close();
+
+
+    }
+}
+
+*/
+/*
+Два в одном
+        Считать с консоли 3 имени файла.
+        Записать в первый файл содержимого второго файла, а потом дописать в первый файл содержимое третьего файла.
+        Закрыть потоки.
+
+
+        Requirements:
+        1. Программа должна три раза считать имена файлов с консоли.
+        2. Для первого файла создай поток для записи. Для двух других - потоки для чтения.
+        3. Содержимое второго файла нужно переписать в первый файл.
+        4. Содержимое третьего файла нужно дописать в первый файл (в который уже записан второй файл).
+        5. Созданные для файлов потоки должны быть закрыты.
+*/
+
+/*
 public class Solution  {
     public static void main(String[] args) throws IOException{
 
@@ -41,7 +135,7 @@ public class Solution  {
     }
 }
 
-
+*/
 
 /*
 Пробелы
