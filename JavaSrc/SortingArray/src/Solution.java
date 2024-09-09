@@ -1,4 +1,5 @@
 import javax.imageio.stream.FileImageOutputStream;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.print.Book;
 import java.io.*;
 import java.math.BigDecimal;
@@ -21,6 +22,138 @@ import  java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        String fileName = args[0];
+        int arr[] = new int[256];
+        File file1 = new File(fileName);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file1)));
+        int buffer = 0;
+        while (bufferedReader.ready()) {
+            buffer = bufferedReader.read();
+            arr[buffer]++;
+        }
+        bufferedReader.close();
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > 0) System.out.println((char) (i) + " " + arr[i]);
+        }
+    }
+}
+
+
+/*
+
+Встречаемость символов
+        Программа запускается с одним параметром - именем файла, который содержит английский текст.
+        Посчитать частоту встречания каждого символа.
+        Отсортировать результат по возрастанию кода ASCII (почитать в инете).
+
+        Пример:
+        ','=44, 's'=115, 't'=116.
+
+        Вывести на консоль отсортированный результат:
+        [символ1] частота1
+        [символ2] частота2
+        Закрыть потоки.
+
+        Пример вывода:
+        , 19
+        - 7
+        f 361
+
+
+        Requirements:
+        1. Считывать с консоли ничего не нужно.
+        2. Создай поток для чтения из файла, который приходит первым параметром в main.
+        3. В файле необходимо посчитать частоту встречания каждого символа и вывести результат.
+        4. Выведенный в консоль результат должен быть отсортирован по возрастанию кода ASCII.
+        5. Поток для чтения из файла должен быть закрыт.
+*/
+/*
+public class Solution {
+    public static void main(String[] args) throws IOException{
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String fileName1 = bufferedReader.readLine();
+        String fileName2 = bufferedReader.readLine();
+//        String fileName1 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data5.txt";
+//        String fileName2 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data6.txt";
+        bufferedReader.close();
+
+        File file1 = new File(fileName1);
+        bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file1)));
+        String firstString = bufferedReader.readLine();
+        bufferedReader.close();
+
+     System.out.println(firstString);
+
+        String arr[] = firstString.split(" ");
+
+        String resultString = "";
+        for(String element: arr) {
+            resultString = resultString + Math.round(Float.parseFloat(element.trim())) + " ";
+            System.out.println(Math.round(Float.parseFloat(element.trim())));
+        }
+        System.out.println(resultString);
+
+
+        FileOutputStream fileOutputStream1 = new FileOutputStream(fileName2);
+        for (char buf: resultString.toCharArray()) {
+            fileOutputStream1.write(buf);
+        }
+        fileOutputStream1.close();
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String fileName1 = reader.readLine();
+        String fileName2 = reader.readLine();
+
+        try (BufferedReader bufferedFileReader = new BufferedReader(new FileReader(fileName1));
+             PrintWriter printWriter = new PrintWriter(new FileWriter(fileName2))) {
+
+            while (bufferedFileReader.ready()) {
+                String[] splittedLine = bufferedFileReader.readLine().split(" ");
+                for (String numberInString : splittedLine) {
+                    double number = Double.parseDouble(numberInString);
+                    long roundedNumber = Math.round(number);
+                    printWriter.print(roundedNumber + " ");
+                }
+            }
+        }
+    }
+}
+*/
+
+
+
+
+/*
+Округление чисел
+Считать с консоли 2 имени файла.
+Первый файл содержит вещественные(дробные) числа, разделенные пробелом. Например, 3.1415.
+Округлить числа до целых и записать через пробел во второй файл.
+Закрыть потоки.
+
+Принцип округления:
+3.49 => 3
+3.50 => 4
+3.51 => 4
+-3.49 => -3
+-3.50 => -3
+-3.51 => -4
+
+
+Requirements:
+1. Программа должна два раза считать имена файлов с консоли.
+2. Для первого файла создай поток для чтения. Для второго - поток для записи.
+3. Считать числа из первого файла, округлить их и записать через пробел во второй.
+4. Должны соблюдаться принципы округления, указанные в задании.
+5. Созданные для файлов потоки должны быть закрыты.
+ */
+
+
+/*
 public class Solution {
     public static void main(String[] args) throws IOException{
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -53,7 +186,7 @@ public class Solution {
     }
 }
 
-
+*/
 /*
 Объединение файлов
         Считать с консоли 2 имени файла.
