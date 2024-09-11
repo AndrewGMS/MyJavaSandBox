@@ -18,10 +18,159 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.lang.StackTraceElement;
 import java.util.concurrent.atomic.AtomicInteger;
-import  java.util.function.Function;
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 
+
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        FileInputStream fileInputStream = null;
+        String fileName = "";
+        try {
+        while (true) {
+            fileName = bufferedReader.readLine();
+
+            fileInputStream = new FileInputStream(fileName);
+            fileInputStream.close();
+        }
+            } catch (FileNotFoundException e) {
+                System.out.println(fileName);
+            } finally {
+                if (fileInputStream != null) fileInputStream.close();
+            }
+
+
+    }
+}
+
+
+
+/*
+
+Файлы и исключения
+Читайте с консоли имена файлов.
+Если файла не существует (передано неправильное имя файла), то перехватить исключение FileNotFoundException, вывести в консоль переданное неправильное имя файла и завершить работу программы.
+Закрыть потоки.
+Не используй System.exit();
+
+
+Requirements:
+1. Программа должна считывать имена файлов с консоли.
+2. Для каждого файла нужно создавать поток для чтения.
+3. Если файл не существует, программа должна перехватывать исключение FileNotFoundException.
+4. После перехвата исключения, программа должна вывести имя файла в консоль и завершить работу.
+5. Потоки для чтения из файла должны быть закрыты.
+6. Команду "System.exit();" использовать нельзя.
+ */
+
+/*
+
+public class Solution {
+    public static Map<String, Integer> resultMap = new HashMap<String, Integer>();
+
+    public static void main(String[] args) throws Exception {
+//+++        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//---
+        String fileName = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\files.txt";
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
+//---
+        String buffFileName;
+
+        while (!("exit".equals(buffFileName = bufferedReader.readLine()))) {
+            Thread thread = new ReadThread(buffFileName);
+            thread.start();
+
+//            System.out.println(buffFileName);
+        }
+        bufferedReader.close();
+//--
+        try {
+            Thread.sleep(Math.round(1000));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(resultMap);
+//--
+
+
+    }
+
+    public static class ReadThread extends Thread {
+        String fileName;
+        public ReadThread(String fileName) {
+            super();
+            this.fileName = fileName;
+            //implement constructor body
+        }
+
+        @Override
+        public void run() {
+//--
+            try {
+                Thread.sleep(Math.round(Math.random()*100));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+//--
+            try {
+
+            int arr[] = new int[256];
+            File file1 = new File(fileName);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file1)));
+            int buffer;
+            while (bufferedReader.ready()) {
+                buffer = bufferedReader.read();
+                arr[buffer]++;
+            }
+            bufferedReader.close();
+
+            int maxOccuringByteIndex = 0;
+            for (int i = 0; i < arr.length; i++) {
+                if (arr[i] > arr[maxOccuringByteIndex]) {
+                    maxOccuringByteIndex = i;
+                }
+            }
+                if (arr[maxOccuringByteIndex] != 0) {
+                    resultMap.put(fileName, maxOccuringByteIndex);
+                    System.out.println(fileName + " " + maxOccuringByteIndex);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+// implement file reading here - реализуйте чтение из файла тут
+    }
+
+
+}
+
+*/
+
+/*
+Нити и байты
+Читайте с консоли имена файлов, пока не будет введено слово "exit".
+Передайте имя файла в нить ReadThread.
+Нить ReadThread должна найти байт, который встречается в файле максимальное число раз (если таких байтов несколько, выбрать наименьший), и добавить его в словарь resultMap,
+где параметр String - это имя файла, параметр Integer - это искомый байт.
+Закрыть потоки.
+
+
+Requirements:
+1. Программа должна считывать имена файлов с консоли, пока не будет введено слово "exit".
+2. Для каждого файла создай нить ReadThread и запусти ее.
+3. После запуска каждая нить ReadThread должна создать свой поток для чтения из файла.
+4. Затем нити должны найти максимально встречающийся байт в своем файле и добавить его в словарь resultMap.
+5. Поток для чтения из файла в каждой нити должен быть закрыт.
+ */
+
+
+
+/*
 public class Solution {
     public static void main(String[] args) throws IOException{
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -44,7 +193,7 @@ public class Solution {
     }
 }
 
-
+*/
 
 
 
