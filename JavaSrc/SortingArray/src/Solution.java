@@ -21,34 +21,134 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
+public class Solution {
+    public static void main(String[] args) {
+        //это пример вывода
+        ATable aTable = new ATable() {
+            @Override
+            public String getCurrentUserName() {
+                return "Amigo";
+            }
+
+            @Override
+            public String getTableName() {
+                return "DashboardTable";
+            }
+        };
+
+        BTable table = new TableAdapter(aTable);
+        System.out.println(table.getHeaderText());
+    }
+
+    public static class TableAdapter implements BTable{
+        private ATable aTable;
+        public TableAdapter(ATable aTable) {
+            this.aTable = aTable;
+        }
+
+        @Override
+        public String getHeaderText() {
+            return "[" + aTable.getCurrentUserName() + "] : " + aTable.getTableName();
+        }
+    }
+
+    public interface ATable {
+        String getCurrentUserName();
+
+        String getTableName();
+    }
+
+    public interface BTable {
+        String getHeaderText();
+    }
+}
 
 
+/*
+TableAdapter
+Zзмени класс TableAdapter так, чтобы он адаптировал ATable к BTable.
+Метод getHeaderText должен возвращать такую строку "[username] : tablename".
+
+Пример, "[Amigo] : DashboardTable".
+
+
+Requirements:
++1. Класс Solution должен содержать public static интерфейс ATable.
++2. Класс Solution должен содержать public static интерфейс BTable.
++3. Класс Solution должен содержать public static класс TableAdapter.
++4. Класс TableAdapter должен реализовывать интерфейс BTable.
++5. Класс TableAdapter должен содержать приватное поле aTable типа ATable.
++6. Класс TableAdapter должен содержать конструктор с параметром ATable.
+7. Класс TableAdapter должен переопределять метод getHeaderText согласно заданию.
+ */
+/*
 public class Solution {
     public static void main(String[] args) throws Exception {
-           List<String> filesArray = new ArrayList<>();
-//++       BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        List<String> filesArray = new ArrayList<>();
+        String partString = ".part";
+//++    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 //---
-            String fileName = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\datalist.txt";
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
+        String fileName = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\datalist.txt";
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
+//        System.out.println("reading filenames --------------");
 //---
+
             String buffFileName;
             while (!("end".equals(buffFileName = bufferedReader.readLine()))) {
                 filesArray.add(buffFileName);
 //---
-           System.out.println(buffFileName);
+
+//                System.out.println(buffFileName);
 //---
             }
             bufferedReader.close();
 //--
-        for (String file: filesArray) {
-            System.out.println(file);
-        }
+//        System.out.println("before sort --------------");
+//        for (String file: filesArray) {
+//            System.out.println(file);
+//        }
 //--
+        Collections.sort(filesArray, new FileNumberOrderComparator(partString));
 
+//--
+//        System.out.println("after sort --------------");
+//        for (String file: filesArray) {
+//            System.out.println(file);
+//        }
+//--
+//
+//        System.out.println(" - " + outputFileName);
+//--
+        String outputFileName =filesArray.get(0).substring(0, filesArray.get(0).lastIndexOf(partString)).trim();
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFileName)));
+        for (String file: filesArray) {
+            bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+            while (bufferedReader.ready()) {
+                bufferedWriter.write(bufferedReader.read());
+            }
+            bufferedReader.close();
+        }
+        bufferedWriter.close();
+    }
 
+    private static class FileNumberOrderComparator implements Comparator<String> {
+        String partString;
+        public int getFileNumber(String s) {
+            return Integer.parseInt(s.substring(s.lastIndexOf(partString) + partString.length()).trim());
+        }
 
+        public FileNumberOrderComparator(String partString) {
+            this.partString = partString;
+        }
+
+        @Override
+        public int compare(String firstString, String secondString) {
+            return getFileNumber(firstString) - getFileNumber(secondString);
+        }
     }
 }
+
+*/
 /*
 Собираем файл
 Собираем файл из кусочков.
