@@ -23,6 +23,26 @@ import java.util.function.UnaryOperator;
 
 public class Solution {
     public static void main(String[] args) {
+        String s1 = "501234567";
+        String s2 = "0000000000";
+        String s3 = s2.substring(0, 10 - s1.length()) +  s1;
+        String s4 = String.format("+38(%s)%s-%s-%s", s3.substring(0, 3), s3.substring(3, 6), s3.substring(6, 8), s3.substring(8, 10));
+// +38(050)123-45-67
+// +38(050)123-45-67
+// +38(050)12-4-6
+        System.out.println(s3);
+        System.out.println(s4);
+
+    }
+}
+
+
+/*
+
+
+
+public class Solution {
+    public static void main(String[] args) {
         //это пример вывода
         ATable aTable = new ATable() {
             @Override
@@ -62,7 +82,7 @@ public class Solution {
         String getHeaderText();
     }
 }
-
+*/
 
 /*
 TableAdapter
