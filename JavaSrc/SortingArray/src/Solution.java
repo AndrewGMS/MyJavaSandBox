@@ -21,6 +21,88 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
+
+public class Solution {
+
+    public static void main(String[] args) throws Exception{
+        String fileName = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\PersonScannerAdapter.txt";
+        PersonScanner personScannerAdapter = new PersonScannerAdapter(new Scanner(new FileReader(fileName)));
+        System.out.println(personScannerAdapter.read().toString());
+
+    }
+//++
+    public static class PersonScannerAdapter implements PersonScanner{
+        private Scanner fileScanner;
+
+    PersonScannerAdapter(Scanner fileScanner) {
+        this.fileScanner = fileScanner;
+    }
+
+    @Override
+    public Person read() throws IOException {
+        String lastName = fileScanner.next();
+        String firstName = fileScanner.next();
+        String middleName = fileScanner.next();
+
+        int dateDay = fileScanner.nextInt();
+        int dateMonth = fileScanner.nextInt() - 1;
+        int dateYear = fileScanner.nextInt() ;
+
+        // Date birthDate = new Date( dateYear, dateMonth, dateDay);
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(calendar.DATE, dateDay);
+        calendar.set(calendar.MONTH, dateMonth);
+        calendar.set(calendar.YEAR, dateYear);
+
+   //     System.out.println(calendar.toString() + " calendar");
+        Date birthDate = new Date(calendar.getTimeInMillis());
+
+        Person person = new Person(firstName, middleName, lastName, birthDate);
+//        System.out.println(firstName + " " + middleName + " " + lastName + " " + dateYear + " " + dateMonth + " " +  dateDay + " " + birthDate + " end");
+//        while (fileScanner.hasNext())
+//         System.out.println(fileScanner.next());
+
+        return person;
+    }
+
+    @Override
+    public void close() throws IOException {
+        fileScanner.close();
+    }
+}
+//++
+
+
+}
+
+
+/*
+еще один адаптер
+Адаптировать Scanner к PersonScanner.
+Классом-адаптером является PersonScannerAdapter.
+В классе адаптере создать приватное финальное поле Scanner fileScanner. Поле инициализировать в конструкторе с одним аргументом типа Scanner.
+
+Данные в файле хранятся в следующем виде:
+
+етров Петр Петрович 31 12 1957
+
+В файле хранится большое количество людей, данные одного человека находятся в одной строке. Метод read() должен читать данные только одного человека.
+
+
+Requirements:
++ 1. PersonScanner должен быть интерфейсом.
++ 2. Класс PersonScannerAdapter должен реализовывать интерфейс PersonScanner.
++ 3. Класс PersonScannerAdapter должен содержать приватное поле fileScanner типа Scanner.
++ 4. Класс PersonScannerAdapter должен содержать конструктор с параметром Scanner.
++ 5. Метод close() класса PersonScannerAdapter должен делегировать полномочие такому же методу fileScanner.
+6. Метод read() класса PersonScannerAdapter должен читать строку с файла, парсить её, и возвращать данные только одного человека, в виде объекта класса Person.
+ */
+
+
+
+
+/*
 public class Solution {
     public static void main(String[] args) {
         String s1 = "501234567";
@@ -36,7 +118,7 @@ public class Solution {
     }
 }
 
-
+*/
 /*
 
 
