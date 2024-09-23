@@ -22,6 +22,56 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 
+
+
+    public class Solution {
+        public static void main(String[] args) throws IOException{
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//            String fileName1 = bufferedReader.readLine();
+//            String fileName2 = bufferedReader.readLine();
+        String fileName1 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data7.txt";
+        String fileName2 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data9.txt";
+            bufferedReader.close();
+
+            try {
+                FileReader fileReader = new FileReader(fileName1);
+                FileWriter fileWriter = new FileWriter(fileName2);
+                while (fileReader.ready()) {
+                    fileReader.read();
+                    int buffer = fileReader.read();
+                    fileWriter.write(buffer);
+                }
+                fileWriter.close();
+                fileReader.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+/*
+Четные символы
++ Считать с консоли 2 имени файла.
+Вывести во второй файл все символы с четным порядковым номером (нумерация начинается с 1).
+
+Пример первого файла:
+text in file
+Вывод во втором файле:
+eti ie
+Закрыть потоки ввода-вывод
+
+
+Requirements:
++ 1. Программа должна считывать имена файлов с консоли (используй BufferedReader).
++ 2. BufferedReader для считывания данных с консоли должен быть закрыт.
++ 3. Программа должна считывать содержимое первого файла (используй FileReader c конструктором String).
+4. Поток чтения из файла (FileReader) должен быть закрыт.
+5. Программа должна записывать во второй файл все символы из первого файла с четным порядковым номером (используй FileWriter).
+6. Поток записи в файл (FileWriter) должен быть закрыт.
+ */
+
+/*
 public class Solution{
     public static Map<String, String> countries = new HashMap<String, String>();
     static {
@@ -136,7 +186,7 @@ public class Solution{
         String getPhoneNumber();        //For example: +38(050)123-45-67 or +3(805)0123-4567 or +380(50)123-4567 or ...
     }
 }
-
+*/
 /*
     Закрепляем адаптер
     Адаптировать Customer и Contact к RowItem.
