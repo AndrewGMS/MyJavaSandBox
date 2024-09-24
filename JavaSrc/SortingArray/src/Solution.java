@@ -4,6 +4,7 @@ import java.awt.print.Book;
 import java.io.*;
 import java.math.BigDecimal;
 import java.net.URISyntaxException;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystemException;
 import java.rmi.RemoteException;
@@ -22,8 +23,110 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 
+public class Solution {
+    public static void main(String[] args) throws IOException{
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//            String fileName1 = bufferedReader.readLine();
+//            String fileName2 = bufferedReader.readLine();
+        String fileName1 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data11.txt";
+        String fileName2 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data12.txt";
+        bufferedReader.close();
+
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(fileName1));
+        BufferedWriter bufferedWriter2 = new BufferedWriter(new FileWriter(fileName2));
+
+        String[] buffer1 = bufferedReader1.readLine().split(" ");
+        String buffer2 = "";
+        for (String s: buffer1) {
+         try {
+             Integer.parseInt(s);
+             buffer2 = buffer2 + s + " ";
+         } catch (NumberFormatException e) {
+         }
+        }
+        bufferedWriter2.write(buffer2);
+        bufferedReader1.close();
+        bufferedWriter2.close();
+  }
+}
 
 
+
+/*
+Выделяем числа
+Считать с консоли 2 пути к файлам.
+Вывести во второй файл все целые числа, которые есть в первом файле (54у не является числом).
+Числа выводить через пробел.
+Закрыть потоки.
+
+Пример тела файла:
+12 text var2 14 8ю 1
+
+Результат:
+12 14 1
+
+
+Requirements:
+1. Программа должна считывать пути к файлам с консоли (используй BufferedReader).
+2. BufferedReader для считывания данных с консоли должен быть закрыт.
+3. Программа должна считывать содержимое первого файла (используй BufferedReader c конструктором принимающим FileReader).
+4. Поток чтения из файла (BufferedReader) должен быть закрыт.
+5. Программа должна записывать во второй файл все числа, через пробел, из первого файла (используй BufferedWriter с конструктором FileWriter).
+6. Поток записи в файл (BufferedWriter) должен быть закрыт.
+
+ */
+
+
+/*
+public class Solution {
+    public static void main(String[] args) throws IOException{
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//            String fileName1 = bufferedReader.readLine();
+        String fileName1 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data10.txt";
+
+        bufferedReader.close();
+// Read
+        int countWord = 0;
+        String findWord = "Read";
+        bufferedReader = new BufferedReader(new FileReader(fileName1));
+        while (bufferedReader.ready()) {
+            String bufferString = bufferedReader.readLine();
+         //   String[] buffer = bufferString.split(findWord);
+            String replacedString = bufferString.replaceAll("\\p{P}", " ").replaceAll("\\s", " ");
+            System.out.println(bufferString);
+            System.out.println(replacedString);
+
+            for (String x : replacedString.split(" ")) {
+                if (x.equals("Read")) {
+                    countWord++;
+                }
+            }
+//            System.out.println(buffer.length);
+        }
+        bufferedReader.close();
+        System.out.println(countWord);
+    }
+}
+
+*/
+/*
+Считаем слово
+Считать с консоли имя файла.
+Файл содержит слова, разделенные знаками препинания.
+Вывести в консоль количество слов "world", которые встречаются в файле.
+Закрыть потоки.
+
+
+Requirements:
++ 1. Программа должна считывать имя файла с консоли (используй BufferedReader).
++ 2. BufferedReader для считывания данных с консоли должен быть закрыт.
++ 3. Программа должна считывать содержимое файла (используй FileReader c конструктором принимающим String).
++ 4. Поток чтения из файла (FileReader) должен быть закрыт.
+5. Программа должна выводить в консоль количество слов "world", которые встречаются в файле.
+ */
+
+
+/*
     public class Solution {
         public static void main(String[] args) throws IOException{
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -49,7 +152,7 @@ import java.util.function.UnaryOperator;
         }
     }
 
-
+*/
 /*
 Четные символы
 + Считать с консоли 2 имени файла.
