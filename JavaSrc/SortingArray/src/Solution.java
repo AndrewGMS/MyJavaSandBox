@@ -28,6 +28,96 @@ public class Solution {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 //            String fileName1 = bufferedReader.readLine();
 //            String fileName2 = bufferedReader.readLine();
+        String fileName1 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data7.txt";
+        String fileName2 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data14.txt";
+        bufferedReader.close();
+
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(fileName1));
+        BufferedWriter bufferedWriter2 = new BufferedWriter(new FileWriter(fileName2));
+        while (bufferedReader1.ready()) {
+            String bufferString = bufferedReader1.readLine();
+//            String replacedString = bufferString.replaceAll("\\p{P}", " ").replaceAll("\\s", " ");
+            String replacedString = bufferString.replaceAll("\\p{P}", "");
+//            String replacedString = bufferString.replaceAll("\\.", "!");
+            bufferedWriter2.write(replacedString);
+//            System.out.println(bufferString);
+//            System.out.println(replacedString);
+        }
+        bufferedReader1.close();
+        bufferedWriter2.close();
+    }
+}
+
+
+/*
+Пунктуация
+Считать с консоли 2 имени файла.
+Первый Файл содержит текст.
+Считать содержимое первого файла, удалить все знаки пунктуации, включая символы новой строки.
+
+Результат вывести во второй файл.
+
+Закрыть потоки.
+
+
+Requirements:
+1. Программа должна считывать имена файлов с консоли (используй BufferedReader).
+2. BufferedReader для считывания данных с консоли должен быть закрыт.
+3. Программа должна считывать содержимое первого файла (используй BufferedReader c конструктором FileReader).
+4. Поток чтения из файла (BufferedReader) должен быть закрыт.
+5. Программа должна записывать во второй файл содержимое первого файла, где удалены все знаки пунктуации, включая символы новой строки (Для записи в файл используй BufferedWriter с конструктором FileWriter).
+6. Поток записи в файл (BufferedWriter) должен быть закрыт.
+ */
+
+/*
+public class Solution {
+    public static void main(String[] args) throws IOException{
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//            String fileName1 = bufferedReader.readLine();
+//            String fileName2 = bufferedReader.readLine();
+        String fileName1 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data7.txt";
+        String fileName2 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data13.txt";
+        bufferedReader.close();
+
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(fileName1));
+        BufferedWriter bufferedWriter2 = new BufferedWriter(new FileWriter(fileName2));
+        while (bufferedReader1.ready()) {
+            String bufferString = bufferedReader1.readLine();
+            String replacedString = bufferString.replaceAll("\\.", "!");
+            bufferedWriter2.write(replacedString + "\n");
+//            System.out.println(bufferString);
+//            System.out.println(replacedString);
+        }
+        bufferedReader1.close();
+        bufferedWriter2.close();
+    }
+}
+*/
+
+/*
+Замена знаков
+Считать с консоли 2 имени файла.
+Первый Файл содержит текст.
+Считать содержимое первого файла и заменить все точки "." на знак "!".
+Результат вывести во второй файл.
+Закрыть потоки.
+
+
+Requirements:
++ 1. Программа должна считывать имена файлов с консоли (используй BufferedReader).
++ 2. BufferedReader для считывания данных с консоли должен быть закрыт.
++ 3. Программа должна считывать содержимое первого файла (используй BufferedReader c конструктором FileReader).
++ 4. Поток чтения из файла (BufferedReader) должен быть закрыт.
++5. Программа должна записывать во второй файл содержимое первого файла, где заменены все точки "." на знак "!" (Для записи в файл используй BufferedWriter с конструктором FileWriter).
++6. Поток записи в файл (BufferedWriter) должен быть закрыт.
+ */
+
+/*
+public class Solution {
+    public static void main(String[] args) throws IOException{
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//            String fileName1 = bufferedReader.readLine();
+//            String fileName2 = bufferedReader.readLine();
         String fileName1 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data11.txt";
         String fileName2 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data12.txt";
         bufferedReader.close();
@@ -50,7 +140,7 @@ public class Solution {
   }
 }
 
-
+*/
 
 /*
 Выделяем числа
