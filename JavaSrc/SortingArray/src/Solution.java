@@ -22,11 +22,78 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
+
+
+
+/*
 public class Solution {
     public static List<LineItem> lines = new ArrayList<LineItem>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            String fileName1 = bufferedReader.readLine();
+            String fileName2 = bufferedReader.readLine();
+//        String fileName1 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data15.txt";
+//        String fileName2 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data16.txt";
+        bufferedReader.close();
+        List<String> oldList = new ArrayList<>();
+        List<String> newList = new ArrayList<>();
+
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(fileName1));
+        BufferedReader bufferedReader2 = new BufferedReader(new FileReader(fileName2));
+
+        while (bufferedReader1.ready()) {
+            oldList.add(bufferedReader1.readLine());
+        }
+
+//        while (bufferedReader2.ready()) {
+//            newList.add(bufferedReader2.readLine());
+//        }
+
+        String fileLine;
+        while ((fileLine = bufferedReader2.readLine()) != null) {
+            newList.add(fileLine);
+        }
+
+//        System.out.println(oldList);
+//        System.out.println(newList);
+
+        int oldListPos = 0;
+        int newListPos = 0;
+        while ((oldListPos < oldList.size()) && (newListPos < newList.size())) {
+            if (oldList.get(oldListPos).equals(newList.get(newListPos))) {
+                lines.add(new LineItem(Type.SAME, oldList.get(oldListPos)));
+//                System.out.println("SAME " + oldList.get(oldListPos) + " " + oldListPos + " " + newListPos);
+                if (oldListPos < oldList.size()-1) oldListPos++;
+                if (newListPos < oldList.size()-1) newListPos++;
+            }
+            if (((newListPos + 1) < newList.size()) && oldList.get(oldListPos).equals(newList.get(newListPos + 1))) {
+                lines.add(new LineItem(Type.ADDED, newList.get(newListPos)));
+//                System.out.println("ADDED " + newList.get(newListPos) + " " + oldListPos + " " + newListPos);
+                newListPos++;
+            }
+            if ((oldListPos + 1 < oldList.size()) && oldList.get(oldListPos + 1).equals(newList.get(newListPos))) {
+                lines.add(new LineItem(Type.REMOVED, oldList.get(oldListPos)));
+//                System.out.println("REMOVED " + oldList.get(oldListPos) + " " + oldListPos + " " + newListPos);
+                oldListPos++;
+            }
+        }
+
+//        System.out.println(" " + oldListPos + " " + newListPos);
+//        System.out.println(" " + oldList.size() + " " + newList.size());
+        while (oldListPos < (oldList.size())) {
+            lines.add(new LineItem(Type.REMOVED, oldList.get(oldListPos)));
+//            System.out.println("REMOVED " + oldList.get(oldListPos) + " " + oldListPos + " " + newListPos);
+            oldListPos++;
+        }
+        while (newListPos < (newList.size())) {
+            lines.add(new LineItem(Type.ADDED, newList.get(newListPos)));
+//            System.out.println("ADDED " + newList.get(newListPos) + " " + oldListPos + " " + newListPos);
+            newListPos++;
+        }
     }
+
+
 
 
     public static enum Type {
@@ -47,7 +114,7 @@ public class Solution {
 }
 
 
-
+*/
 
 /*
 Отслеживаем изменения
@@ -122,11 +189,11 @@ public class Solution {
 
 
         Requirements:
-        1. Класс Solution должен содержать класс LineItem.
-        2. Класс Solution должен содержать enum Type.
-        3. Класс Solution должен содержать публичное статическое поле lines типа List<LineItem>, которое сразу проинициализировано.
-        4. В методе main(String[] args) программа должна считывать пути к файлам с консоли (используй BufferedReader).
-        5. В методе main(String[] args) BufferedReader для считывания данных с консоли должен быть закрыт.
+   +     1. Класс Solution должен содержать класс LineItem.
+   +     2. Класс Solution должен содержать enum Type.
+   +     3. Класс Solution должен содержать публичное статическое поле lines типа List<LineItem>, которое сразу проинициализировано.
+   +     4. В методе main(String[] args) программа должна считывать пути к файлам с консоли (используй BufferedReader).
+   +     5. В методе main(String[] args) BufferedReader для считывания данных с консоли должен быть закрыт.
         6. Программа должна считывать содержимое первого и второго файла (используй FileReader).
         7. Потоки чтения из файлов (FileReader) должны быть закрыты.
         8. Список lines должен содержать объединенную версию строк из файлов, где для каждой строки указана одна из операций ADDED, REMOVED, SAME.
