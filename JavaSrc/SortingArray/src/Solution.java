@@ -23,7 +23,109 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        String fileName1 = bufferedReader.readLine();
+        String fileName1 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data17.txt";
+        bufferedReader.close();
 
+        String tag = args[0];
+        System.out.println("tag - " + tag);
+
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(fileName1));
+        String buffer = "";
+        while (bufferedReader1.ready()) {
+            buffer = buffer + bufferedReader1.readLine();
+        }
+        System.out.println(buffer);
+        bufferedReader1.close();
+
+        String startTag = "<";
+        String endTag = "</";
+
+
+//        String[] splitter = buffer.split(tag);
+//        String outBuffer ="";
+//        int nestedCount = 0;
+//        for (String str: splitter) {
+//            System.out.println("outBuffer - " + outBuffer);
+//            System.out.println("str - " + str);
+//            System.out.println("nestedCount - " + nestedCount);
+//            if (str.endsWith(startTag)) {
+//                nestedCount++;
+//                if (nestedCount > 1) {
+//                    outBuffer = outBuffer + str + tag;
+//                } else outBuffer = outBuffer + startTag + tag ;
+//            }
+//            if (str.endsWith(endTag)) {
+//
+//                if (nestedCount > 1) {
+//                    outBuffer = outBuffer + str + tag;
+//                    nestedCount--;
+//                } else {
+//                    outBuffer = outBuffer + str + tag + ">";
+//                    System.out.println(outBuffer);
+//                    outBuffer = "";
+//                    nestedCount--;
+//                }
+//            }
+//            System.out.println(str);
+//        }
+//        System.out.println(outBuffer);
+
+
+
+//        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(fileName1));
+//        BufferedReader bufferedReader2 = new BufferedReader(new FileReader(fileName2));
+//
+//        while (bufferedReader1.ready()) {
+//            oldList.add(bufferedReader1.readLine());
+//        }
+
+    }
+}
+
+
+/*
+Знакомство с тегами
+Считай с консоли имя файла, который имеет HTML-формат.
+
+Пример:
+Info about Leela <span xml:lang="en" lang="en"><b><span>Turanga Leela
+</span></b></span><span>Super</span><span>girl</span>
+
+Первым параметром в метод main приходит тег. Например, "span".
+Вывести на консоль все теги, которые соответствуют заданному тегу.
+Каждый тег на новой строке, порядок должен соответствовать порядку следования в файле.
+Количество пробелов, \n, \r не влияют на результат.
+Файл не содержит тег CDATA, для всех открывающих тегов имеется отдельный закрывающий тег, одиночных тегов нет.
+Тег может содержать вложенные теги.
+
+Пример вывода:
+<span xml:lang="en" lang="en"><b><span>Turanga Leela</span></b></span>
+<span xml:lang="en" lang="en"><b><span>Turanga Leela</span></b></span>
+<span>Turanga Leela</span>
+<span>Super</span>
+<span>girl</span>
+
+Шаблон тега:
+<tag>text1</tag>
+<tag text2>text1</tag>
+<tag
+text2>text1</tag>
+
+text1, text2 могут быть пустыми
+
+
+Requirements:
+1. Программа должна считывать имя файла с консоли (используй BufferedReader).
+2. BufferedReader для считывания данных с консоли должен быть закрыт.
+3. Программа должна считывать содержимое файла (используй FileReader).
+4. Поток чтения из файла (FileReader) должен быть закрыт.
+5. Программа должна выводить в консоль все теги, которые соответствуют тегу, заданному в параметре метода main.
+
+ */
 
 /*
 public class Solution {
