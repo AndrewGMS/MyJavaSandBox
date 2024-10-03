@@ -31,18 +31,76 @@ public class Solution {
         bufferedReader.close();
 
         String tag = args[0];
-        System.out.println("tag - " + tag);
+//        System.out.println("tag - " + tag);
 
         BufferedReader bufferedReader1 = new BufferedReader(new FileReader(fileName1));
         String buffer = "";
         while (bufferedReader1.ready()) {
             buffer = buffer + bufferedReader1.readLine();
         }
-        System.out.println(buffer);
+    //    System.out.println(buffer);
         bufferedReader1.close();
 
-        String startTag = "<";
-        String endTag = "</";
+        String startTag = "<" + tag;
+        String endTag = "</" + tag + ">";
+
+        int nestedCount = 0;
+        int firstIndex = 0;
+
+        while (buffer.indexOf(startTag) >= 0) {
+            buffer = buffer.substring(outputTag(buffer, startTag, endTag));
+//            System.out.println("buffer - " + buffer);
+
+        }
+
+
+
+    }
+
+    public static int outputTag(String str, String startTag, String endTag) {
+//        System.out.println("analize - " + str);
+        // находим начальную позицию по тегу
+        int firstPosition = str.indexOf(startTag);
+        // находим начальную позицию по тегу
+        int endPosition = str.indexOf(endTag);
+
+        // если между начальным тегом и конечным тегом есть начальный теги то ищем закрывающий тег, соответствующий открыааемому
+        int nestedCount = 0;
+        int firstPositionTemp = firstPosition;
+        int endPositionTemp = endPosition;
+        if  (((firstPosition >= 0) && (endPosition >= 0)) && (str.substring(firstPositionTemp, endPositionTemp).indexOf(startTag) >= 0)) {
+//            System.out.println("analize startPosition - " + str.substring(firstPosition, endPosition + endTag.length()));
+            while (str.substring(firstPositionTemp + startTag.length(), endPositionTemp).indexOf(startTag) >= 0) {
+//            System.out.println("analize firstPositionTemp - " + str.substring(firstPositionTemp + startTag.length(), endPositionTemp));
+
+                firstPositionTemp = firstPositionTemp + str.substring(firstPositionTemp + startTag.length(), endPositionTemp).indexOf(startTag) + startTag.length();
+//            System.out.println("analize endPositionTemp - " + str.substring(0, endPositionTemp + endTag.length()));
+                endPositionTemp = endPositionTemp + str.substring(endPositionTemp + endTag.length()).indexOf(endTag) + endTag.length();
+
+//            System.out.println("analize endPositionTemp after - " + str.substring(0, endPositionTemp + endTag.length()));
+//            System.out.println("analize first - " + str.substring(firstPositionTemp, endPositionTemp));
+
+//            endPositionTemp = endPositionTemp + str.substring(endPositionTemp + endTag.length()).indexOf(endTag);
+
+            }
+            endPositionTemp += endTag.length();
+            System.out.println(str.substring(firstPosition, endPositionTemp));
+//            System.out.println("substring - " + str.substring(firstPosition, endPositionTemp));
+            String buffer = str.substring(firstPosition + startTag.length() , endPositionTemp - endTag.length());
+//            System.out.println("buffer2 - " + buffer);
+            while (buffer.indexOf(startTag) >= 0) {
+                buffer = buffer.substring(outputTag(buffer, startTag, endTag));
+      //          System.out.println("buffer - " + buffer);
+
+            }
+
+            // outputTag(str.substring(firstPosition + startTag.length(), endPositionTemp - endTag.length()), startTag, endTag);
+
+            //     System.out.println(str);
+            return endPositionTemp;
+        } else return str.length();
+    }
+
 
 
 //        String[] splitter = buffer.split(tag);
@@ -83,7 +141,7 @@ public class Solution {
 //            oldList.add(bufferedReader1.readLine());
 //        }
 
-    }
+//    }
 }
 
 
@@ -104,10 +162,10 @@ Info about Leela <span xml:lang="en" lang="en"><b><span>Turanga Leela
 
 Пример вывода:
 <span xml:lang="en" lang="en"><b><span>Turanga Leela</span></b></span>
-<span xml:lang="en" lang="en"><b><span>Turanga Leela</span></b></span>
 <span>Turanga Leela</span>
 <span>Super</span>
 <span>girl</span>
+
 
 Шаблон тега:
 <tag>text1</tag>
