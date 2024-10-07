@@ -22,7 +22,56 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
+public class Solution {
+    public static void main(String[] args) throws Exception{
+        Map<String, Double> list= new TreeMap<>();
+        System.out.println(args[0]);
 
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(args[0]));
+        
+        while (bufferedReader1.ready()) {
+            System.out.println(bufferedReader1.readLine());;
+
+        }
+        //    System.out.println(buffer);
+        bufferedReader1.close();
+
+
+    }
+}
+
+
+/*
+Считаем зарплаты
+В метод main первым параметром приходит имя файла.
+В этом файле каждая строка имеет следующий вид:
+имя значение
+где [имя] - String, [значение] - double. [имя] и [значение] разделены пробелом.
+
+Для каждого имени посчитать сумму всех его значений.
+Все данные вывести в консоль, предварительно отсортировав в возрастающем порядке по имени.
+Закрыть потоки.
+
+Пример входного файла:
+Петров 2
+Сидоров 6
+ванов 1.35
+Петров 3.1
+
+Пример вывода:
+ванов 1.35
+Петров 5.1
+Сидоров 6.0
+
+
+Requirements:
+1. Программа НЕ должна считывать данные с консоли.
+2. Программа должна считывать содержимое файла (используй FileReader).
+3. Поток чтения из файла (FileReader) должен быть закрыт.
+4. Программа должна выводить в консоль каждое имя и сумму всех его значений, все данные должны быть отсортированы в возрастающем порядке по имени.
+ */
+
+/*
 public class Solution {
     public static void main(String[] args) throws Exception {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -143,7 +192,7 @@ public class Solution {
 
 //    }
 }
-
+*/
 
 /*
 Знакомство с тегами
