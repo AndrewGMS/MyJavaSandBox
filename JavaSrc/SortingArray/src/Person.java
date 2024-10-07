@@ -5,6 +5,28 @@ import java.util.Date;
 import java.util.Date;
 
 public class Person {
+    private String name;
+    private Date birthDate;
+
+    public Person(String name, Date birthDate) {
+        this.name = name;
+        this.birthDate = birthDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+}
+
+
+
+
+/*
+public class Person {
     private String firstName;
     private String middleName;
     private String lastName;
@@ -22,3 +44,4 @@ public class Person {
         return String.format("%s %s %s %s", lastName, firstName, middleName, birthDate.toString());
     }
 }
+*/

@@ -22,15 +22,33 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
+
 public class Solution {
-    public static void main(String[] args) throws Exception{
-        Map<String, Double> list= new TreeMap<>();
-        System.out.println(args[0]);
+    public static final List<Person> PEOPLE = new ArrayList<Person>();
+
+    public static void main(String[] args) throws Exception {
 
         BufferedReader bufferedReader1 = new BufferedReader(new FileReader(args[0]));
-        
+
         while (bufferedReader1.ready()) {
-            System.out.println(bufferedReader1.readLine());;
+            String[] buffer = bufferedReader1.readLine().split(" ");
+            String fullName = "";
+            for (int i = 0; i < buffer.length - 3; i++) {
+                fullName += buffer[i] + " ";
+            }
+            // fullName = fullName.trim();
+     //       System.out.println(fullName);
+
+            Calendar calendar = Calendar.getInstance();
+
+            calendar.set(calendar.DATE, Integer.parseInt(buffer[buffer.length - 3]));
+            calendar.set(calendar.MONTH, Integer.parseInt(buffer[buffer.length - 2]) - 1);
+            calendar.set(calendar.YEAR, Integer.parseInt(buffer[buffer.length - 1]));
+       //     System.out.println(calendar.toString() + " calendar");
+            Date birthDate = new Date(calendar.getTimeInMillis());
+
+            PEOPLE.add(new Person(fullName, birthDate));
+
 
         }
         //    System.out.println(buffer);
@@ -40,6 +58,117 @@ public class Solution {
     }
 }
 
+
+/*
+Хуан Хуанович
+В метод main первым параметром приходит имя файла.
+В этом файле каждая строка имеет следующий вид:
+имя день месяц год
+где [имя] - может состоять из нескольких слов, разделенных пробелами, и имеет тип String.
+[день] - int, [месяц] - int, [год] - int
+данные разделены пробелами.
+
+Заполнить список PEOPLE используя данные из файла.
+Закрыть потоки.
+
+Пример входного файла:
+ванов ван ванович 31 12 1987
+Вася 15 5 2013
+
+
+Requirements:
+1. Класс Solution должен содержать публичную константу PEOPLE типа List<Person>, которая должна быть сразу проинициализирована.
+2. Программа НЕ должна считывать данные с консоли.
+3. Программа должна считывать содержимое файла (используй FileReader).
+4. Поток чтения из файла (FileReader) должен быть закрыт.
+5. Программа должна заполнить список PEOPLE данными из файла.
+6. Программа должна правильно работать с двойными именами, например Анна-Надежда.
+ */
+
+
+/*
+public class Solution {
+    public static void main(String[] args) throws Exception{
+        Map<String, Double> list= new TreeMap<>();
+
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(args[0]));
+
+        while (bufferedReader1.ready()) {
+            String[] buffer = bufferedReader1.readLine().split(" ");
+  //         System.out.println(buffer[0] + " !" + buffer[1]);
+            if (list.computeIfPresent(buffer[0], (k, v) -> v + Double.parseDouble(buffer[1])) == null)
+                list.put(buffer[0], Double.parseDouble(buffer[1]));
+        }
+        //    System.out.println(buffer);
+        bufferedReader1.close();
+
+        double maxValue = 0;
+        for (Map.Entry<String, Double> line : list.entrySet()) {
+            if (maxValue < line.getValue()) maxValue = line.getValue();
+        }
+
+
+        for (Map.Entry<String, Double> line : list.entrySet()) {
+            if (maxValue == line.getValue()) System.out.println(line.getKey());
+        }
+    }
+}
+*/
+/*
+Самый богатый
+В метод main первым параметром приходит имя файла.
+В этом файле каждая строка имеет следующий вид:
+имя значение
+где [имя] - String, [значение] - double. [имя] и [значение] разделены пробелом.
+
+Для каждого имени посчитать сумму всех его значений.
+Вывести в консоль имена в алфавитном порядке, у которых максимальная сумма.
+мена разделять пробелом либо выводить с новой строки.
+Закрыть потоки.
+
+Пример входного файла:
+Петров 0.501
+ванов 1.35
+Петров 0.85
+
+Пример вывода:
+Петров
+
+
+Requirements:
+1. Программа НЕ должна считывать данные с консоли.
+2. Программа должна считывать содержимое файла (используй FileReader).
+3. Поток чтения из файла (FileReader) должен быть закрыт.
+4. Программа должна выводить в консоль имена, у которых максимальная сумма.
+
+ */
+
+
+/*
+public class Solution {
+    public static void main(String[] args) throws Exception{
+        Map<String, Double> list= new TreeMap<>();
+        System.out.println(args[0]);
+
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(args[0]));
+
+        while (bufferedReader1.ready()) {
+            String[] buffer = bufferedReader1.readLine().split(" ");
+            System.out.println(buffer[0] + " !" + buffer[1]);
+            if (list.computeIfPresent(buffer[0], (k, v) -> v + Double.parseDouble(buffer[1])) == null)
+            list.put(buffer[0], Double.parseDouble(buffer[1]));
+
+
+        }
+        //    System.out.println(buffer);
+        bufferedReader1.close();
+
+        for (Map.Entry<String, Double> line : list.entrySet()) {
+            System.out.println(line.getKey() + " " + line.getValue());
+        }
+    }
+}
+*/
 
 /*
 Считаем зарплаты
