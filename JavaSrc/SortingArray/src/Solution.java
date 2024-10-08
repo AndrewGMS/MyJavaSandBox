@@ -22,7 +22,77 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
+public class Solution {
+    public static List<String> words = new ArrayList<String>();
 
+    static {
+        words.add("А");
+        words.add("Б");
+        words.add("В");
+    }
+
+//    static {
+//        words.add("файл");
+//        words.add("вид");
+//        words.add("В");
+//    }
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        String fileName1 = bufferedReader.readLine();
+        String fileName1 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data20.txt";
+        bufferedReader.close();
+
+
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(fileName1));
+        String[] buffer2;
+        String buffer;
+        while (bufferedReader1.ready()) {
+            int countOccurrences = 0;
+            buffer = bufferedReader1.readLine();
+            buffer2 = buffer.split(" ");
+//            System.out.println(buffer2.length);
+            for (int i = 0; i < buffer2.length; i++) {
+                for (int j = 0; j < words.size(); j++) {
+                    System.out.println(words.get(j) + " " + buffer2[i]);
+                    if (words.get(j).equals(buffer2[i])) countOccurrences++;
+                }
+            }
+//            System.out.println(countOccurrences);
+            if (countOccurrences == 2)
+                System.out.println(buffer);
+        }
+        bufferedReader1.close();
+    }
+}
+/*
+
+    щем нужные строки
+        Считать с консоли имя файла.
+        Вывести в консоль все строки из файла, которые содержат всего 2 слова из списка words.
+        Закрыть потоки.
+
+        Пример:
+        words содержит слова А, Б, В (количество слов в списке words может быть любым).
+
+        Строки:
+        В Б А Д //3 слова из words, не подходит
+        А Б А Д //3 слова из words, не подходит
+        Д А Д //1 слово из words, не подходит
+        Д А Б Д //2 слова - подходит, выводим
+        Д А А Д //2 слова - подходит, выводим
+
+
+        Requirements:
+        1. Класс Solution должен содержать публичное статическое поле words типа List<String>, которое должно быть сразу проинициализировано.
+        2. Класс Solution должен содержать статический блок, в котором добавляются три или больше слов в список words.
+        3. Программа должна считывать имя файла с консоли (используй BufferedReader).
+        4. BufferedReader для считывания данных с консоли должен быть закрыт.
+        5. Программа должна считывать содержимое файла (используй FileReader).
+        6. Поток чтения из файла (FileReader) должен быть закрыт.
+        7. Программа должна выводить в консоль все строки из файла, которые содержат всего 2 слова из списка words.
+*/
+/*
 public class Solution {
     public static final List<Person> PEOPLE = new ArrayList<Person>();
 
@@ -57,7 +127,7 @@ public class Solution {
 
     }
 }
-
+*/
 
 /*
 Хуан Хуанович
