@@ -23,6 +23,76 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 public class Solution {
+    public static void main(String[] args) throws Exception {
+
+        Set<Character> digits = new HashSet<>();
+        digits.add('1');
+        digits.add('2');
+        digits.add('3');
+        digits.add('4');
+        digits.add('5');
+        digits.add('6');
+        digits.add('7');
+        digits.add('8');
+        digits.add('9');
+        digits.add('0');
+
+        String fileName1 = args[0];
+        String fileName2 = args[1];
+
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(fileName1));
+        BufferedWriter bufferedWriter1 = new BufferedWriter(new FileWriter(fileName2));
+        String[] buffer2;
+        String buffer;
+        while (bufferedReader1.ready()) {
+            buffer = bufferedReader1.readLine();
+            buffer2 = buffer.split(" ");
+//            System.out.println(buffer);
+            for (String str: buffer2) {
+
+                if (str.matches(".*[0-9].*")) {
+                    bufferedWriter1.write(str + " ");
+                }
+            }
+
+//                int digitContains = 0;
+//                for (char ch: str.toCharArray()) {
+//                    if (digits.contains(ch)) {
+//                        digitContains++;
+//                    }
+//                }
+//                if (digitContains > 0) {
+////                    System.out.print(str + " ");
+//                    bufferedWriter1.write(str + " ");
+//                }
+//            }
+
+        }
+        bufferedReader1.close();
+        bufferedWriter1.close();
+    }
+}
+
+
+/*
+Слова с цифрами
+В метод main первым параметром приходит имя файла1, вторым - файла2.
+Файл1 содержит строки со словами, разделенными пробелом.
+Записать через пробел в Файл2 все слова, которые содержат цифры, например, а1, abc3d или 564.
+Закрыть потоки.
+
+
+Requirements:
+1. Программа НЕ должна считывать данные с консоли.
+2. Программа должна считывать содержимое первого файла (используй FileReader c конструктором String).
+3. Поток чтения из файла (FileReader) должен быть закрыт.
+4. Программа должна записывать во второй файл все слова из первого файла которые содержат цифры (используй FileWriter).
+5. Поток записи в файл (FileWriter) должен быть закрыт.
+ */
+
+
+/*
+public class Solution {
     public static List<String> words = new ArrayList<String>();
 
     static {
@@ -65,6 +135,7 @@ public class Solution {
         bufferedReader1.close();
     }
 }
+*/
 /*
 
     щем нужные строки
