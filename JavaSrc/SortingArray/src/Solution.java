@@ -23,6 +23,89 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 public class Solution {
+    public static Map<Integer, String> map = new HashMap<Integer, String>();
+
+    static {
+        map.add(0, "ноль");
+        map.add(1, "один");
+        map.add(2, "два");
+        map.add(3, "три");
+        map.add(4, "четыре");
+        map.add(5, "пять");
+        map.add(6, "шесть");
+        map.add(7, "семь");
+        map.add(8, "восемь");
+        map.add(9, "девять");
+        map.add(10, "десять");
+        map.add(11, "одиннадцать");
+        map.add(12, "двенадцать");
+    }
+
+
+
+    public static void main(String[] args) throws Exception{
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        String fileName1 = bufferedReader.readLine();
+        String fileName1 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data22.txt";
+        bufferedReader.close();
+
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(fileName1));
+        String[] buffer2;
+        String buffer;
+        while (bufferedReader1.ready()) {
+            int countOccurrences = 0;
+            buffer = bufferedReader1.readLine();
+            buffer2 = buffer.split(" ");
+//            System.out.println(buffer2.length);
+            for (int i = 0; i < buffer2.length; i++) {
+                for (int j = 0; j < words.size(); j++) {
+                    System.out.println(words.get(j) + " " + buffer2[i]);
+                    if (words.get(j).equals(buffer2[i])) countOccurrences++;
+                }
+            }
+//            System.out.println(countOccurrences);
+            if (countOccurrences == 2)
+                System.out.println(buffer);
+        }
+        bufferedReader1.close();
+    }
+}
+
+
+/*
+
+Замена чисел
+1. В статическом блоке инициализировать словарь map парами [число-слово] от 0 до 12 включительно.
+Например, 0 - "ноль", 1 - "один", 2 - "два"
+2. Считать с консоли имя файла, считать содержимое файла.
+3. Заменить все числа на слова используя словарь map.
+4. Результат вывести на экран.
+5. Закрыть потоки.
+
+Пример данных в файле:
+Это стоит 1 бакс, а вот это - 12.
+Переменная имеет имя file1.
+110 - это число.
+
+Пример вывода в консоль:
+Это стоит один бакс, а вот это - двенадцать.
+Переменная имеет имя file1.
+110 - это число.
+
+
+Requirements:
+1. Класс Solution должен содержать публичное статическое поле map типа Map<Integer, String>, которое должно быть сразу проинициализировано.
+2. Программа должна считывать имя файла с консоли (используй BufferedReader).
+3. BufferedReader для считывания данных с консоли должен быть закрыт.
+4. Программа должна считывать содержимое файла (используй FileReader).
+5. Поток чтения из файла (FileReader) должен быть закрыт.
+6. Программа должна выводить в консоль все строки из файла, но числа должны быть заменены на слова из словаря map.
+7. Класс Solution должен содержать статический блок, в котором добавляются в map тринадцать пар.
+ */
+
+/*
+public class Solution {
     public static void main(String[] args) throws Exception {
 
         Set<Character> digits = new HashSet<>();
@@ -55,6 +138,8 @@ public class Solution {
                 }
             }
 
+
+
 //                int digitContains = 0;
 //                for (char ch: str.toCharArray()) {
 //                    if (digits.contains(ch)) {
@@ -73,7 +158,7 @@ public class Solution {
     }
 }
 
-
+*/
 /*
 Слова с цифрами
 В метод main первым параметром приходит имя файла1, вторым - файла2.
