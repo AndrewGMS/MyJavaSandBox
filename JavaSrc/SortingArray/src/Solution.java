@@ -1,7 +1,9 @@
 import javax.imageio.stream.FileImageOutputStream;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.print.Book;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
@@ -22,6 +24,114 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
+// String reversed = new StringBuilder(original).reverse().toString();
+
+class Solution {
+        public static void main(String[] args) throws Exception{
+                List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+                names.forEach(name -> System.out.println(name));
+
+                List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+                int sum = numbers.stream()
+                        .filter(n -> n % 2 == 0)
+                        .map(n -> n * n)
+                        .reduce(0, Integer::sum);
+                System.out.println(sum);
+
+        }
+}
+
+
+/* class Solution {
+public static void main(String[] args) throws Exception{
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String fileName1 = bufferedReader.readLine();
+//        String fileName1 = "y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data23.txt";
+        bufferedReader.close();
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(fileName1));
+        while (bufferedReader1.ready()) {
+          System.out.println(new StringBuilder(bufferedReader1.readLine()).reverse().toString());
+        }
+        bufferedReader1.close();
+        }
+}
+*/
+
+/*
+Перевертыши
+1. Считать с консоли имя файла. Считать содержимое файла.
+2. Для каждой строки в файле:
+2.1. переставить все символы в обратном порядке.
+2.2. вывести на экран.
+3. Закрыть потоки.
+
+Пример тела входного файла:
+я - программист.
+Амиго
+
+Пример результата:
+.тсиммаргорп - я
+огимА
+
+
+Requirements:
+1. Программа должна считывать имя файла с консоли (используй BufferedReader).
+2. BufferedReader для считывания данных с консоли должен быть закрыт.
+3. Программа должна считывать содержимое файла (используй FileReader).
+4. Поток чтения из файла (FileReader) должен быть закрыт.
+5. Программа должна выводить в консоль все символы из файла в обратном порядке.
+ */
+
+
+/*
+public class Solution {
+    public static void main(String[] args) throws Exception {
+
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader(args[0]));
+        BufferedWriter bufferedWriter1 = new BufferedWriter(new FileWriter(args[1]));
+        String splitter = "";
+
+            while (bufferedReader1.ready()) {
+                String[] buffer = bufferedReader1.readLine().split(" ");
+                for (int i = 0; i < buffer.length; i++) {
+                    if (buffer[i].length() > 6) {
+                        bufferedWriter1.write(splitter + buffer[i]);
+                        // System.out.print(splitter + buffer[i]);
+                        if (splitter != ",") splitter = ",";
+                    }
+                }
+             //   System.out.println(buffer);
+            }
+
+            bufferedReader1.close();
+            bufferedWriter1.close();
+    }
+}
+*/
+
+/*
+Длинные слова
+В метод main первым параметром приходит путь к файлу1, вторым - путь к файлу2.
+Файл1 содержит слова, разделенные пробелом или переводом строки (в файле может быть несколько строк).
+Все, что не относится к пробелу или переводу строки, разделителем не считать.
+Записать в одну строку через запятую в Файл2 слова, длина которых строго больше 6.
+В конце файла2 запятой не должно быть.
+Закрыть потоки.
+
+Пример выходных данных в файл2:
+длинное,короткое,аббревиатура
+
+
+Requirements:
+1. Программа НЕ должна считывать данные с консоли.
+2. Программа должна считывать содержимое первого файла (используй FileReader c конструктором String).
+3. Поток чтения из файла (FileReader) должен быть закрыт.
+4. Программа должна записывать через запятую во второй файл все слова из первого файла длина которых строго больше 6(используй FileWriter).
+5. Поток записи в файл (FileWriter) должен быть закрыт.
+ */
+
+/*
 public class Solution {
     public static Map<Integer, String> map = new HashMap<Integer, String>();
 
@@ -65,7 +175,7 @@ public class Solution {
     }
 }
 
-
+*/
 /*
 
 Замена чисел
