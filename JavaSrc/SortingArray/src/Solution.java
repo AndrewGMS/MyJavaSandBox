@@ -1,9 +1,7 @@
 import javax.imageio.stream.FileImageOutputStream;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.print.Book;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
@@ -24,8 +22,156 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
-// String reversed = new StringBuilder(original).reverse().toString();
 
+public class Solution {
+        {
+                System.out.println("This is the Solution class");
+        }
+
+        public static void main(String... args) throws IOException {
+                try (
+                        FileOutputStream outputStream = new FileOutputStream(args[0]);
+                        InputStream is = Solution.class.getClassLoader().getResourceAsStream(args[1]);
+                ) {
+                        ;
+           //             byte[] b = new byte[is.available()];
+            //            outputStream.write(is.read(b));
+
+                        int value = 123_456_789;
+                        System.out.println(value);
+
+                        Example result = null;
+                        String s = "a";
+                        switch (s) {
+                                case "a": {
+                                        result = new Solution().new A();
+                                        break;
+                                }
+                                case "b": {
+                                        result = new Solution().new B();
+                                        break;
+                                }
+                                case "c": {
+                                        result = new Solution().new C();
+                                        break;
+                                }
+                        }
+
+                        if (result instanceof A) {
+                                A p = (A) result;
+                                System.out.println(p.getClass().getSimpleName());
+                        }
+
+                } catch (IOException e) {
+                }
+        }
+
+
+        interface Example {
+        }
+
+        class A implements Example {
+                {
+                        System.out.println("This is the A class");
+                }
+        }
+
+        class B implements Example {
+                {
+                        System.out.println("This is the B class");
+                }
+        }
+
+        class C extends A {
+                {
+                        System.out.println("This is the C class");
+                }
+        }
+
+}
+
+
+/*
+справить ошибку. Классы и интерфейсы
+Программа содержит всего 1 логическую ошибку.
+Найди и исправь ее.
+
+
+Requirements:
+1. Класс Solution должен содержать интерфейс Example.
+2. Класс Solution должен содержать класс A который реализует интерфейс Example.
+3. Класс Solution должен содержать класс B который реализует интерфейс Example.
+4. Класс Solution должен содержать класс C который наследуется от класса A.
+5. справь всего одну логическую ошибку.
+ */
+
+/*
+public class Solution {
+        public static TestString testString = new TestString();
+
+        public static void main(String[] args) {
+
+                PrintStream stdStream = System.out;
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                PrintStream printStream = new PrintStream(byteArrayOutputStream);
+                System.setOut(printStream);
+                testString.printSomething();
+                System.setOut(stdStream);
+
+                String[] stringArray = byteArrayOutputStream.toString().split("\n");
+
+                for (int i = 0; i < stringArray.length; i++) {
+                        System.out.println(stringArray[i]);
+                        if (i % 2 != 0 ) {
+                                System.out.println("JavaRush - курсы Java онлайн");
+                        }
+               }
+        }
+
+        public static class TestString {
+                public void printSomething() {
+                        System.out.println("first");
+                        System.out.println("second");
+                        System.out.println("third");
+                        System.out.println("fourth");
+                        System.out.println("fifth");
+                }
+        }
+}
+*/
+/*
+Контекстная реклама
+В методе main подмени объект System.out написанной тобой ридер-оберткой.
+Твоя ридер-обертка должна выводить на консоль контекстную рекламу после каждого второго println-а.
+Вызови готовый метод printSomething(), воспользуйся testString.
+Верни переменной System.out первоначальный поток.
+
+Рекламный текст: "JavaRush - курсы Java онлайн"
+
+Пример вывода:
+first
+second
+JavaRush - курсы Java онлайн
+third
+fourth
+JavaRush - курсы Java онлайн
+fifth
+
+
+Requirements:
+1. Класс Solution должен содержать класс TestString.
+2. Класс Solution должен содержать публичное статическое поле testString типа TestString, которое сразу проинициализировано.
+3. Класс TestString должен содержать публичный void метод printSomething().
+4. Метод printSomething() класса TestString должен выводить на экран строки: "first","second","third","fourth","fifth".
+5. Метод main(String[] args) класса Solution должен создавать поток PrintStream (используй PrintStream c конструктором принимающим ByteArrayOutputStream).
+6. Метод main(String[] args) класса Solution должен подменять и восстанавливать поток вывода в консоль объекта System.out.
+7. Метод main(String[] args) класса Solution должен вызывать метод printSomething(),объекта testString.
+8. Метод main(String[] args) класса Solution должен модифицировать строки(вставлять контекстную рекламу) выведенные методом printSomething() согласно заданию, и выводить её в консоль.
+ */
+
+
+/*
+// лямбда, lambda
 class Solution {
         public static void main(String[] args) throws Exception{
                 List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
@@ -33,13 +179,15 @@ class Solution {
 
                 List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
                 int sum = numbers.stream()
-                        .filter(n -> n % 2 == 0)
-                        .map(n -> n * n)
-                        .reduce(0, Integer::sum);
+                        .filter(n -> n % 2 == 0) // выбрать четные
+                        .map(n -> n * n) // возвести выбранное в квадрат
+                        .reduce(0, Integer::sum); // просуммировать квадраты чисел
                 System.out.println(sum);
 
         }
 }
+*/
+
 
 
 /* class Solution {
