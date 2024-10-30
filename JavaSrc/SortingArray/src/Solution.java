@@ -27,7 +27,7 @@ public class Solution {
         public static void main(String[] args) {
                 //исправьте outputStream/inputStream в соответствии с путем к вашему реальному файлу
                 try {
-                        File your_file_name = File.createTempFile("your_file_name", null);
+                        File your_file_name = File.createTempFile("y:\\MyJavaProjects\\JavaSrc\\SortingArray\\src\\data26.txt", null);
                         OutputStream outputStream = new FileOutputStream(your_file_name);
                         InputStream inputStream = new FileInputStream(your_file_name);
 
@@ -82,6 +82,7 @@ public class Solution {
                 }
 
                 public void save(OutputStream outputStream) throws Exception {
+                        outputStream.write(name.getBytes());
                         //implement this method - реализуйте этот метод
                 }
 
